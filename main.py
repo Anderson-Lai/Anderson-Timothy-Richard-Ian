@@ -6,8 +6,8 @@ def main():
     # pygame template
     pygame.init()
     
-    WIDTH = 640
-    HEIGHT = 480
+    WIDTH = 750
+    HEIGHT = 800
     SIZE = (WIDTH, HEIGHT)
     
     screen = pygame.display.set_mode(SIZE)
