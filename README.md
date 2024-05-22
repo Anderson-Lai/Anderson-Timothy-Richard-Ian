@@ -1,6 +1,11 @@
 ## Requirements
 - save preferences
+  - customization settings/cosmetics
+  - difficulty
+  - power-ups
 - save user progress
+  - currency
+  - high score
 - a pause menu
 - a score system
 - lives / limited attempts / timed gameplay
