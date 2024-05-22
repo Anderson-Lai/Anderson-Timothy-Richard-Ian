@@ -1,5 +1,5 @@
 import pygame
-
+from menu import generate_menu
 
 def main():
     
@@ -13,13 +13,6 @@ def main():
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
     
-    # ---------------------------
-    # Initialize global variables
-    
-    
-    
-    # ---------------------------
-    
     running = True
     while running:
         # EVENT HANDLING
@@ -32,10 +25,7 @@ def main():
         # All game math and comparisons happen here
     
         # DRAWING
-        screen.fill((255, 255, 255))  # always the first drawing command
-        
-        
-        
+        generate_menu(screen)
         
         
         # Must be the last two lines
