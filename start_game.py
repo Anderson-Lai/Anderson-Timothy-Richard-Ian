@@ -1,4 +1,5 @@
 
 
-def start_game():
-    pass
+def start_game(screen):
+    
+    screen.fill((0, 255, 255))
