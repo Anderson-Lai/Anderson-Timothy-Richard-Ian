@@ -1,5 +1,5 @@
 import pygame
-from menu import generate_menu
+from generate_menu import generate_menu
 from start_game import start_game
 
 def main():

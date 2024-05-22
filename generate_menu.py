@@ -7,6 +7,6 @@ settings
 difficulty button 
 
 """
-def generate_menu(screen, clock=None):
+def generate_menu(screen):
 
     screen.fill((0, 0, 255))
