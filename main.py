@@ -1,6 +1,7 @@
 import pygame
 from generate_menu import generate_menu
 from start_game import start_game
+from game_settings import game_settings
 
 def main():
     
@@ -16,6 +17,8 @@ def main():
     
     running = True
     menu = True
+    gameSettings = False
+    startGame = False
 
     while running:
         # EVENT HANDLING
@@ -41,7 +44,9 @@ def main():
             # create a rectangle
             # on click, set menu to false
             # then the game will start
-        else:
+        elif gameSettings:
+            game_settings(screen)
+        elif startGame:
             start_game(screen)
         
         
