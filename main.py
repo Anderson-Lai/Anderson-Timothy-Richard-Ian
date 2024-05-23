@@ -7,7 +7,7 @@ def main():
     # pygame template
     pygame.init()
     
-    WIDTH = 760
+    WIDTH = 800
     HEIGHT = 800
     SIZE = (WIDTH, HEIGHT)
     
@@ -27,8 +27,8 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 # opens settings
-                if menu and x >= 650 and y >= 650 \
-                    and x <= 650 + 50 and y <= 650 + 50:
+                if menu and x >= 650 and y >= 575 \
+                    and x <= 650 + 100 and y <= 575 + 100:
                     menu = False
                     startGame = False
                     gameSettings = True
@@ -39,8 +39,8 @@ def main():
                     startGame = False
                     menu = True
                 # starts game
-                elif menu and x >= 190 and y >= 650 and \
-                    x <= 190 * 3 and y <= 640 + 75: 
+                elif menu and x >= 175 and y >= 550 and \
+                    x <= 175 + 450 and y <= 550 + 150: 
                     menu = False
                     gameSettings = False
                     startGame = True
