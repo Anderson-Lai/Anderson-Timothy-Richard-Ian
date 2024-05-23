@@ -14,9 +14,7 @@ def main():
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
     
-    menu = True
-    gameSettings = False
-    startGame = False
+    gameState = "menu"
 
     running = True
     while running:
@@ -27,37 +25,31 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 # opens settings
-                if menu and x >= 650 and y >= 575 \
-                    and x <= 650 + 100 and y <= 575 + 100:
-                    menu = False
-                    startGame = False
-                    gameSettings = True
+                if gameState == "menu" and 650 <= x <= 650 + 100 \
+                and 575 <= y <= 575 + 100:
+                    gameState = "settings"
                 # returns to menu
-                elif gameSettings and x >= 50 and y >= 50 \
-                    and x <= 50 + 125 and y <= 50 + 125:
-                    gameSettings = False
-                    startGame = False
-                    menu = True
+                elif gameState == "settings" and 50 <= x <= 50 + 125 \
+                and 50 <= y <= 50 + 125:
+                    gameState = "menu"
                 # starts game
-                elif menu and x >= 175 and y >= 550 and \
-                    x <= 175 + 450 and y <= 550 + 150: 
-                    menu = False
-                    gameSettings = False
-                    startGame = True
+                elif gameState == "menu" and 175 <= x <= 175 + 450 \
+                and 550 <= y <= 550 + 150:
+                    gameState = "game"
             
         # GAME STATE UPDATES
     
         # if this is shown, something went wrong
         screen.fill((0, 0, 0))
 
-        if menu:
+        if gameState == "menu":
             generate_menu(screen)
             # create a rectangle
             # on click, set menu to false
             # then the game will start
-        elif gameSettings:
+        elif gameState == "settings":
             game_settings(screen)
-        elif startGame:
+        elif gameState == "game":
             start_game(screen)
         
         
