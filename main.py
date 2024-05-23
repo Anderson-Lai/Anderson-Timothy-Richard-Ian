@@ -4,7 +4,6 @@ from start_game import start_game
 from game_settings import game_settings
 
 def main():
-    
     # pygame template
     pygame.init()
     
@@ -15,11 +14,11 @@ def main():
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
     
-    running = True
     menu = True
     gameSettings = False
     startGame = False
 
+    running = True
     while running:
         # EVENT HANDLING
         for event in pygame.event.get():
@@ -34,7 +33,8 @@ def main():
                     startGame = False
                     gameSettings = True
                 # returns to menu
-                elif gameSettings:
+                elif gameSettings and x >= 50 and y >= 50 \
+                    and x <= 50 + 125 and y <= 50 + 125:
                     gameSettings = False
                     startGame = False
                     menu = True
@@ -46,9 +46,8 @@ def main():
                     startGame = True
             
         # GAME STATE UPDATES
-        # All game math and comparisons happen here
     
-        # DRAWING
+        # if this is shown, something went wrong
         screen.fill((0, 0, 0))
 
         if menu:
@@ -62,12 +61,10 @@ def main():
             start_game(screen)
         
         
-        # Must be the last two lines
-        # of the game loop
+        # Must be the last two lines of the game loop
         pygame.display.flip()
         clock.tick(30)
-        #---------------------------
-    
+        
     pygame.quit()
     
     return 0

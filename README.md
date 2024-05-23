@@ -7,6 +7,9 @@
   - currency
   - high score
 - a pause menu
+  - a way to continue playing
+  - a way to quit game
+  - power-up and cosmetic shop
 - a score system
 - lives / limited attempts / timed gameplay
 - ability to collect items / power ups
