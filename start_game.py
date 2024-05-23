@@ -1,4 +1,4 @@
-
+import pygame
 
 def start_game(screen):
     

@@ -8,7 +8,7 @@ def main():
     # pygame template
     pygame.init()
     
-    WIDTH = 750
+    WIDTH = 760
     HEIGHT = 800
     SIZE = (WIDTH, HEIGHT)
     
@@ -26,23 +26,25 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-
-                if menu: # check for collision when opening game settings
+                x, y = pygame.mouse.get_pos()
+                # opens settings
+                if menu and x >= 650 and y >= 650 \
+                    and x <= 650 + 50 and y <= 650 + 50:
                     menu = False
                     startGame = False
                     gameSettings = True
-                elif gameSettings: # check for collision
-                    # return to menu
+                # returns to menu
+                elif gameSettings:
                     gameSettings = False
                     startGame = False
                     menu = True
-                elif menu: 
-                    # make sure this checks for clicking on "start game button"
+                # starts game
+                elif menu and x >= 190 and y >= 650 and \
+                    x <= 190 * 3 and y <= 640 + 75: 
                     menu = False
                     gameSettings = False
                     startGame = True
             
-    
         # GAME STATE UPDATES
         # All game math and comparisons happen here
     
