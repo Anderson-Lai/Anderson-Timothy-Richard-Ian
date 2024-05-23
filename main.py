@@ -25,12 +25,22 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and menu:
-                # add collision checking to check if the click is inside
-                # the start game button's bounds
+            if event.type == pygame.MOUSEBUTTONDOWN:
 
-                # this will call start_game()
-                menu = False
+                if menu: # check for collision when opening game settings
+                    menu = False
+                    startGame = False
+                    gameSettings = True
+                elif gameSettings: # check for collision
+                    # return to menu
+                    gameSettings = False
+                    startGame = False
+                    menu = True
+                elif menu: 
+                    # make sure this checks for clicking on "start game button"
+                    menu = False
+                    gameSettings = False
+                    startGame = True
             
     
         # GAME STATE UPDATES
