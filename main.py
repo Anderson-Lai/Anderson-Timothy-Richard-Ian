@@ -62,10 +62,10 @@ def main() -> int:
                 
               #spaceship movement
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT and location != 750:
+                if event.key == pygame.K_RIGHT and location < 750:
                     location += location_counter
      
-                elif event.key == pygame.K_LEFT and location != 0:
+                elif event.key == pygame.K_LEFT and location > 0:
                     location -= location_counter
                 
                 
