@@ -16,7 +16,7 @@ def main() -> int:
     clock = pygame.time.Clock()
     
     gameState: str = "menu"
-    location: int = 400
+    location: int = 375
     location_counter: int = 10
     gameDifficulty: int = 0
     sensitivity: int = 10
@@ -62,12 +62,12 @@ def main() -> int:
                 
               #spaceship movement
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT and location < 750:
+                if event.key == pygame.K_RIGHT and location < 550:
                     location += location_counter
-     
+                    print(location)
                 elif event.key == pygame.K_LEFT and location > 0:
                     location -= location_counter
-                
+                    print(location)
                 
 
         # GAME STATE UPDATES
