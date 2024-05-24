@@ -3,6 +3,7 @@ from generate_menu import generate_menu
 from start_game import start_game
 from game_settings import game_settings
 
+
 def main() -> int:
     # pygame template
     pygame.init()
@@ -15,6 +16,7 @@ def main() -> int:
     clock = pygame.time.Clock()
     
     gameState: str = "menu"
+    location: int = 400
 
     running: bool = True
     while running:
@@ -42,6 +44,7 @@ def main() -> int:
      
                 elif event.key == pygame.K_RIGHT:
                     location += 1
+                
 
         # GAME STATE UPDATES
     
