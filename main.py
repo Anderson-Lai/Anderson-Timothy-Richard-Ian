@@ -10,12 +10,14 @@ def main() -> int:
     WIDTH = 800
     HEIGHT = 800
     SIZE = (WIDTH, HEIGHT)
-    
+
+    pygame.key.set_repeat(50, 25)
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
     
     gameState: str = "menu"
     location: int = 400
+    location_counter: int = 10
     gameDifficulty: int = 0
     sensitivity: int = 10
 
@@ -58,12 +60,14 @@ def main() -> int:
                     if sensitivity <= -1:
                         sensitivity = 0
                 
+              #spaceship movement
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    location -= 1
+                if event.key == pygame.K_RIGHT and location != 750:
+                    location += location_counter
      
-                elif event.key == pygame.K_RIGHT:
-                    location += 1
+                elif event.key == pygame.K_LEFT and location != 0:
+                    location -= location_counter
+                
                 
 
         # GAME STATE UPDATES
@@ -78,7 +82,7 @@ def main() -> int:
         elif gameState == "settings":
             game_settings(screen, gameDifficulty, sensitivity)
         elif gameState == "game":
-            start_game(screen)
+            start_game(screen, location)
         
         
         # Must be the last two lines of the game loop
