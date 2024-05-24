@@ -36,7 +36,13 @@ def main():
                 elif gameState == "menu" and 175 <= x <= 175 + 450 \
                 and 550 <= y <= 550 + 150:
                     gameState = "game"
-            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    location -= 1
+     
+                elif event.key == pygame.K_RIGHT:
+                    location += 1
+
         # GAME STATE UPDATES
     
         # if this is shown, something went wrong
