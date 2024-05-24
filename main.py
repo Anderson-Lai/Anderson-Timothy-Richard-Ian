@@ -2,7 +2,7 @@ import pygame
 from generate_menu import generate_menu
 from start_game import start_game
 from game_settings import game_settings
-
+location = 380
 def main():
     # pygame template
     pygame.init()
