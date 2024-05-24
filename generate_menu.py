@@ -15,5 +15,3 @@ def generate_menu(screen):
 
     # start game button
     pygame.draw.rect(screen, (255, 255, 237), pygame.Rect(175, 550, 450, 150))
-
-

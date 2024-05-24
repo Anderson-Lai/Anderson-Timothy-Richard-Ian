@@ -3,7 +3,6 @@ from generate_menu import generate_menu
 from start_game import start_game
 from game_settings import game_settings
 
-
 def main() -> int:
     # pygame template
     pygame.init()
@@ -17,6 +16,8 @@ def main() -> int:
     
     gameState: str = "menu"
     location: int = 400
+    gameDifficulty: int = 0
+    sensitivity: int = 10
 
     running: bool = True
     while running:
@@ -38,6 +39,25 @@ def main() -> int:
                 elif gameState == "menu" and 175 <= x <= 175 + 450 \
                 and 550 <= y <= 550 + 150:
                     gameState = "game"
+
+                # changing settings
+                # changing difficulty
+                elif gameState == "settings" and 300 <= x <= 300 + 200 \
+                and 200 <= y <= 200 + 100:
+                    gameDifficulty += 1
+                    if gameDifficulty >= 4:
+                        gameDifficulty = 0
+                # incrementing sensitivity
+                elif gameState == "settings" and 475 <= x <= 525 \
+                and 350 <= y <= 350 + 50:
+                    sensitivity += 1
+                # decrementing sensitivity
+                elif gameState == "settings" and 275 <= x <= 325 \
+                and 350 <= y <= 350 + 50:
+                    sensitivity -= 1
+                    if sensitivity <= -1:
+                        sensitivity = 0
+                
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     location -= 1
@@ -54,10 +74,9 @@ def main() -> int:
         if gameState == "menu":
             generate_menu(screen)
             # create a rectangle
-            # on click, set menu to false
-            # then the game will start
+            # on click, chang the 'gameState' variable
         elif gameState == "settings":
-            game_settings(screen)
+            game_settings(screen, gameDifficulty, sensitivity)
         elif gameState == "game":
             start_game(screen)
         

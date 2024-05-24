@@ -1,1 +1,1 @@
-{"sensitivity": 1, "difficulty": "test"}
+{"difficulty": "impossible", "sensitivity": 6}
