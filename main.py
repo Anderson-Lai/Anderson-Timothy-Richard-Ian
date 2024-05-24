@@ -3,7 +3,7 @@ from generate_menu import generate_menu
 from start_game import start_game
 from game_settings import game_settings
 
-def main():
+def main() -> int:
     # pygame template
     pygame.init()
     
@@ -14,9 +14,9 @@ def main():
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
     
-    gameState = "menu"
+    gameState: str = "menu"
 
-    running = True
+    running: bool = True
     while running:
         # EVENT HANDLING
         for event in pygame.event.get():
@@ -68,4 +68,6 @@ def main():
     return 0
 
 if __name__ == "__main__":
-    main()
+    result: int = main()
+    if result != 0:
+        print(f"Main exited with error code {result}.")
