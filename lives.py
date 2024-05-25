@@ -1,28 +1,28 @@
-def numLives(gameDifficulty:str) -> int:
-    easyLives = 5
-    mediumLives = 3
-    hardLives = 1
-    if gameDifficulty == "easy":
-        return easyLives
-    elif gameDifficulty == "medium":
-        return mediumLives
-    elif gameDifficulty == "hard":
-        return hardLives
+def num_lives(game_difficulty:str) -> int:
+    easy_lives = 5
+    medium_lives = 3
+    hard_lives = 1
+    if game_difficulty == "easy":
+        return easy_lives
+    elif game_difficulty == "medium":
+        return medium_lives
+    elif game_difficulty == "hard":
+        return hard_lives
 
-def draw_removeHearts(lives:int, hit:bool):
-    heartColour = (255, 0, 0)
-    heartRadius = 20
+def drawremove_hearts(lives:int, hit:bool):
+    heart_colour = (255, 0, 0)
+    heart_radius = 20
     if hit == True:
         lives -= 1
     for i in range(lives):
-        pygame.draw.circle(screen, heartColour, ((WIDTH-heartRadius*2.5)-(heartRadius*3)*i, heartRadius*2.5), heartRadius)
+        pygame.draw.circle(screen, heart_colour, ((WIDTH-heart_radius*2.5)-(heart_radius*3)*i, heart_radius*2.5), heart_radius)
 
 
 '''
 These are the variables that make the functions run
-gameDifficulty = "easy"
-lives = numHearts(gameDifficulty)
+game_difficulty = "easy"
+lives = num_lives(game_difficulty)
 hit = True
 '''
 
-# this should go under GAME UPDATES. draw_removeHearts(lives, hit)
+# this should go under GAME UPDATES. drawremove_hearts(lives, hit)
