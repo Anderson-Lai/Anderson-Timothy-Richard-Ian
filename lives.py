@@ -1,14 +1,13 @@
 def numHearts(gameDifficulty:str) -> int:
-    hardLives = 1
-    mediumLives = 3
     easyLives = 5
+    mediumLives = 3
+    hardLives = 1
     if gameDifficulty == "easy":
-        lives = easyLives
+        return easyLives
     elif gameDifficulty == "medium":
-        lives = mediumLives
+        return mediumLives
     elif gameDifficulty == "hard":
-        lives = hardLives
-    return lives
+        return hardLives
 
 def draw_removeHearts(hearts:int, hit:bool):
     heartColour = (255, 0, 0)
