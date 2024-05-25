@@ -20,6 +20,16 @@ def main() -> int:
     gameDifficulty: int = 0
     sensitivity: int = 10
 
+    # score variables
+    enemy_kills = 4
+    current_score = score(enemy_kills)
+    high_score = 170
+
+    # lives variables
+    game_difficulty = "easy"
+    lives = num_lives(game_difficulty)
+    hit = True
+
     running: bool = True
     while running:
         # EVENT HANDLING
@@ -86,7 +96,9 @@ def main() -> int:
             game_settings(screen, gameDifficulty, sensitivity)
         elif gameState == "game":
             start_game(screen, location)
-        
+            drawremove_hearts(lives, hit)
+            draw_score(high_score, current_score)
+
         
         # Must be the last two lines of the game loop
         pygame.display.flip()
