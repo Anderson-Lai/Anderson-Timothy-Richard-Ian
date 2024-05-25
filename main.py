@@ -6,7 +6,6 @@ from game_settings import game_settings
 def main() -> int:
     # pygame template
     pygame.init()
-    pygame.font.init()
     
     WIDTH = 800
     HEIGHT = 800
