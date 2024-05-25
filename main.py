@@ -6,7 +6,7 @@ from game_settings import game_settings
 def main() -> int:
     # pygame template
     pygame.init()
-    
+
     WIDTH = 800
     HEIGHT = 800
     SIZE = (WIDTH, HEIGHT)
@@ -17,7 +17,6 @@ def main() -> int:
     
     gameState: str = "menu"
     location: int = 375
-    location_counter: int = 10
     gameDifficulty: int = 0
     sensitivity: int = 10
 
@@ -62,11 +61,15 @@ def main() -> int:
                 
               #spaceship movement
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT and location < 550:
-                    location += location_counter
+                if event.key == pygame.K_RIGHT and location < 535:
+                    location += sensitivity
                     print(location)
-                elif event.key == pygame.K_LEFT and location > 0:
-                    location -= location_counter
+                    if location - sensitivity < 25:
+                        location = 25
+                elif event.key == pygame.K_LEFT and location > 25:
+                    location -= sensitivity
+                    if location + sensitivity > 600:
+                        location = 590
                     print(location)
                 
 
