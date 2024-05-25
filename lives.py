@@ -1,3 +1,9 @@
+import pygame
+WIDTH = 800
+HEIGHT = 800
+SIZE = (WIDTH, HEIGHT)
+screen = pygame.display.set_mode(SIZE)
+
 def num_lives(game_difficulty:str) -> int:
     easy_lives = 5
     medium_lives = 3
@@ -19,10 +25,10 @@ def drawremove_hearts(lives:int, hit:bool):
 
 
 '''
-These are the variables that make the functions run
+EXAMPLE VARIABLES
 game_difficulty = "easy"
 lives = num_lives(game_difficulty)
 hit = True
 '''
 
-# this should go under GAME UPDATES. drawremove_hearts(lives, hit)
+# drawremove_hearts(lives, hit)
