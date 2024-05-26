@@ -1,7 +1,12 @@
 import pygame
-from generate_menu import generate_menu
-from start_game import start_game
-from game_settings import game_settings
+from menu.generate_menu import generate_menu
+from game.start_game import start_game
+from gameSettings.game_settings import game_settings
+from eventHandling.handle_events import handle_events
+from game.lives import num_lives
+from game.lives import draw_removed_hearts
+from game.score import get_score
+from game.score import draw_score
 
 def main() -> int:
     # pygame template
@@ -11,18 +16,23 @@ def main() -> int:
     HEIGHT = 800
     SIZE = (WIDTH, HEIGHT)
 
-    pygame.key.set_repeat(50, 25)
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
+    pygame.key.set_repeat(50, 25)
     
-    gameState: str = "menu"
-    location: int = 375
-    gameDifficulty: int = 0
-    sensitivity: int = 10
+    # values changed by events
+    mutable_events = {
+        "running": True,
+        "gameState": "menu",
+        "location": 375,
+        "gameDifficulty": 0,
+        "sensitivity": 10,
+    }
 
+    # placeholder, testing variables
     # score variables
     enemy_kills = 4
-    current_score = score(enemy_kills)
+    current_score = get_score(enemy_kills)
     high_score = 170
 
     # lives variables
@@ -33,55 +43,10 @@ def main() -> int:
     running: bool = True
     while running:
         # EVENT HANDLING
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                # opens settings
-                if gameState == "menu" and 650 <= x <= 650 + 100 \
-                and 575 <= y <= 575 + 100:
-                    gameState = "settings"
-                # returns to menu
-                elif gameState == "settings" and 50 <= x <= 50 + 125 \
-                and 50 <= y <= 50 + 125:
-                    gameState = "menu"
-                # starts game
-                elif gameState == "menu" and 175 <= x <= 175 + 450 \
-                and 550 <= y <= 550 + 150:
-                    gameState = "game"
-
-                # changing settings
-                # changing difficulty
-                elif gameState == "settings" and 300 <= x <= 300 + 200 \
-                and 200 <= y <= 200 + 100:
-                    gameDifficulty += 1
-                    if gameDifficulty >= 4:
-                        gameDifficulty = 0
-                # incrementing sensitivity
-                elif gameState == "settings" and 475 <= x <= 525 \
-                and 350 <= y <= 350 + 50:
-                    sensitivity += 1
-                # decrementing sensitivity
-                elif gameState == "settings" and 275 <= x <= 325 \
-                and 350 <= y <= 350 + 50:
-                    sensitivity -= 1
-                    if sensitivity <= -1:
-                        sensitivity = 0
-                
-              #spaceship movement
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT and location < 535:
-                    location += sensitivity
-                    print(location)
-                    if location - sensitivity < 25:
-                        location = 25
-                elif event.key == pygame.K_LEFT and location > 25:
-                    location -= sensitivity
-                    if location + sensitivity > 600:
-                        location = 590
-                    print(location)
-                
+        changed_events = handle_events(mutable_events)
+        gameState, location, gameDifficulty, sensitivity, running = \
+        changed_events["gameState"], changed_events["location"], changed_events["gameDifficulty"],\
+        changed_events["sensitivity"], changed_events["running"]
 
         # GAME STATE UPDATES
     
@@ -96,8 +61,8 @@ def main() -> int:
             game_settings(screen, gameDifficulty, sensitivity)
         elif gameState == "game":
             start_game(screen, location)
-            drawremove_hearts(lives, hit)
-            draw_score(high_score, current_score)
+            draw_removed_hearts(screen, lives, hit)
+            draw_score(screen, high_score, current_score)
 
         
         # Must be the last two lines of the game loop

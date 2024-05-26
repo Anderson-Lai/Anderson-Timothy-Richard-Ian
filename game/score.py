@@ -1,15 +1,11 @@
 import pygame
-WIDTH = 800
-HEIGHT = 800
-SIZE = (WIDTH, HEIGHT)
-screen = pygame.display.set_mode(SIZE)
 
-def score(enemy_kills:int) -> int:
+def get_score(enemy_kills: int) -> int:
     gain = 10
     score = gain * enemy_kills
     return score
 
-def draw_score(high_score, current_score):
+def draw_score(screen, high_score: int, current_score: int):
     font_type = "sfnsmono"
     font_size = 35
     font_bold = False
