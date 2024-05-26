@@ -1,8 +1,13 @@
 import pygame
-from menu.generate_menu import generate_menu
-from game.start_game import start_game
-from gameSettings.game_settings import game_settings
+# even handling imports
 from eventHandling.handle_events import handle_events
+# menu imports
+from menu.generate_menu import generate_menu
+# game settings imports
+from gameSettings.game_settings import game_settings
+from gameSettings.get_settings import get_settings
+# game imports
+from game.start_game import start_game
 from game.lives import num_lives
 from game.lives import draw_removed_hearts
 from game.score import get_score
@@ -45,7 +50,7 @@ def main() -> int:
         # EVENT HANDLING
         changed_events = handle_events(mutable_events)
         gameState, location, gameDifficulty, sensitivity, running = \
-        changed_events["gameState"], changed_events["location"], changed_events["gameDifficulty"],\
+        changed_events["gameState"], changed_events["location"], changed_events["gameDifficulty"], \
         changed_events["sensitivity"], changed_events["running"]
 
         # GAME STATE UPDATES
