@@ -1,5 +1,5 @@
 import pygame
-# even handling imports
+# event handling imports
 from eventHandling.handle_events import handle_events
 # menu imports
 from menu.generate_menu import generate_menu
@@ -48,7 +48,9 @@ def main() -> int:
     running: bool = True
     while running:
         # EVENT HANDLING
+        # dictionaries are pass by reference by default
         changed_events = handle_events(mutable_events)
+        
         gameState, location, gameDifficulty, sensitivity, running = \
         changed_events["gameState"], changed_events["location"], changed_events["gameDifficulty"], \
         changed_events["sensitivity"], changed_events["running"]
