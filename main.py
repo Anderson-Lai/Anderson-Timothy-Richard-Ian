@@ -38,15 +38,6 @@ def main() -> int:
         "sensitivity": settings["sensitivity"],
     }
 
-    # placeholder, testing variables
-    # score variables
-    enemy_kills = 4
-    current_score = get_score(enemy_kills)
-    high_score = 170
-
-    # lives variables
-    lives = num_lives(mutable_events[4])
-    hit = True
 
     running: bool = True
     while running:
@@ -70,6 +61,15 @@ def main() -> int:
         elif gameState == "settings":
             game_settings(screen, gameDifficulty, sensitivity)
         elif gameState == "game":
+            # placeholder, testing variables
+            # score variables
+            enemy_kills = 4
+            current_score = get_score(enemy_kills)
+            high_score = 170
+
+            # lives variables
+            lives = num_lives(mutable_events["gameDifficulty"])
+            hit = True
             start_game(screen, location)
             draw_removed_hearts(screen, lives, hit)
             draw_score(screen, high_score, current_score)
