@@ -45,7 +45,7 @@ def main() -> int:
     high_score = 170
 
     # lives variables
-    lives = num_lives(gameDifficulty)
+    lives = num_lives(mutable_events[4])
     hit = True
 
     running: bool = True
