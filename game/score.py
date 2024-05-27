@@ -1,4 +1,8 @@
 import pygame
+WIDTH = 800
+HEIGHT = 800
+SIZE = (WIDTH, HEIGHT)
+screen = pygame.display.set_mode(SIZE)
 
 def get_score(enemy_kills: int) -> int:
     gain = 10

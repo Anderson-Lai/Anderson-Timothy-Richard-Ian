@@ -1,4 +1,8 @@
 import pygame
+WIDTH = 800
+HEIGHT = 800
+SIZE = (WIDTH, HEIGHT)
+screen = pygame.display.set_mode(SIZE)
 
 def num_lives(game_difficulty: str) -> int:
     easy_lives = 5
