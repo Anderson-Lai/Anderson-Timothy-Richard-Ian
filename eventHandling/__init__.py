@@ -1,3 +1,2 @@
-"""
-makes python treat this directory as a "package"
-"""
+
+# makes python treat this directory as a "package"
