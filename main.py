@@ -81,7 +81,8 @@ def main() -> int:
             draw_removed_hearts(screen, lives, hit)
             draw_score(screen, high_score, current_score)
         elif gameState == "dead":
-            ##death
+            # todo!()
+            pass
 
         
         # Must be the last two lines of the game loop
