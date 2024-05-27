@@ -25,7 +25,7 @@ def game_settings(screen, difficulty: int, sensitivity: int):
     }
     
     # opens file and truncates it
-    file = open("gameSettings/settings.json", "w")
+    file = open("settings.json", "w")
     # write the settings to the file
     json.dump(settings, file)
     # cleanup

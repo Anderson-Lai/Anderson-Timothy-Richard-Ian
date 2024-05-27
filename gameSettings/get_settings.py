@@ -2,7 +2,7 @@ import json
 
 def get_settings() -> dict:
     
-    file = open("gameSettings/settings.json")
+    file = open("settings.json")
 
     settings = json.load(file)
     file.close()
