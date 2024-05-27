@@ -6,6 +6,7 @@ from menu.generate_menu import generate_menu
 # game settings imports
 from gameSettings.game_settings import game_settings
 from gameSettings.get_settings import get_settings
+from gameSettings.create_settings import create_settings
 # game imports
 from game.start_game import start_game
 from game.lives import num_lives
@@ -26,12 +27,15 @@ def main() -> int:
     pygame.key.set_repeat(50, 25)
     
     # values changed by events
+    create_settings()
+    settings = get_settings()
+    
     mutable_events = {
         "running": True,
         "gameState": "menu",
         "location": 375,
-        "gameDifficulty": 0,
-        "sensitivity": 10,
+        "gameDifficulty": settings["difficultyIndex"],
+        "sensitivity": settings["sensitivity"],
     }
 
     # placeholder, testing variables

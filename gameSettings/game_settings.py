@@ -21,12 +21,13 @@ def game_settings(screen, difficulty: int, sensitivity: int):
     difficulties = ["easy", "normal", "hard", "impossible"]
     settings = {
         "difficulty": difficulties[difficulty],
+        "difficultyIndex": difficulty,
         "sensitivity": sensitivity,
     }
     
-    # opens file and truncates it
+    # open the file
     file = open("settings.json", "w")
-    # write the settings to the file
+    # write the settings to file as json
     json.dump(settings, file)
     # cleanup
     file.close()
