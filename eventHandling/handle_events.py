@@ -4,7 +4,7 @@ def handle_events(events: dict) -> dict:
 
     gameState: str = events["gameState"]
     location: int = events["location"]
-    gameDifficulty: str = events["gameDifficulty"]
+    difficultyIndex: str = events["difficultyIndex"]
     sensitivity: int = events["sensitivity"]
 
     for event in pygame.event.get():
@@ -31,9 +31,9 @@ def handle_events(events: dict) -> dict:
             # changing difficulty
             elif gameState == "settings" and 300 <= x <= 300 + 200 \
             and 200 <= y <= 200 + 100:
-                events["gameDifficulty"] += 1
-                if gameDifficulty >= 3:
-                    events["gameDifficulty"] = 0
+                events["difficultyIndex"] += 1
+                if difficultyIndex >= 3:
+                    events["difficultyIndex"] = 0
             # incrementing sensitivity
             elif gameState == "settings" and 475 <= x <= 525 \
             and 350 <= y <= 350 + 50:

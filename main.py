@@ -35,7 +35,7 @@ def main() -> int:
         "running": True,
         "gameState": "menu",
         "location": 375,
-        "gameDifficulty": settings["difficultyIndex"],
+        "difficultyIndex": settings["difficultyIndex"],
         "sensitivity": settings["sensitivity"],
     }
 
@@ -46,8 +46,8 @@ def main() -> int:
         # dictionaries are pass by reference by default
         changed_events = handle_events(mutable_events)
         
-        gameState, location, gameDifficulty, sensitivity, running = \
-        changed_events["gameState"], changed_events["location"], changed_events["gameDifficulty"], \
+        gameState, location, difficultyIndex, sensitivity, running = \
+        changed_events["gameState"], changed_events["location"], changed_events["difficultyIndex"], \
         changed_events["sensitivity"], changed_events["running"]
 
         # GAME STATE UPDATES
@@ -60,7 +60,7 @@ def main() -> int:
             # create a rectangle
             # on click, chang the 'gameState' variable
         elif gameState == "settings":
-            game_settings(screen, gameDifficulty, sensitivity)
+            game_settings(screen, difficultyIndex, sensitivity)
         elif gameState == "game":
             # placeholder, testing variables
             # score variables
