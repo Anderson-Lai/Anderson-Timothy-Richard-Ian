@@ -45,8 +45,7 @@ def main() -> int:
     high_score = 170
 
     # lives variables
-    game_difficulty = "easy"
-    lives = num_lives(game_difficulty)
+    lives = num_lives(gameDifficulty)
     hit = True
 
     running: bool = True
