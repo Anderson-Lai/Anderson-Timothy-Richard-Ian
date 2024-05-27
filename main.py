@@ -14,6 +14,8 @@ from game.lives import draw_removed_hearts
 from game.score import get_score
 from game.score import draw_score
 
+#GAMESTATES: menu, settings, game, dead
+
 def main() -> int:
     # pygame template
     pygame.init()
@@ -73,9 +75,13 @@ def main() -> int:
             # lives variables
             lives = num_lives(gameStateSettings["difficulty"])
             hit = True
+            if lives <= 0:
+                gameState = "dead"
             start_game(screen, location)
             draw_removed_hearts(screen, lives, hit)
             draw_score(screen, high_score, current_score)
+        elif gameState == "dead":
+            ##death
 
         
         # Must be the last two lines of the game loop
