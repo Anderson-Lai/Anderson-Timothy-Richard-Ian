@@ -26,10 +26,11 @@ def main() -> int:
     clock = pygame.time.Clock()
     pygame.key.set_repeat(50, 25)
     
-    # values changed by events
+    # create the settings.json file
     create_settings()
     settings = get_settings()
 
+    # values changed by events
     mutable_events = {
         "running": True,
         "gameState": "menu",
@@ -38,15 +39,6 @@ def main() -> int:
         "sensitivity": settings["sensitivity"],
     }
 
-    # placeholder, testing variables
-    # score variables
-    enemy_kills = 4
-    current_score = get_score(enemy_kills)
-    high_score = 170
-
-    # lives variables
-    lives = num_lives(mutable_events["gameDifficulty"])
-    hit = True
 
     running: bool = True
     while running:
@@ -70,6 +62,15 @@ def main() -> int:
         elif gameState == "settings":
             game_settings(screen, gameDifficulty, sensitivity)
         elif gameState == "game":
+            # placeholder, testing variables
+            # score variables
+            enemy_kills = 4
+            current_score = get_score(enemy_kills)
+            high_score = 170
+
+            # lives variables
+            lives = num_lives(mutable_events["gameDifficulty"])
+            hit = True
             start_game(screen, location)
             draw_removed_hearts(screen, lives, hit)
             draw_score(screen, high_score, current_score)
