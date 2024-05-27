@@ -5,20 +5,20 @@ def get_score(enemy_kills: int) -> int:
     score = gain * enemy_kills
     return score
 
-def draw_score(screen, high_score: int, current_score: int):
+def draw_score(high_score, current_score):
     font_type = "sfnsmono"
-    font_size = 35
+    font_size = 30
     font_bold = False
-    font_colour = (0, 0, 0)
+    font_colour = (255, 255, 255)
     font = pygame.font.SysFont(font_type, font_size, font_bold)
 
-    # draws high score
+    #draws high score
     hi = font.render(f"HI: {high_score}", True, font_colour)
-    screen.blit(hi, (50, 50))
+    screen.blit(hi, (625, 35))
 
-    # draws current score
+    #draws current score
     score = font.render(f"{current_score}", True, font_colour)
-    screen.blit(score, (50, 110))
+    screen.blit(score, (625, 95))
 
 '''
 EXAMPLE VARIABLES
