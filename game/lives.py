@@ -11,7 +11,7 @@ def num_lives(game_difficulty: str) -> int:
     elif game_difficulty == "hard":
         return hard_lives
 
-def draw_removed_hearts(lives:int, hit:bool):
+def draw_removed_hearts(screen, lives:int, hit:bool):
     heart_colour = (255, 0, 0)
     heart_radius = 20
     if hit == True:
