@@ -69,8 +69,9 @@ def main() -> int:
             current_score = get_score(enemy_kills)
             high_score = 170
 
+            gameStateSettings = get_settings()
             # lives variables
-            lives = num_lives(mutable_events["difficultyIndex"])
+            lives = num_lives(gameStateSettings["difficulty"])
             hit = True
             start_game(screen, location)
             draw_removed_hearts(screen, lives, hit)

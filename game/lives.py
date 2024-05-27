@@ -4,18 +4,18 @@ HEIGHT = 800
 SIZE = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(SIZE)
 
-def num_lives(gameDifficulty:int) -> int:
+def num_lives(gameDifficulty: str) -> int:
     easy_lives = 5
     medium_lives = 3
     hard_lives = 2
     impossible_lives = 1
-    if gameDifficulty == 1:
+    if gameDifficulty == "easy":
         return easy_lives
-    elif gameDifficulty == 0: # made medium difficulty default difficulty
+    elif gameDifficulty == "medium": # made medium difficulty default difficulty
         return medium_lives
-    elif gameDifficulty == 2:
+    elif gameDifficulty == "hard":
         return hard_lives
-    elif gameDifficulty == 3:
+    elif gameDifficulty == "impossible":
         return impossible_lives
 
 def draw_removed_hearts(screen, lives:int, hit:bool):
