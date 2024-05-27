@@ -39,17 +39,18 @@ def main() -> int:
         "sensitivity": settings["sensitivity"],
     }
 
-
     running: bool = True
     while running:
         # EVENT HANDLING
         # dictionaries are pass by reference by default
         changed_events = handle_events(mutable_events)
-        
-        gameState, location, difficultyIndex, sensitivity, running = \
-        changed_events["gameState"], changed_events["location"], changed_events["difficultyIndex"], \
-        changed_events["sensitivity"], changed_events["running"]
 
+        # destructuring the dictionary
+        gameState: str = changed_events["gameState"]
+        location: int = changed_events["location"]
+        difficultyIndex: int = changed_events["difficultyIndex"]
+        sensitivity: int = changed_events["sensitivity"]
+        running: bool = changed_events["running"]
         # GAME STATE UPDATES
     
         # if this is shown, something went wrong
