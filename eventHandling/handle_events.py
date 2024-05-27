@@ -45,7 +45,7 @@ def handle_events(events: dict) -> dict:
                 if sensitivity <= -1:
                     events["sensitivity"] = 0
             
-              #spaceship movement
+        #spaceship movement
         if event.type == pygame.KEYDOWN:
             # move right
             if event.key == pygame.K_RIGHT and location <= 535:
