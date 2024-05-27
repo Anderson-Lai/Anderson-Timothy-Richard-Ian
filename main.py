@@ -29,7 +29,7 @@ def main() -> int:
     # values changed by events
     create_settings()
     settings = get_settings()
-    
+
     mutable_events = {
         "running": True,
         "gameState": "menu",
@@ -45,7 +45,7 @@ def main() -> int:
     high_score = 170
 
     # lives variables
-    lives = num_lives(mutable_events[4])
+    lives = num_lives(mutable_events["gameDifficulty"])
     hit = True
 
     running: bool = True
