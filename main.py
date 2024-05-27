@@ -69,7 +69,7 @@ def main() -> int:
             high_score = 170
 
             # lives variables
-            lives = num_lives(mutable_events["gameDifficulty"])
+            lives = num_lives(mutable_events["difficultyIndex"])
             hit = True
             start_game(screen, location)
             draw_removed_hearts(screen, lives, hit)
