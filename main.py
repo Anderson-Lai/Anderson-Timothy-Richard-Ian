@@ -3,6 +3,8 @@ import pygame
 from eventHandling.handle_events import handle_events
 # menu imports
 from menu.generate_menu import generate_menu
+# shop imports
+from shop.generate_shop import generate_shop
 # game settings imports
 from gameSettings.game_settings import game_settings
 from gameSettings.get_settings import get_settings
