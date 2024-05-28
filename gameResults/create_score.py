@@ -2,7 +2,7 @@ import json
 
 def create_score() -> None:
 
-    score_json = {
+    default_json = {
         "highScore": 0,
     }
 
@@ -11,4 +11,4 @@ def create_score() -> None:
             pass
     except FileNotFoundError:
         with open("score.json", "w") as file:
-            json.dump(score_json, file)
+            json.dump(default_json, file)

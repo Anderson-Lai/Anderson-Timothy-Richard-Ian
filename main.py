@@ -7,6 +7,9 @@ from menu.generate_menu import generate_menu
 from gameSettings.game_settings import game_settings
 from gameSettings.get_settings import get_settings
 from gameSettings.create_settings import create_settings
+# game result imports
+from gameResults.save_score import save_score
+from gameResults.create_score import create_score
 # game imports
 from game.start_game import start_game
 from game.lives import num_lives
@@ -27,6 +30,9 @@ def main() -> int:
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
     pygame.key.set_repeat(50, 25)
+
+    # create the score.json file
+    create_score()
     
     # create the settings.json file
     create_settings()
@@ -81,8 +87,10 @@ def main() -> int:
             draw_removed_hearts(screen, lives, hit)
             draw_score(screen, high_score, current_score)
         elif gameState == "dead":
-            # todo!()
-            pass
+            # get the score on death
+            # pass as parameter to this funciton
+            # -1 is a placeholder value for now
+            save_score(-1)
 
         
         # Must be the last two lines of the game loop
