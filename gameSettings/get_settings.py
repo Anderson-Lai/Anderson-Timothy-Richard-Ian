@@ -1,9 +1,7 @@
 import json
 
 def get_settings() -> dict:
-    
-    file = open("settings.json", "r")
 
-    settings = json.load(file)
-    file.close()
-    return settings
+    with open("settings.json", "r") as file:
+        settings = json.load(file)
+        return settings
