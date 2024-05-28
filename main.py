@@ -81,11 +81,11 @@ def main() -> int:
             # lives variables
             lives = num_lives(gameStateSettings["difficulty"])
             hit = True
-            if lives <= 0:
-                gameState = "dead"
             start_game(screen, location)
-            draw_removed_hearts(screen, lives, hit)
             draw_score(screen, high_score, current_score)
+            lives = draw_removed_hearts(screen, lives, hit)
+            if lives <= 0:
+                mutable_events["gameState"] = "dead"
         elif gameState == "dead":
             # get the score on death
             # pass as parameter to this funciton
