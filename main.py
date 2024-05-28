@@ -89,7 +89,7 @@ def main() -> int:
                 # hits += 1
 
             start_game(screen, location)
-            draw_removed_hearts(screen, lives, hit)
+            draw_removed_hearts(screen, lives, hits)
             draw_score(screen, high_score, current_score)
         elif gameState == "dead":
             # get the score on death
