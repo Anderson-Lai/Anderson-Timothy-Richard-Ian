@@ -71,18 +71,23 @@ def main() -> int:
         elif gameState == "settings":
             game_settings(screen, difficultyIndex, sensitivity)
         elif gameState == "game":
-            # placeholder, testing variables
+            gameStateSettings = get_settings()
+
+            # PLACEHOLDER, TESTING VARIABLES
             # score variables
-            enemy_kills = 4
+            enemy_kills = 0
+            # if enemyhit() == True:
+                # enemy_kills += 1
             current_score = get_score(enemy_kills)
             high_score = 170
-
-            gameStateSettings = get_settings()
             # lives variables
             lives = num_lives(gameStateSettings["difficulty"])
-            hit = True
             if lives <= 0:
                 gameState = "dead"
+            hits = 0
+            # if playerhit() == True:
+                # hits += 1
+
             start_game(screen, location)
             draw_removed_hearts(screen, lives, hit)
             draw_score(screen, high_score, current_score)
