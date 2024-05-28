@@ -24,6 +24,8 @@ from game.score import draw_score
 def main() -> int:
     # pygame template
     pygame.init()
+    # pygame window name
+    pygame.display.set_caption('Space Colonizers')
 
     WIDTH = 800
     HEIGHT = 800
