@@ -6,7 +6,6 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
     #projectile timing
     if proj_time_counter % 30 == 0:
         proj_count += 1
-    print(proj_time_counter)
     if proj_time_counter % 30 == 0:
         projectile_x.append(location + 5)
         projectile_y.append(720)
@@ -24,4 +23,3 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
     pygame.draw.rect(screen, (0, 0, 0), (0, 0, 20, 800))
     pygame.draw.rect(screen, (0, 0, 0), (0, 0, 600, 20))
     pygame.draw.rect(screen, (0, 0, 0), (0, 780, 600, 20))
-    

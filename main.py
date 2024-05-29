@@ -25,7 +25,7 @@ from powerUps.create_powerups import create_powerups
 # cosmetic imports
 from cosmetics.create_cosmetics import create_cosmetics
 
-#GAMESTATES: menu, settings, game, dead
+# GAMESTATES: menu, shop, settings, game, dead
 
 def main() -> int:
     # pygame template
@@ -55,7 +55,7 @@ def main() -> int:
     settings = get_settings()
 
     # values changed by events
-    mutable_events = {
+    event_variables = {
         "running": True,
         "gameState": "menu",
         "location": 375,
@@ -70,18 +70,19 @@ def main() -> int:
     while running:
         # EVENT HANDLING
         # dictionaries are pass by reference by default
-        changed_events = handle_events(mutable_events)
+        changed_events = handle_events(event_variables)
 
         # destructuring the dictionary
         gameState: str = changed_events["gameState"]
         location: int = changed_events["location"]
-        difficultyIndex: int = changed_events["difficultyIndex"]
+        difficultyIndex: int = changed_events["difficultyIndex"] # should not be mutated
+        # only purpose is to be passed to game_settings()
         sensitivity: int = changed_events["sensitivity"]
         running: bool = changed_events["running"]
         # GAME STATE UPDATES
     
         # if this is shown, something went wrong
-        screen.fill((0, 0, 0))
+        screen.fill((255, 255, 255))
 
         if gameState == "menu":
             generate_menu(screen)
@@ -106,7 +107,7 @@ def main() -> int:
             draw_score(screen, high_score, current_score)
 
             if lives <= 0:
-                mutable_events["gameState"] = "dead"
+                event_variables["gameState"] = "dead"
         elif gameState == "dead":
             # get the score on death
             # pass as parameter to this funciton
