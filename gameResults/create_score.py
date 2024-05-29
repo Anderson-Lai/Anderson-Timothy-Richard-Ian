@@ -4,6 +4,7 @@ def create_score() -> None:
 
     default_json = {
         "highScore": 0,
+        "currentScore": 0,
     }
 
     try:
