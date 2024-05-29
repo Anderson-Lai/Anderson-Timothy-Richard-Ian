@@ -12,6 +12,7 @@ from gameSettings.create_settings import create_settings
 # game result imports
 from gameResults.save_score import save_score
 from gameResults.create_score import create_score
+from gameResults.get_high_score import get_high_score
 # game imports
 from game.start_game import start_game
 from game.lives import num_lives
