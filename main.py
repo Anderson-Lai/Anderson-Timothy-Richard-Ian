@@ -25,6 +25,8 @@ from game.score import draw_score
 def main() -> int:
     # pygame template
     pygame.init()
+    proj_count = 0
+    proj_time_counter = 0
     # pygame window name
     pygame.display.set_caption('Space Colonizers')
 
@@ -51,6 +53,9 @@ def main() -> int:
         "difficultyIndex": settings["difficultyIndex"],
         "sensitivity": settings["sensitivity"],
     }
+
+    projectile_x []
+    projectile_y = []
 
     running: bool = True
     while running:
@@ -90,7 +95,8 @@ def main() -> int:
             hits = 0
             hit = True
 
-            start_game(screen, location)
+            proj_time_counter += 1
+            start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y)
             draw_removed_hearts(screen, lives, hits)
             draw_score(screen, high_score, current_score)
             lives = draw_removed_hearts(screen, lives, hit)
