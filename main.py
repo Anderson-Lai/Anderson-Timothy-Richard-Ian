@@ -69,7 +69,7 @@ def main() -> int:
         if gameState == "menu":
             generate_menu(screen)
             # create a rectangle
-            # on click, chang the 'gameState' variable
+            # on click, change the 'gameState' variable
         elif gameState == "settings":
             game_settings(screen, difficultyIndex, sensitivity)
         elif gameState == "game":
