@@ -86,10 +86,10 @@ def main() -> int:
             generate_menu(screen)
             # create a rectangle
             # on click, change the 'gameState' variable
-        elif gameState == "settings":
-            game_settings(screen, difficultyIndex, sensitivity)
         elif gameState == "shop":
             generate_shop(screen)
+        elif gameState == "settings":
+            game_settings(screen, difficultyIndex, sensitivity)
         elif gameState == "game":
             gameStateSettings = get_settings()
 
