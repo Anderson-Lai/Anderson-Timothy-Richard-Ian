@@ -9,6 +9,7 @@ from shop.generate_shop import generate_shop
 from gameSettings.game_settings import game_settings
 from gameSettings.get_settings import get_settings
 from gameSettings.create_settings import create_settings
+from gameSettings.get_difficulty import get_difficulty
 # game result imports
 from gameResults.save_score import save_score
 from gameResults.create_score import create_score
@@ -32,7 +33,7 @@ def main() -> int:
     proj_count = 0
     proj_time_counter = 0
     # pygame window name
-    pygame.display.set_caption('Space Colonizers')
+    pygame.display.set_caption('Space Invaders')
 
     WIDTH = 800
     HEIGHT = 800
@@ -91,24 +92,19 @@ def main() -> int:
         elif gameState == "settings":
             game_settings(screen, difficultyIndex, sensitivity)
         elif gameState == "game":
-            gameStateSettings = get_settings()
-
             # PLACEHOLDER, TESTING VARIABLES
             # score variables
             enemy_kills = 0
-            # if enemyhit() == True:
-                # enemy_kills += 1
             current_score = get_score(enemy_kills)
             high_score = get_high_score()
-            # lives variables
-            lives = num_lives(gameStateSettings["difficulty"])
-            # if playerhit() == True:
-                # lives -= 1
+            difficulty = get_difficulty()
+            lives = num_lives(difficulty)
 
             proj_time_counter += 1
             start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
+
             if lives <= 0:
                 mutable_events["gameState"] = "dead"
         elif gameState == "dead":
