@@ -54,7 +54,7 @@ def main() -> int:
         "sensitivity": settings["sensitivity"],
     }
 
-    projectile_x []
+    projectile_x = []
     projectile_y = []
 
     running: bool = True
