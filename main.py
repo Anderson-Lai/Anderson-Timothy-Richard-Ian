@@ -84,7 +84,7 @@ def main() -> int:
             # if enemyhit() == True:
                 # enemy_kills += 1
             current_score = get_score(enemy_kills)
-            high_score = 170
+            high_score = get_high_score()
             # lives variables
             lives = num_lives(gameStateSettings["difficulty"])
             hits = 0
