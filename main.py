@@ -19,6 +19,10 @@ from game.lives import num_lives
 from game.lives import draw_removed_hearts
 from game.score import get_score
 from game.score import draw_score
+# power up imports
+from powerUps.create_powerups import create_powerups
+# cosmetic imports
+from cosmetics.create_cosmetics import create_cosmetics
 
 #GAMESTATES: menu, settings, game, dead
 
@@ -40,6 +44,10 @@ def main() -> int:
 
     # create the score.json file
     create_score()
+    # create powerups.json
+    create_powerups()
+    # create cosmetics.json
+    create_cosmetics()
     
     # create the settings.json file
     create_settings()
