@@ -10,6 +10,9 @@ difficulty button
 def generate_menu(screen):
     screen.fill((0, 0, 0))
 
+    # open shop
+    pygame.draw.rect(screen, (169, 169, 169), pygame.Rect(650, 425, 100, 100))
+
     # open settings
     pygame.draw.rect(screen, (211, 211, 211), pygame.Rect(650, 575, 100, 100))
 

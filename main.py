@@ -88,6 +88,8 @@ def main() -> int:
             # on click, change the 'gameState' variable
         elif gameState == "settings":
             game_settings(screen, difficultyIndex, sensitivity)
+        elif gameState == "shop":
+            generate_shop(screen)
         elif gameState == "game":
             gameStateSettings = get_settings()
 
