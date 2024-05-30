@@ -7,7 +7,6 @@ from menu.generate_menu import generate_menu
 from shop.generate_shop import generate_shop
 # game settings imports
 from gameSettings.game_settings import game_settings
-from gameSettings.get_settings import get_settings
 from gameSettings.create_settings import create_settings
 from gameSettings.get_difficulty import get_difficulty
 # game result imports
@@ -43,24 +42,17 @@ def main() -> int:
     clock = pygame.time.Clock()
     pygame.key.set_repeat(50, 25)
 
-    # create the score.json file
-    create_score()
-    # create powerups.json
-    create_powerups()
-    # create cosmetics.json
-    create_cosmetics()
-    
-    # create the settings.json file
+    # create json files to store settings and progress
     create_settings()
-    settings = get_settings()
+    create_score()
+    create_powerups()
+    create_cosmetics()
 
     # values changed by events
     event_variables = {
         "running": True,
         "gameState": "menu",
         "location": 375,
-        "difficultyIndex": settings["difficultyIndex"],
-        "sensitivity": settings["sensitivity"],
     }
 
     projectile_x = []
@@ -75,9 +67,6 @@ def main() -> int:
         # destructuring the dictionary
         gameState: str = changed_events["gameState"]
         location: int = changed_events["location"]
-        difficultyIndex: int = changed_events["difficultyIndex"] # should not be mutated
-        # its sole purpose is as a parameter to game_settings()
-        sensitivity: int = changed_events["sensitivity"]
         running: bool = changed_events["running"]
         # GAME STATE UPDATES
     
@@ -91,7 +80,7 @@ def main() -> int:
         elif gameState == "shop":
             generate_shop(screen)
         elif gameState == "settings":
-            game_settings(screen, difficultyIndex, sensitivity)
+            game_settings(screen)
         elif gameState == "game":
             # PLACEHOLDER, TESTING VARIABLES
             # score variables

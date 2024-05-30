@@ -1,7 +1,6 @@
 import pygame
-import json
 
-def game_settings(screen, difficulty: int, sensitivity: int):
+def game_settings(screen):
     screen.fill((0, 0, 0))
 
     # sensitivy and difficulty buttons
@@ -17,15 +16,3 @@ def game_settings(screen, difficulty: int, sensitivity: int):
 
     # go back to main menu
     pygame.draw.rect(screen, (144, 238, 144), pygame.Rect(50, 50, 125, 125))
-
-    difficulties = ["easy", "normal", "hard", "impossible"]
-    settings = {
-        "difficulty": difficulties[difficulty],
-        "difficultyIndex": difficulty,
-        "sensitivity": sensitivity,
-    }
-    
-    # handles opening and closing of file
-    with open("settings.json", "w") as file:
-        # write the settings to file as json
-        json.dump(settings, file)

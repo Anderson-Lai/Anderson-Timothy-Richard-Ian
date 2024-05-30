@@ -1,11 +1,16 @@
 import pygame
+from gameSettings.change_difficulty import change_difficulty
+from gameSettings.change_sensitivity import change_sensitivity
+from gameSettings.get_sensitivity import get_sensitivity
 
 def handle_events(events: dict) -> dict:
 
     gameState: str = events["gameState"]
     location: int = events["location"]
-    difficultyIndex: str = events["difficultyIndex"]
-    sensitivity: int = events["sensitivity"]
+    # destructuring events["running"] should not be necessary
+    # as it should only be used once in the pygame.QUIT event
+    
+    sensitivity = get_sensitivity()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -35,31 +40,27 @@ def handle_events(events: dict) -> dict:
             # changing difficulty
             elif gameState == "settings" and 300 <= x <= 300 + 200 \
             and 200 <= y <= 200 + 100:
-                events["difficultyIndex"] += 1
-                if difficultyIndex >= 3:
-                    events["difficultyIndex"] = 0
+                change_difficulty()
             # incrementing sensitivity
             elif gameState == "settings" and 475 <= x <= 525 \
             and 350 <= y <= 350 + 50:
-                events["sensitivity"] += 1
+                change_sensitivity(1)
             # decrementing sensitivity
             elif gameState == "settings" and 275 <= x <= 325 \
             and 350 <= y <= 350 + 50:
-                events["sensitivity"] -= 1
-                if sensitivity <= -1:
-                    events["sensitivity"] = 0
+                change_sensitivity(-1)
             
         #spaceship movement
         if event.type == pygame.KEYDOWN:
             # move right
             if event.key == pygame.K_RIGHT and location <= 535:
-                events["location"] += events["sensitivity"]
+                events["location"] += sensitivity
 
                 if location + sensitivity >= 535:
                     events["location"] = 535
             # move left
             elif event.key == pygame.K_LEFT and location >= 25:
-                events["location"] -= events["sensitivity"]
+                events["location"] -= sensitivity
                 
                 if location - sensitivity <= 25:
                     events["location"] = 25
