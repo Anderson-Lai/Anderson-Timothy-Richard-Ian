@@ -31,6 +31,7 @@ def main() -> int:
     pygame.init()
     proj_count = 0
     proj_time_counter = 0
+    proj_fire_rate = 30
     # pygame window name
     pygame.display.set_caption('Space Invaders')
 
@@ -91,7 +92,7 @@ def main() -> int:
             lives = num_lives(difficulty)
 
             proj_time_counter += 1
-            start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y)
+            start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
 
