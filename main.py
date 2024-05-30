@@ -8,11 +8,11 @@ from shop.generate_shop import generate_shop
 # game settings imports
 from gameSettings.game_settings import game_settings
 from gameSettings.create_settings import create_settings
-from gameSettings.get_difficulty import get_difficulty
+from gameSettings.getting.get_difficulty import get_difficulty
 # game result imports
 from gameResults.save_score import save_score
 from gameResults.create_score import create_score
-from gameResults.get_high_score import get_high_score
+from gameResults.getting.get_high_score import get_high_score
 # game imports
 from game.start_game import start_game
 from game.lives import num_lives

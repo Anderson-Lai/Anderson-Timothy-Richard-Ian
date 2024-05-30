@@ -1,7 +1,7 @@
 import pygame
-from gameSettings.change_difficulty import change_difficulty
-from gameSettings.change_sensitivity import change_sensitivity
-from gameSettings.get_sensitivity import get_sensitivity
+from gameSettings.changing.change_difficulty import change_difficulty
+from gameSettings.changing.change_sensitivity import change_sensitivity
+from gameSettings.getting.get_sensitivity import get_sensitivity
 
 def handle_events(events: dict) -> dict:
 

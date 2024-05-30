@@ -1,6 +1,6 @@
 import json
-from gameResults.get_high_score import get_high_score
-from gameResults.get_score_file import get_score_file
+from gameResults.getting.get_high_score import get_high_score
+from gameResults.getting.get_score_file import get_score_file
 
 def save_score(score: int) -> None:
 
