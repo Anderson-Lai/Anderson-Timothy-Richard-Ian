@@ -1,12 +1,12 @@
 import pygame
 
-def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y):
+def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate):
     screen.fill((0, 5, 40))
     
     #projectile timing
-    if proj_time_counter % 30 == 0:
+    if proj_time_counter % proj_fire_rate == 0:
         proj_count += 1
-    if proj_time_counter % 30 == 0:
+    if proj_time_counter % proj_fire_rate == 0:
         projectile_x.append(location + 5)
         projectile_y.append(720)
     # projectile movement and drawing
