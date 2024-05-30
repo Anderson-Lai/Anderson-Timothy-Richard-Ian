@@ -76,7 +76,7 @@ def main() -> int:
         gameState: str = changed_events["gameState"]
         location: int = changed_events["location"]
         difficultyIndex: int = changed_events["difficultyIndex"] # should not be mutated
-        # only purpose is to be passed to game_settings()
+        # its sole purpose is as a parameter to game_settings()
         sensitivity: int = changed_events["sensitivity"]
         running: bool = changed_events["running"]
         # GAME STATE UPDATES
