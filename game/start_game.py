@@ -1,8 +1,25 @@
 import pygame
+import random
+
+stars = []
 
 def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate):
     screen.fill((0, 5, 40))
-    
+
+    if proj_time_counter % 4 == 0 :
+        stars.append([random.randint(-280, 280), random.randint(-15, 15), 2])
+    for n in range(len(stars) - 1, -1, -1):
+        
+        pygame.draw.rect(screen, (255, 255, 255), (round(stars[n][0]) + 310, round(stars[n][1]), 5, 5))
+
+        if stars[n][1] >= 800: 
+            stars.pop(n)
+        else: 
+            stars[n][1] += 5 * stars[n][2]
+
+        
+        
+
     #projectile timing
     if proj_time_counter % proj_fire_rate == 0:
         proj_count += 1
