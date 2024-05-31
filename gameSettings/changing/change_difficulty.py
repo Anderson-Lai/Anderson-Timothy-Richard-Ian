@@ -3,7 +3,7 @@ import json
 def change_difficulty() -> None:
     difficulties = ["easy", "normal", "hard", "impossible"]
 
-    file = open("settings.json", "r")
+    file = open("./jsonFiles/settings.json", "r")
     settings = json.load(file)
     file.close()
 
