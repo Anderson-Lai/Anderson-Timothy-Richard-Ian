@@ -8,8 +8,8 @@ def create_settings():
     }
 
     try:
-        with open("settings.json", "r") as file:
+        with open("./json/settings.json", "r") as file:
             pass
     except FileNotFoundError:
-        with open("settings.json", "w") as file:
+        with open("./json/settings.json", "w") as file:
             dump(default_settings, file)

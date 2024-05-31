@@ -10,6 +10,6 @@ which may break the difficulty settings
 """
 def get_settings() -> dict:
 
-    with open("settings.json", "r") as file:
+    with open("./json/settings.json", "r") as file:
         settings = json.load(file)
         return settings

@@ -17,5 +17,5 @@ def change_difficulty() -> None:
     settings["difficultyIndex"] = difficultyIndex
     settings["difficulty"] = difficulties[difficultyIndex]
 
-    with open("settings.json", "w") as file:
+    with open("./json/settings.json", "w") as file:
         json.dump(settings, file)
