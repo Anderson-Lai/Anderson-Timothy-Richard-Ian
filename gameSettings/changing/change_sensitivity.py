@@ -1,7 +1,7 @@
 import json
 
 def change_sensitivity(amount: int) -> None:
-    file = open("settings.json", "r")
+    file = open("./jsonFiles/settings.json", "r")
     settings = json.load(file)
     file.close()
 
@@ -10,5 +10,5 @@ def change_sensitivity(amount: int) -> None:
     if settings["sensitivity"] <= 0:
         settings["sensitivity"] = 1
 
-    with open("./json/settings.json", "w") as file:
+    with open("./jsonFiles/settings.json", "w") as file:
         json.dump(settings, file)

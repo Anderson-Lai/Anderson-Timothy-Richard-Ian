@@ -13,5 +13,5 @@ def save_score(score: int) -> None:
     score_file["highScore"] = high_score
     score_file["currentScore"] = score
 
-    with open("score.json", "w") as file:
+    with open("./jsonFiles/score.json", "w") as file:
         json.dump(score_file, file)

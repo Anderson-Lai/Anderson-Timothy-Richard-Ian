@@ -12,8 +12,8 @@ def create_powerups() -> None:
     }
 
     try:
-        with open("powerups.json", "r") as file:
+        with open("./jsonFiles/powerups.json", "r") as file:
             pass    
     except FileNotFoundError:
-        with open("powerups.json", "w") as file:
+        with open("./jsonFiles/powerups.json", "w") as file:
             json.dump(json_powerups, file)
