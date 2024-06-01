@@ -18,22 +18,22 @@ def game_settings(screen):
     # difficulty header
     difficulty_font = pygame.font.SysFont(header_font, header_size, header_bold)
     difficulty_text = difficulty_font.render("Difficulty", True, header_colour)
-    screen.blit(difficulty_text, (245, 200))
+    screen.blit(difficulty_text, (245, 212.5))
     # easy difficulty
-    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(75, 300, 200, 100))
+    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(75, 312.5, 200, 100))
     easy_font = pygame.font.SysFont(button_font, button_size, button_bold)
     easy_text = easy_font.render("Easy", True, button_colour)
-    screen.blit(easy_text, (125, 325))
+    screen.blit(easy_text, (125, 337.5))
     # normal difficulty
-    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(300, 300, 200, 100))
+    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(300, 312.5, 200, 100))
     normal_font = pygame.font.SysFont(button_font, button_size, button_bold)
     normal_text = normal_font.render("Normal", True, button_colour)
-    screen.blit(normal_text, (325, 325))
+    screen.blit(normal_text, (325, 337.5))
     # hard difficulty
-    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(525, 300, 200, 100))
+    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(525, 312.5, 200, 100))
     hard_font = pygame.font.SysFont(button_font, button_size, button_bold)
     hard_text = hard_font.render("Hard", True, button_colour)
-    screen.blit(hard_text, (575, 325))
+    screen.blit(hard_text, (575, 337.5))
 
                             # SENSITIVITY #
     current_sens = get_sensitivity()
