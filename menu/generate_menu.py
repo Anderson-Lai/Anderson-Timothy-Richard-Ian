@@ -9,6 +9,17 @@ difficulty button
 
 def generate_menu(screen):
     screen.fill((0, 0, 0))
+    # game title
+    game_font_type = "sfnsmono"
+    game_font_size = 85
+    game_font_bold = True
+    game_font_colour = (0, 240, 60)
+    game_font = pygame.font.SysFont(game_font_type, game_font_size, game_font_bold)
+    # draw game title
+    title_top = game_font.render("SPACE", True, game_font_colour)
+    title_bottom = game_font.render("INVADERS", True, game_font_colour)
+    screen.blit(title_top, (260, 155))
+    screen.blit(title_bottom, (185, 225))
 
     # open shop
     pygame.draw.rect(screen, (169, 169, 169), pygame.Rect(650, 450, 100, 100))
