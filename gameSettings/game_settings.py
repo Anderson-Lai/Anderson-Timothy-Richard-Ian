@@ -1,42 +1,61 @@
 import pygame
+from gameSettings.getting.get_sensitivity import get_sensitivity
 
 def game_settings(screen):
     screen.fill((0, 0, 0))
+    # header font (provides context for buttons)
+    header_font = "sfnsmono"
+    header_size = 50
+    header_bold = True
+    header_colour = (255, 255, 255) # white
+    # button font
+    button_font = "sfnsmono"
+    button_size = 40
+    button_bold = False
+    button_colour = (0, 0, 0) # black
 
-    # sensitivy and difficulty buttons
-    # difficulty text
-    font = "sfnsmono"
-    size = 50
-    bold = True
-    colour = (255, 255, 255)
-    difficulty_font = pygame.font.SysFont(font, size, bold)
-    # draw difficulty text
-    difficulty_text = difficulty_font.render("Difficulty", True, colour)
+                            # DIFFICULTY #
+    # difficulty header
+    difficulty_font = pygame.font.SysFont(header_font, header_size, header_bold)
+    difficulty_text = difficulty_font.render("Difficulty", True, header_colour)
     screen.blit(difficulty_text, (245, 200))
-
-    # difficulty
+    # easy difficulty
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(75, 300, 200, 100))
-    easy_font = pygame.font.SysFont(font, 40, False)
-    easy_text = easy_font.render("Easy", True, (0, 0, 0))
+    easy_font = pygame.font.SysFont(button_font, button_size, button_bold)
+    easy_text = easy_font.render("Easy", True, button_colour)
     screen.blit(easy_text, (125, 325))
-
+    # normal difficulty
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(300, 300, 200, 100))
-    normal_font = pygame.font.SysFont(font, 40, False)
-    normal_text = normal_font.render("Normal", True, (0, 0, 0))
+    normal_font = pygame.font.SysFont(button_font, button_size, button_bold)
+    normal_text = normal_font.render("Normal", True, button_colour)
     screen.blit(normal_text, (325, 325))
-
+    # hard difficulty
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(525, 300, 200, 100))
-    hard_font = pygame.font.SysFont(font, 40, False)
-    hard_text = hard_font.render("Hard", True, (0, 0, 0))
+    hard_font = pygame.font.SysFont(button_font, button_size, button_bold)
+    hard_text = hard_font.render("Hard", True, button_colour)
     screen.blit(hard_text, (575, 325))
 
-
-    # sensitivity
-    pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(350, 650, 100, 50))
+                            # SENSITIVITY #
+    current_sens = get_sensitivity()
+    # sensitivity header
+    sensitivity_font = pygame.font.SysFont(header_font, header_size, header_bold)
+    sensitivity_text = sensitivity_font.render("Sensitivity", True, header_colour)
+    screen.blit(sensitivity_text, (230, 500))
+    # current sensitivity
+    pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(350, 600, 100, 50))
+    currentsens_font = pygame.font.SysFont(button_font, button_size, button_bold)
+    currentsens_text = currentsens_font.render(f"{current_sens}", True, button_colour)
+    screen.blit(currentsens_text, (377.5, 600))
     # increment sensitivity
-    pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(475, 650, 50, 50))
+    pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(475, 600, 50, 50))
+    plus_font = pygame.font.SysFont(button_font, button_size, button_bold)
+    plus_text = plus_font.render("+", True, button_colour)
+    screen.blit(plus_text, (488, 598))
     # decrement sensitivity
-    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(275, 650, 50, 50))
+    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(275, 600, 50, 50))
+    minus_font = pygame.font.SysFont(button_font, button_size, button_bold)
+    minus_text = minus_font.render("-", True, button_colour)
+    screen.blit(minus_text, (288, 600))
 
     # go back to main menu
     pygame.draw.rect(screen, (144, 238, 144), pygame.Rect(50, 50, 125, 125))
