@@ -28,8 +28,8 @@ def handle_events(events: dict) -> dict:
             and 550 <= y <= 550 + 150:
                 events["gameState"] = "game"
             # open shop
-            elif gameState == "menu" and 650 <= x <= 650 + 100 \
-            and 425 <= y <= 425 + 100:
+            elif gameState == "menu" and 50 <= x <= 50 + 100 \
+            and 575 <= y <= 575 + 100:
                 events["gameState"] = "shop"
             # returns to menu
             elif gameState == "settings" and 50 <= x <= 50 + 125 \
