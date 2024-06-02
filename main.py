@@ -23,7 +23,6 @@ from game.score import draw_score
 from powerUps.create_powerups import create_powerups
 # cosmetic imports
 from cosmetics.create_cosmetics import create_cosmetics
-
 # GAMESTATES: menu, shop, settings, game, dead
 
 def main() -> int:
