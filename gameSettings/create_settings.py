@@ -3,7 +3,6 @@ from json import dump
 def create_settings():
     default_settings = {
         "difficulty": "easy",
-        "difficultyIndex": 0,
         "sensitivity": 10,
     }
 
