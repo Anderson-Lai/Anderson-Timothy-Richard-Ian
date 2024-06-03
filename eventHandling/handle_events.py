@@ -38,9 +38,15 @@ def handle_events(events: dict) -> dict:
 
             # changing settings
             # changing difficulty
+            elif gameState == "settings" and 75 <= x <= 75 + 200 \
+            and 312.5 <= y <= 312.5 + 100:
+                change_difficulty("easy")
             elif gameState == "settings" and 300 <= x <= 300 + 200 \
-            and 200 <= y <= 200 + 100:
-                change_difficulty()
+            and 312.5 <= y <= 312.5 + 100:
+                change_difficulty("normal")
+            elif gameState == "settings" and 525 <= x <= 525 + 200 \
+            and 312.5 <= y <= 312.5 + 100:
+                change_difficulty("hard")
             # incrementing sensitivity
             elif gameState == "settings" and 475 <= x <= 525 \
             and 600 <= y <= 650:

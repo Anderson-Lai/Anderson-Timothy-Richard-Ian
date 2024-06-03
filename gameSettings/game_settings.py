@@ -1,5 +1,6 @@
 import pygame
 from gameSettings.getting.get_sensitivity import get_sensitivity
+import json
 
 def game_settings(screen):
     screen.fill((0, 0, 0))
@@ -13,6 +14,23 @@ def game_settings(screen):
     button_size = 40
     button_bold = False
     button_colour = (0, 0, 0) # black
+    
+    # to display which difficulty button is selected
+    easy_colour = button_colour
+    normal_colour = button_colour
+    hard_colour = button_colour
+    clicked_colour = (255, 100, 0)
+
+    file = open("./jsonFiles/settings.json", "r")
+    settings = json.load(file)
+    file.close()
+
+    if settings["difficulty"] == "easy":
+        easy_colour = clicked_colour
+    elif settings["difficulty"] == "normal":
+        normal_colour = clicked_colour
+    elif settings["difficulty"] == "hard":
+        hard_colour = clicked_colour
 
                             # DIFFICULTY #
     # difficulty header
@@ -22,17 +40,17 @@ def game_settings(screen):
     # easy difficulty
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(75, 312.5, 200, 100))
     easy_font = pygame.font.SysFont(button_font, button_size, button_bold)
-    easy_text = easy_font.render("Easy", True, button_colour)
+    easy_text = easy_font.render("Easy", True, easy_colour)
     screen.blit(easy_text, (125, 337.5))
     # normal difficulty
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(300, 312.5, 200, 100))
     normal_font = pygame.font.SysFont(button_font, button_size, button_bold)
-    normal_text = normal_font.render("Normal", True, button_colour)
+    normal_text = normal_font.render("Normal", True, normal_colour)
     screen.blit(normal_text, (325, 337.5))
     # hard difficulty
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(525, 312.5, 200, 100))
     hard_font = pygame.font.SysFont(button_font, button_size, button_bold)
-    hard_text = hard_font.render("Hard", True, button_colour)
+    hard_text = hard_font.render("Hard", True, hard_colour)
     screen.blit(hard_text, (575, 337.5))
 
                             # SENSITIVITY #
