@@ -43,11 +43,11 @@ def handle_events(events: dict) -> dict:
                 change_difficulty()
             # incrementing sensitivity
             elif gameState == "settings" and 475 <= x <= 525 \
-            and 350 <= y <= 350 + 50:
+            and 600 <= y <= 650:
                 change_sensitivity(1)
             # decrementing sensitivity
             elif gameState == "settings" and 275 <= x <= 325 \
-            and 350 <= y <= 350 + 50:
+            and 600 <= y <= 650:
                 change_sensitivity(-1)
             
         #spaceship movement

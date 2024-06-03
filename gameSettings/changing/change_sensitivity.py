@@ -9,6 +9,9 @@ def change_sensitivity(amount: int) -> None:
 
     if settings["sensitivity"] <= 0:
         settings["sensitivity"] = 1
+    elif settings["sensitivity"] > 20:
+        settings["sensitivity"] = 20
+
 
     with open("./jsonFiles/settings.json", "w") as file:
         json.dump(settings, file)

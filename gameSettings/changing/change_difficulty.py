@@ -1,7 +1,7 @@
 import json
 
 def change_difficulty() -> None:
-    difficulties = ["easy", "normal", "hard", "impossible"]
+    difficulties = ["easy", "normal", "hard"]
 
     file = open("./jsonFiles/settings.json", "r")
     settings = json.load(file)
@@ -11,7 +11,7 @@ def change_difficulty() -> None:
 
     difficultyIndex += 1
 
-    if difficultyIndex >= 4:
+    if difficultyIndex >= 3:
         difficultyIndex = 0
     
     settings["difficultyIndex"] = difficultyIndex
