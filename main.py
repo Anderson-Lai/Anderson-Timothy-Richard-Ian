@@ -28,10 +28,6 @@ from cosmetics.create_cosmetics import create_cosmetics
 def main() -> int:
     # pygame template
     pygame.init()
-    proj_count = 0
-    proj_time_counter = 0
-    proj_fire_rate = 30
-    proj_speed = 20
     # pygame window name
     pygame.display.set_caption('Space Invaders')
 
@@ -55,6 +51,11 @@ def main() -> int:
         "gameState": "menu",
         "location": 375,
     }
+
+    proj_count: int = 0
+    proj_time_counter: int = 0
+    proj_fire_rate: int = 30
+    proj_speed: int = 20
 
     projectile_x = []
     projectile_y = []
