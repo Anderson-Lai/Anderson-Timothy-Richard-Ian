@@ -13,7 +13,7 @@ from game.enemies import draw_enemies
 stars = []
 enemies = []
 
-def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate):
+def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed):
     screen.fill((0, 5, 40))
 
     #stars script (create list, spawn stars, etc.)
@@ -41,8 +41,8 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
         projectile_y.append(720)
     # projectile movement and drawing
     for i in range(len(projectile_y) - 1, -1, -1):
-        projectile_y[i] -= 20
-        if projectile_y[i] <= -20: 
+        projectile_y[i] -= proj_speed
+        if projectile_y[i] <= -proj_speed: 
             projectile_y.pop(i)
             projectile_x.pop(i)
 
