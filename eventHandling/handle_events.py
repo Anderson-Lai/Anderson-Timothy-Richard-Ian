@@ -35,6 +35,10 @@ def handle_events(events: dict) -> dict:
             elif gameState == "settings" and 50 <= x <= 50 + 125 \
             and 50 <= y <= 50 + 125:
                 events["gameState"] = "menu"
+            # opens pause screen
+            elif gameState == "game" and 710 <= x <= 710 + 80 \
+            and 705 <= y <= 705 + 80:
+                events["gameState"] = "menu"
 
             # changing settings
             # changing difficulty
