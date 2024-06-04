@@ -1,6 +1,6 @@
 import pygame
 from gameSettings.getting.get_sensitivity import get_sensitivity
-import json
+from gameSettings.getting.get_difficulty import get_difficulty
 
 def game_settings(screen):
     screen.fill((0, 0, 0))
@@ -21,15 +21,13 @@ def game_settings(screen):
     hard_colour = button_colour
     clicked_colour = (255, 100, 0)
 
-    file = open("./jsonFiles/settings.json", "r")
-    settings = json.load(file)
-    file.close()
+    difficulty = get_difficulty()
 
-    if settings["difficulty"] == "easy":
+    if difficulty == "easy":
         easy_colour = clicked_colour
-    elif settings["difficulty"] == "normal":
+    elif difficulty == "normal":
         normal_colour = clicked_colour
-    elif settings["difficulty"] == "hard":
+    elif difficulty == "hard":
         hard_colour = clicked_colour
 
                             # DIFFICULTY #
@@ -77,6 +75,6 @@ def game_settings(screen):
 
     # go back to main menu
     pygame.draw.rect(screen, (144, 238, 144), pygame.Rect(50, 50, 125, 125))
-    return_icon = pygame.image.load("return_icon.png")
+    return_icon = pygame.image.load("./gameImages/return_icon.png")
     smaller_return_icon = pygame.transform.scale(return_icon, (110, 110))
     screen.blit(smaller_return_icon, (57.5, 57.5))
