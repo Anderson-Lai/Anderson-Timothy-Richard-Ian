@@ -65,6 +65,6 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
 
     # pause button
     pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(710, 705, 80, 80))
-    pause_button = pygame.image.load("pause_button.png")
+    pause_button = pygame.image.load("./gameImages/pause_button.png")
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
