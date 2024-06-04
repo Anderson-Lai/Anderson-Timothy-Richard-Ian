@@ -10,8 +10,16 @@ from game.enemies import draw_enemies
 # spawned in random order at a constant rate, up until next wave is spawned
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
+
+
 stars = []
 enemies = []
+waves = [
+    
+    [300, 4, 3]
+         
+
+]
 
 def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed):
     screen.fill((0, 5, 40))
