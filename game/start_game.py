@@ -21,7 +21,7 @@ waves = [
 
 ]
 
-def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed):
+def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed, enemy_y, enemy_x):
     screen.fill((0, 5, 40))
 
     #stars script (create list, spawn stars, etc.)
@@ -55,7 +55,22 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
             projectile_x.pop(i)
 
         pygame.draw.rect(screen, (255, 0, 0), (projectile_x[i] + 20, projectile_y[i] - 20, 10, 40))
+
     
+    if proj_time_counter % 60 == 0:
+        enemy_y.append(20)
+        enemy_x.append(300)
+    for w in range(len(enemy_y) -1, -1, -1):
+        enemy_y[w] += 1
+    for r in range(len(enemy_y) -1, -1, -1):
+        for j in range(len(projectile_y) -1, -1, -1):
+            if enemy_y[r] >= projectile_y[j] - 20 and enemy_x[r] < projectile_x[j] + 80 and enemy_x[r] + 50 > projectile_x[j] + 70:
+
+                enemy_y.pop(r)
+                projectile_y.pop(j)
+                projectile_x.pop(j)
+
+
     # black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
     pygame.draw.rect(screen, (0, 0, 0), (600, 0, 200, 800))
@@ -68,3 +83,8 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
     pause_button = pygame.image.load("./gameImages/pause_button.png")
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
+
+
+    for k in range(len(enemy_y) -1, -1, -1):
+  
+        pygame.draw.rect(screen, (0, 255, 0), (250, enemy_y[k], 50, 50))
