@@ -64,12 +64,12 @@ def main() -> int:
     while running:
         # EVENT HANDLING
         # dictionaries are pass by reference by default
-        changed_events = handle_events(event_variables)
+        handle_events(event_variables)
 
         # destructuring the dictionary
-        gameState: str = changed_events["gameState"]
-        location: int = changed_events["location"]
-        running: bool = changed_events["running"]
+        gameState: str = event_variables["gameState"]
+        location: int = event_variables["location"]
+        running: bool = event_variables["running"]
         # GAME STATE UPDATES
     
         # if this is shown, something went wrong

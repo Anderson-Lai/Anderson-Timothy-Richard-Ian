@@ -3,7 +3,7 @@ from gameSettings.changing.change_difficulty import change_difficulty
 from gameSettings.changing.change_sensitivity import change_sensitivity
 from gameSettings.getting.get_sensitivity import get_sensitivity
 
-def handle_events(events: dict) -> dict:
+def handle_events(events: dict):
 
     gameState: str = events["gameState"]
     location: int = events["location"]
@@ -74,5 +74,3 @@ def handle_events(events: dict) -> dict:
                 
                 if location - sensitivity <= 25:
                     events["location"] = 25
-
-    return events
