@@ -45,7 +45,7 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
     if proj_time_counter % proj_fire_rate == 0:
         proj_count += 1
     if proj_time_counter % proj_fire_rate == 0:
-        projectile_x.append(location + 5)
+        projectile_x.append(location)
         projectile_y.append(720)
     # projectile movement and drawing
     for i in range(len(projectile_y) - 1, -1, -1):
@@ -54,13 +54,13 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
             projectile_y.pop(i)
             projectile_x.pop(i)
 
-        pygame.draw.rect(screen, (255, 0, 0), (projectile_x[i] + 20, projectile_y[i] - 20, 10, 40))
+        pygame.draw.rect(screen, (255, 0, 0), (projectile_x[i] + 15, projectile_y[i] - 20, 10, 40))
 
     
     if proj_time_counter % 60 == 0:
-        enemy_y.append(20)
+        enemy_y.append(-40)
         enemy_x.append(300)
-    for w in range(len(enemy_y) -1, -1, -1):
+    for w in range(len(enemy_y) -1, -1, -1): 
         enemy_y[w] += 1
     for r in range(len(enemy_y) -1, -1, -1):
         for j in range(len(projectile_y) -1, -1, -1):
@@ -71,6 +71,10 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
                 projectile_x.pop(j)
 
 
+    for k in range(len(enemy_y) -1, -1, -1):
+  
+        pygame.draw.rect(screen, (0, 255, 0), (250, enemy_y[k], 50, 50))
+    
     # black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
     pygame.draw.rect(screen, (0, 0, 0), (600, 0, 200, 800))
@@ -84,7 +88,3 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
 
-
-    for k in range(len(enemy_y) -1, -1, -1):
-  
-        pygame.draw.rect(screen, (0, 255, 0), (250, enemy_y[k], 50, 50))
