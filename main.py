@@ -59,7 +59,9 @@ def main() -> int:
 
     projectile_x = []
     projectile_y = []
-
+    enemy_y = []
+    enemy_x = []
+    
     running: bool = True
     while running:
         # EVENT HANDLING
@@ -93,7 +95,7 @@ def main() -> int:
             lives = num_lives(difficulty)
 
             proj_time_counter += 1
-            start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed)
+            start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed, enemy_y, enemy_x)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
 
