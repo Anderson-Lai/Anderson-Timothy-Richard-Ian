@@ -38,7 +38,7 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
             stars[n][2] *= 1.01
 
     #enemies
-    # ENEMY TYPES: "glider", ""
+    # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
         
 
     #projectile timing
