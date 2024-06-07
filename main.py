@@ -52,15 +52,9 @@ def main() -> int:
         "location": 375,
     }
 
-    proj_count: int = 0
     proj_time_counter: int = 0
     proj_fire_rate: int = 30
     proj_speed: int = 20
-
-    projectile_x = []
-    projectile_y = []
-    enemy_y = []
-    enemy_x = []
     
     running: bool = True
     while running:
@@ -95,7 +89,7 @@ def main() -> int:
             lives = num_lives(difficulty)
 
             proj_time_counter += 1
-            start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed, enemy_y, enemy_x)
+            start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
 

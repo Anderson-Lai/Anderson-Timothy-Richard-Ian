@@ -21,14 +21,33 @@ waves = [
 
 ]
 
-def start_game(screen, location, proj_count, proj_time_counter, projectile_x, projectile_y, proj_fire_rate, proj_speed, enemy_y, enemy_x):
+class Moving:
+    def __init__(self, x: int, y: int) -> None:
+        self.pos_x = x
+        self.pos_y = y
+
+class Enemy(Moving):
+    pass
+
+class Projectile(Moving):
+    def collides_with(self, enemy: Enemy) -> bool:
+        if (enemy.pos_x <= self.pos_x <= enemy.pos_x + 50 or enemy.pos_x <= self.pos_x + 25 <= enemy.pos_x + 50) \
+        and self.pos_y <= enemy.pos_y + 50:
+            return True
+        return False
+
+projectiles: list[Projectile] = []
+enemies: list[Enemy] = []
+
+def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed):
+    
     screen.fill((0, 5, 40))
 
     #stars script (create list, spawn stars, etc.)
     if proj_time_counter % 4 == 0 :
         stars.append([random.randint(-280, 280), random.randint(-15, 15), 2])
     for n in range(len(stars) - 1, -1, -1):
-        
+    
         pygame.draw.rect(screen, (255, 255, 255), (round(stars[n][0]) + 310, round(stars[n][1]), 5, 5))
 
         if stars[n][1] >= 800: 
@@ -40,41 +59,42 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
     #enemies
     # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
         
+    # add a new bullet
+    if proj_time_counter % proj_fire_rate == 0:
+        projectiles.append(Projectile(location, 720))
 
-    #projectile timing
-    if proj_time_counter % proj_fire_rate == 0:
-        proj_count += 1
-    if proj_time_counter % proj_fire_rate == 0:
-        projectile_x.append(location)
-        projectile_y.append(720)
     # projectile movement and drawing
-    for i in range(len(projectile_y) - 1, -1, -1):
-        projectile_y[i] -= proj_speed
-        if projectile_y[i] <= -proj_speed: 
-            projectile_y.pop(i)
-            projectile_x.pop(i)
+    for i in range(len(projectiles) - 1, -1, -1):
+        projectiles[i].pos_y -= proj_speed
 
-        pygame.draw.rect(screen, (255, 0, 0), (projectile_x[i] + 25, projectile_y[i] - 20, 10, 40))
+        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x + 25, projectiles[i].pos_y - 20, 10, 40))
+        if projectiles[i].pos_y <= -20: 
+            projectiles.pop(i)
 
-    
+    # add an enemy
     if proj_time_counter % 60 == 0:
-        enemy_y.append(-40)
-        enemy_x.append(300)
-    for w in range(len(enemy_y) -1, -1, -1): 
-        enemy_y[w] += 1
-    for r in range(len(enemy_y) -1, -1, -1):
-        for j in range(len(projectile_y) -1, -1, -1):
-            if enemy_y[r] >= projectile_y[j] - 20 and enemy_x[r] < projectile_x[j] + 80 and enemy_x[r] + 50 > projectile_x[j] + 70:
+        # temporary hard-coded values
+        enemies.append(Enemy(300, -40))
 
-                enemy_y.pop(r)
-                projectile_y.pop(j)
-                projectile_x.pop(j)
-
-
-    for k in range(len(enemy_y) -1, -1, -1):
-  
-        pygame.draw.rect(screen, (0, 255, 0), (250, enemy_y[k], 50, 50))
+    # move enemy down
+    for i in range(len(enemies)):
+        enemies[i].pos_y += 1
     
+    # draw enemies
+    for enemy in enemies:
+        pygame.draw.rect(screen, (0, 255, 0), (enemy.pos_x, enemy.pos_y, 50, 50))
+        
+    # size of projectile:
+    # x is 25; y is 20
+    # size of enemies:
+    # 50, 50
+    for i in range(len(projectiles) - 1, -1, -1):
+        for j in range(len(enemies) - 1, -1, -1):
+            if projectiles[i].collides_with(enemies[j]):
+                projectiles.pop(i)
+                enemies.pop(j)
+                print("something popped")
+
     # black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
     pygame.draw.rect(screen, (0, 0, 0), (600, 0, 200, 800))
