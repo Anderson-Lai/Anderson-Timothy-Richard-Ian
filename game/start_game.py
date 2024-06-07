@@ -27,13 +27,23 @@ class Moving:
         self.pos_y = y
 
 class Enemy(Moving):
-    pass
+    def __init__(self, x: int, y: int) -> None:
+        super().__init__(x, y)
 
 class Projectile(Moving):
-    def collides_with(self, enemy: Enemy) -> bool:
-        if (enemy.pos_x <= self.pos_x <= enemy.pos_x + 50 or enemy.pos_x <= self.pos_x + 25 <= enemy.pos_x + 50) \
-        and self.pos_y <= enemy.pos_y + 50:
+    def __init__(self, x: int, y: int) -> None:
+        super().__init__(x, y)
+
+    def pre_collide(self, enemy: Enemy) -> bool:
+        if enemy.pos_x <= self.pos_x <= enemy.pos_x + 50 \
+        and enemy.pos_y <= self.pos_y <= enemy.pos_y + 50:
             return True
+        return False
+
+    def post_collide(self, enemy: Enemy) -> bool:
+        if enemy.pos_x <= self.pos_x + 10 <= enemy.pos_x + 50 \
+        and enemy.pos_y <= self.pos_y <= enemy.pos_y + 50:
+            return True 
         return False
 
 projectiles: list[Projectile] = []
@@ -61,13 +71,13 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed):
         
     # add a new bullet
     if proj_time_counter % proj_fire_rate == 0:
-        projectiles.append(Projectile(location, 720))
+        projectiles.append(Projectile(location + 25, 720))
 
     # projectile movement and drawing
     for i in range(len(projectiles) - 1, -1, -1):
         projectiles[i].pos_y -= proj_speed
 
-        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x + 25, projectiles[i].pos_y - 20, 10, 40))
+        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, projectiles[i].pos_y - 20, 10, 40))
         if projectiles[i].pos_y <= -20: 
             projectiles.pop(i)
 
@@ -85,15 +95,21 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed):
         pygame.draw.rect(screen, (0, 255, 0), (enemy.pos_x, enemy.pos_y, 50, 50))
         
     # size of projectile:
-    # x is 25; y is 20
+    # x is 10; y is 20
     # size of enemies:
     # 50, 50
     for i in range(len(projectiles) - 1, -1, -1):
+        proj = projectiles[i]
         for j in range(len(enemies) - 1, -1, -1):
-            if projectiles[i].collides_with(enemies[j]):
-                projectiles.pop(i)
-                enemies.pop(j)
-                print("something popped")
+            en = enemies[j]
+            if proj.pos_x >= en.pos_x:
+                if proj.pre_collide(en):
+                    del projectiles[i]
+                    del enemies[j]
+            else:
+                if proj.post_collide(en):
+                    del projectiles[i]
+                    del enemies[j]
 
     # black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
