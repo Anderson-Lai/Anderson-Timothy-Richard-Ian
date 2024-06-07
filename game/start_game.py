@@ -55,6 +55,11 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) 
     
     screen.fill((0, 5, 40))
 
+    # down here to avoid a circular import with the Position class
+    from game.draw_stars import draw_stars
+    # stars script (create list, spawn stars, etc.)
+    draw_stars(screen, proj_time_counter)
+    
     # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
         
     # add a new projectile
@@ -110,4 +115,3 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) 
     pause_button = pygame.image.load("./gameImages/pause_button.png")
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
-

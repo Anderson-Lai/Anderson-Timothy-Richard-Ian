@@ -17,7 +17,6 @@ from gameResults.getting.get_high_score import get_high_score
 from game.start_game import start_game
 from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
-from game.draw_stars import draw_stars
 # power up imports
 from powerUps.create_powerups import create_powerups
 # cosmetic imports
@@ -89,8 +88,6 @@ def main() -> int:
 
             proj_time_counter += 1
             start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed)
-            # stars script (create list, spawn stars, etc.)
-            draw_stars(screen, proj_time_counter)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
 
