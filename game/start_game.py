@@ -1,7 +1,7 @@
 import pygame
-import random
 from game.draw_enemies import draw_enemies
-from abc import ABC
+from abc import ABC, abstractmethod
+
 
 # notes for enemy waves: 
 # constant spawning, locked to frame #
@@ -24,6 +24,7 @@ waves = [
 
 # makes Position an abstract class
 class Position(ABC):
+    @abstractmethod
     def __init__(self, x: int, y: int) -> None:
         self.pos_x = x
         self.pos_y = y
@@ -51,22 +52,12 @@ class Projectile(Position):
 projectiles: list[Projectile] = []
 enemies: list[Enemy] = []
 
+# import is down here to avoid a circular import
+
+
 def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) -> None:
     
     screen.fill((0, 5, 40))
-
-    #stars script (create list, spawn stars, etc.)
-    if proj_time_counter % 4 == 0 :
-        stars.append([random.randint(-280, 280), random.randint(-15, 15), 2])
-    for n in range(len(stars) - 1, -1, -1):
-    
-        pygame.draw.rect(screen, (255, 255, 255), (round(stars[n][0]) + 310, round(stars[n][1]), 5, 5))
-
-        if stars[n][1] >= 800: 
-            stars.pop(n)
-        else: 
-            stars[n][1] += 5 * stars[n][2]
-            stars[n][2] *= 1.01
 
     # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
         
