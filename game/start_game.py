@@ -13,7 +13,6 @@ from abc import ABC, abstractmethod
 
 
 
-stars = []
 enemies = []
 waves = [
     
@@ -51,9 +50,6 @@ class Projectile(Position):
 
 projectiles: list[Projectile] = []
 enemies: list[Enemy] = []
-
-# import is down here to avoid a circular import
-
 
 def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) -> None:
     
