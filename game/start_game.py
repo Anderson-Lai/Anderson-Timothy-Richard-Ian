@@ -54,7 +54,7 @@ def start_game(screen, location, proj_count, proj_time_counter, projectile_x, pr
             projectile_y.pop(i)
             projectile_x.pop(i)
 
-        pygame.draw.rect(screen, (255, 0, 0), (projectile_x[i] + 15, projectile_y[i] - 20, 10, 40))
+        pygame.draw.rect(screen, (255, 0, 0), (projectile_x[i] + 25, projectile_y[i] - 20, 10, 40))
 
     
     if proj_time_counter % 60 == 0:
