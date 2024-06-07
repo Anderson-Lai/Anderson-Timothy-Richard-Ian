@@ -1,6 +1,7 @@
 import pygame
 import random
-from game.enemies import draw_enemies
+from game.draw_enemies import draw_enemies
+from abc import ABC
 
 # notes for enemy waves: 
 # constant spawning, locked to frame #
@@ -21,16 +22,17 @@ waves = [
 
 ]
 
-class Moving:
+# makes Position an abstract class
+class Position(ABC):
     def __init__(self, x: int, y: int) -> None:
         self.pos_x = x
         self.pos_y = y
 
-class Enemy(Moving):
+class Enemy(Position):
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
 
-class Projectile(Moving):
+class Projectile(Position):
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
 
@@ -49,7 +51,7 @@ class Projectile(Moving):
 projectiles: list[Projectile] = []
 enemies: list[Enemy] = []
 
-def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed):
+def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) -> None:
     
     screen.fill((0, 5, 40))
 
@@ -66,14 +68,13 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed):
             stars[n][1] += 5 * stars[n][2]
             stars[n][2] *= 1.01
 
-    #enemies
     # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
         
-    # add a new bullet
+    # add a new projectile
     if proj_time_counter % proj_fire_rate == 0:
         projectiles.append(Projectile(location + 25, 720))
 
-    # projectile movement and drawing
+    # draws and moves every projectile
     for i in range(len(projectiles) - 1, -1, -1):
         projectiles[i].pos_y -= proj_speed
 
@@ -81,23 +82,22 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed):
         if projectiles[i].pos_y <= -20: 
             projectiles.pop(i)
 
-    # add an enemy
+    # adds an enemy
     if proj_time_counter % 60 == 0:
         # temporary hard-coded values
         enemies.append(Enemy(300, -40))
 
-    # move enemy down
+    # draws and moves enemy
     for i in range(len(enemies)):
+        pygame.draw.rect(screen, (0, 255, 0), (enemies[i].pos_x, enemies[i].pos_y, 50, 50))
         enemies[i].pos_y += 1
     
-    # draw enemies
-    for enemy in enemies:
-        pygame.draw.rect(screen, (0, 255, 0), (enemy.pos_x, enemy.pos_y, 50, 50))
         
     # size of projectile:
     # x is 10; y is 20
     # size of enemies:
     # 50, 50
+    # hit detection
     for i in range(len(projectiles) - 1, -1, -1):
         proj = projectiles[i]
         for j in range(len(enemies) - 1, -1, -1):
