@@ -29,7 +29,7 @@ class Position(ABC):
         self.pos_y = y
 
 class Enemy(Position):
-    def __init__(self, x: int, y: int) -> None:
+    def __init__(self, x: int, y: int, tba: int, type: str) -> None:
         super().__init__(x, y)
 
 class Projectile(Position):
