@@ -21,7 +21,7 @@ from game.score import get_score, draw_score
 from powerUps.create_powerups import create_powerups
 # cosmetic imports
 from cosmetics.create_cosmetics import create_cosmetics
-# GAMESTATES: menu, shop, settings, game, dead
+# game_stateS: menu, shop, settings, game, dead
  
 def main() -> int:
     # pygame template
@@ -46,7 +46,7 @@ def main() -> int:
     # values changed by events
     event_variables = {
         "running": True,
-        "gameState": "menu",
+        "game_state": "menu",
         "location": 375,
     }
 
@@ -61,7 +61,7 @@ def main() -> int:
         handle_events(event_variables)
 
         # destructuring the dictionary
-        gameState: str = event_variables["gameState"]
+        game_state: str = event_variables["game_state"]
         location: int = event_variables["location"]
         running: bool = event_variables["running"]
         # GAME STATE UPDATES
@@ -69,15 +69,15 @@ def main() -> int:
         # if this is shown, something went wrong
         screen.fill((255, 255, 255))
 
-        if gameState == "menu":
+        if game_state == "menu":
             generate_menu(screen)
             # create a rectangle
-            # on click, change the 'gameState' variable
-        elif gameState == "shop":
+            # on click, change the 'game_state' variable
+        elif game_state == "shop":
             generate_shop(screen)
-        elif gameState == "settings":
+        elif game_state == "settings":
             game_settings(screen)
-        elif gameState == "game":
+        elif game_state == "game":
             # PLACEHOLDER, TESTING VARIABLES
             # score variables
             enemy_kills = 0
@@ -92,8 +92,8 @@ def main() -> int:
             draw_score(screen, high_score, current_score)
 
             if lives <= 0:
-                event_variables["gameState"] = "dead"
-        elif gameState == "dead":
+                event_variables["game_state"] = "dead"
+        elif game_state == "dead":
             # get the score on death
             # pass as parameter to this funciton
             # -1 is a placeholder value for now

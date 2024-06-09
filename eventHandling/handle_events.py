@@ -5,7 +5,7 @@ from gameSettings.getting.get_sensitivity import get_sensitivity
 
 def handle_events(events: dict):
 
-    gameState: str = events["gameState"]
+    game_state: str = events["game_state"]
     location: int = events["location"]
     # destructuring events["running"] should not be necessary
     # as it should only be used once in the pygame.QUIT event
@@ -20,43 +20,43 @@ def handle_events(events: dict):
             x, y = pygame.mouse.get_pos()
 
             # opens settings
-            if gameState == "menu" and 650 <= x <= 650 + 100 \
+            if game_state == "menu" and 650 <= x <= 650 + 100 \
             and 575 <= y <= 575 + 100:
-                events["gameState"] = "settings"
+                events["game_state"] = "settings"
             # starts game
-            elif gameState == "menu" and 175 <= x <= 175 + 450 \
+            elif game_state == "menu" and 175 <= x <= 175 + 450 \
             and 550 <= y <= 550 + 150:
-                events["gameState"] = "game"
+                events["game_state"] = "game"
             # open shop
-            elif gameState == "menu" and 50 <= x <= 50 + 100 \
+            elif game_state == "menu" and 50 <= x <= 50 + 100 \
             and 575 <= y <= 575 + 100:
-                events["gameState"] = "shop"
+                events["game_state"] = "shop"
             # returns to menu
-            elif gameState == "settings" and 50 <= x <= 50 + 125 \
+            elif game_state == "settings" and 50 <= x <= 50 + 125 \
             and 50 <= y <= 50 + 125:
-                events["gameState"] = "menu"
+                events["game_state"] = "menu"
             # opens pause screen
-            elif gameState == "game" and 710 <= x <= 710 + 80 \
+            elif game_state == "game" and 710 <= x <= 710 + 80 \
             and 705 <= y <= 705 + 80:
-                events["gameState"] = "menu"
+                events["game_state"] = "menu"
 
             # changing settings
             # changing difficulty
-            elif gameState == "settings" and 75 <= x <= 75 + 200 \
+            elif game_state == "settings" and 75 <= x <= 75 + 200 \
             and 312.5 <= y <= 312.5 + 100:
                 change_difficulty("easy")
-            elif gameState == "settings" and 300 <= x <= 300 + 200 \
+            elif game_state == "settings" and 300 <= x <= 300 + 200 \
             and 312.5 <= y <= 312.5 + 100:
                 change_difficulty("normal")
-            elif gameState == "settings" and 525 <= x <= 525 + 200 \
+            elif game_state == "settings" and 525 <= x <= 525 + 200 \
             and 312.5 <= y <= 312.5 + 100:
                 change_difficulty("hard")
             # incrementing sensitivity
-            elif gameState == "settings" and 475 <= x <= 525 \
+            elif game_state == "settings" and 475 <= x <= 525 \
             and 600 <= y <= 650:
                 change_sensitivity(1)
             # decrementing sensitivity
-            elif gameState == "settings" and 275 <= x <= 325 \
+            elif game_state == "settings" and 275 <= x <= 325 \
             and 600 <= y <= 650:
                 change_sensitivity(-1)
             
