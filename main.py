@@ -46,7 +46,7 @@ def main() -> int:
     # values changed by events
     event_variables = {
         "running": True,
-        "game_state": "menu",
+        "gameState": "menu",
         "location": 375,
     }
 
@@ -61,7 +61,7 @@ def main() -> int:
         handle_events(event_variables)
 
         # destructuring the dictionary
-        game_state: str = event_variables["game_state"]
+        game_state: str = event_variables["gameState"]
         location: int = event_variables["location"]
         running: bool = event_variables["running"]
         # GAME STATE UPDATES
@@ -92,7 +92,7 @@ def main() -> int:
             draw_score(screen, high_score, current_score)
 
             if lives <= 0:
-                event_variables["game_state"] = "dead"
+                event_variables["gameState"] = "dead"
         elif game_state == "dead":
             # get the score on death
             # pass as parameter to this funciton

@@ -5,7 +5,7 @@ from gameSettings.getting.get_sensitivity import get_sensitivity
 
 def handle_events(events: dict):
 
-    game_state: str = events["game_state"]
+    game_state: str = events["gameState"]
     location: int = events["location"]
     # destructuring events["running"] should not be necessary
     # as it should only be used once in the pygame.QUIT event
@@ -22,23 +22,23 @@ def handle_events(events: dict):
             # opens settings
             if game_state == "menu" and 650 <= x <= 650 + 100 \
             and 575 <= y <= 575 + 100:
-                events["game_state"] = "settings"
+                events["gameState"] = "settings"
             # starts game
             elif game_state == "menu" and 175 <= x <= 175 + 450 \
             and 550 <= y <= 550 + 150:
-                events["game_state"] = "game"
+                events["gameState"] = "game"
             # open shop
             elif game_state == "menu" and 50 <= x <= 50 + 100 \
             and 575 <= y <= 575 + 100:
-                events["game_state"] = "shop"
+                events["gameState"] = "shop"
             # returns to menu
             elif game_state == "settings" and 50 <= x <= 50 + 125 \
             and 50 <= y <= 50 + 125:
-                events["game_state"] = "menu"
+                events["gameState"] = "menu"
             # opens pause screen
             elif game_state == "game" and 710 <= x <= 710 + 80 \
             and 705 <= y <= 705 + 80:
-                events["game_state"] = "menu"
+                events["gameState"] = "menu"
 
             # changing settings
             # changing difficulty
