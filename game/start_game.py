@@ -119,14 +119,14 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) 
                     del projectiles[i]
                     del enemies[j]
 
-    # black border
+    # draws black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
     pygame.draw.rect(screen, (0, 0, 0), (600, 0, 200, 800))
     pygame.draw.rect(screen, (0, 0, 0), (0, 0, 20, 800))
     pygame.draw.rect(screen, (0, 0, 0), (0, 0, 600, 20))
     pygame.draw.rect(screen, (0, 0, 0), (0, 780, 600, 20))
 
-    # pause button
+    # draws pause button
     pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(710, 705, 80, 80))
     pause_button = pygame.image.load("./gameImages/pause_button.png")
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
