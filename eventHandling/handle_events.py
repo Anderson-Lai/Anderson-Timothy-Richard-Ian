@@ -38,6 +38,18 @@ def handle_events(events: dict):
             # opens pause screen
             elif game_state == "game" and 710 <= x <= 710 + 80 \
             and 705 <= y <= 705 + 80:
+                events["gameState"] = "paused"
+            # resume button
+            elif game_state == "paused" and 225 <= x <= 225 + 350 \
+            and 275 <= y <= 275 + 100:
+                events["gameState"] = "game"
+            # restart button
+            elif game_state == "paused" and 225 <= x <= 225 + 350 \
+            and 400 <= y <= 400 + 100:
+                events["gameState"] = "game" # same functionality as resume button but resets enemy positions and score
+            # return to main menu button
+            elif game_state == "paused" and 225 <= x <= 225 + 350 \
+            and 525 <= y <= 525 + 100:
                 events["gameState"] = "menu"
 
             # changing settings

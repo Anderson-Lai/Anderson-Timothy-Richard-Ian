@@ -5,6 +5,8 @@ from eventHandling.handle_events import handle_events
 from menu.generate_menu import generate_menu
 # shop imports
 from shop.generate_shop import generate_shop
+# pause menu imports
+from menu.pause_menu import generate_pause_menu
 # game settings imports
 from gameSettings.game_settings import game_settings
 from gameSettings.create_settings import create_settings
@@ -77,6 +79,8 @@ def main() -> int:
             generate_shop(screen)
         elif game_state == "settings":
             game_settings(screen)
+        elif game_state == "paused":
+            generate_pause_menu(screen)
         elif game_state == "game":
             
             # score variables
