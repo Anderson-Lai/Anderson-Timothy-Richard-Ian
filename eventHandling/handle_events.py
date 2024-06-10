@@ -2,7 +2,6 @@ import pygame
 from gameSettings.changing.change_difficulty import change_difficulty
 from gameSettings.changing.change_sensitivity import change_sensitivity
 from gameSettings.getting.get_sensitivity import get_sensitivity
-from menu import restart
 
 def handle_events(events: dict):
 
@@ -48,7 +47,7 @@ def handle_events(events: dict):
             # restart button
             elif game_state == "paused" and 225 <= x <= 225 + 350 \
             and 400 <= y <= 400 + 100:
-                restart()
+                events["restart"] = True
                 events["gameState"] = "game"
             # return to main menu button
             elif game_state == "paused" and 225 <= x <= 225 + 350 \

@@ -62,10 +62,9 @@ waves = [
 ]
 
 # all the projectiles and enemies currently alive
-projectiles: list[Projectile] = []
-enemies: list[Enemy] = []
 
-def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) -> None:
+def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: int, 
+proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int) -> int:
     
     screen.fill((0, 5, 40))
 
@@ -111,10 +110,12 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) 
                 if projectile.pre_collide(enemy):
                     del projectiles[i]
                     del enemies[j]
+                    enemy_kills += 1
             else:
                 if projectile.post_collide(enemy):
                     del projectiles[i]
                     del enemies[j]
+                    enemy_kills += 1
 
     # draws black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
@@ -128,3 +129,5 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) 
     pause_button = pygame.image.load("./gameImages/pause_button.png")
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
+
+    return enemy_kills

@@ -1,4 +1,0 @@
-
-
-def restart() -> None:
-    pass

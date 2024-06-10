@@ -16,7 +16,7 @@ from gameResults.save_score import save_score
 from gameResults.create_score import create_score
 from gameResults.getting.get_high_score import get_high_score
 # game imports
-from game.start_game import start_game
+from game.start_game import start_game, Enemy, Projectile
 from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
 # power up imports
@@ -50,11 +50,16 @@ def main() -> int:
         "running": True,
         "gameState": "menu",
         "location": 375,
+        "restart": False,
     }
 
     proj_time_counter: int = 0
     proj_fire_rate: int = 30
     proj_speed: int = 20
+    enemy_kills: int = 0
+
+    projectiles: list[Projectile] = []
+    enemies: list[Enemy] = []
     
     running: bool = True
     while running:
@@ -66,6 +71,7 @@ def main() -> int:
         running: bool = event_variables["running"]
         game_state: str = event_variables["gameState"]
         location: int = event_variables["location"]
+        restart: bool = event_variables["restart"]
         # GAME STATE UPDATES
     
         # if this is shown, something went wrong
@@ -84,7 +90,6 @@ def main() -> int:
         elif game_state == "game":
             
             # score variables
-            enemy_kills = 0
             current_score = get_score(enemy_kills)
             high_score = get_high_score()
             # difficulty variables
@@ -93,12 +98,29 @@ def main() -> int:
             lives = num_lives(difficulty)
 
             proj_time_counter += 1
-            start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed)
+            enemy_kills = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, 
+                       projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
 
             if lives <= 0:
                 event_variables["gameState"] = "dead"
+            if restart:
+                save_score(current_score)
+
+                # delete all projectiles and enemies since the game is restarting
+                projectiles.clear()
+                enemies.clear()
+                
+                # kills are proportional to score
+                # resetting kills also resets score
+                enemy_kills = 0
+                # reset current_score just in case (defensive programming)
+                current_score = 0
+
+                # break out of the if statement to prevent the game
+                # from constantly restarting
+                event_variables["restart"] = False
         elif game_state == "dead":
             # get the score on death
             # pass as parameter to this funciton
