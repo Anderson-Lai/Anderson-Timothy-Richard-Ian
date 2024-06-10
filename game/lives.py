@@ -10,7 +10,7 @@ def num_lives(gameDifficulty: str) -> int:
     hard_lives = 1
     if gameDifficulty == "easy":
         return easy_lives
-    elif gameDifficulty == "normal": # made medium difficulty default difficulty
+    elif gameDifficulty == "normal":
         return medium_lives
     elif gameDifficulty == "hard":
         return hard_lives

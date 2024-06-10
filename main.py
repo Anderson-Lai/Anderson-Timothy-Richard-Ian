@@ -21,7 +21,7 @@ from game.score import get_score, draw_score
 from powerUps.create_powerups import create_powerups
 # cosmetic imports
 from cosmetics.create_cosmetics import create_cosmetics
-# game_stateS: menu, shop, settings, game, dead
+# game_states: menu, shop, settings, game, dead
  
 def main() -> int:
     # pygame template
@@ -78,7 +78,7 @@ def main() -> int:
         elif game_state == "settings":
             game_settings(screen)
         elif game_state == "game":
-            # PLACEHOLDER, TESTING VARIABLES
+            
             # score variables
             enemy_kills = 0
             current_score = get_score(enemy_kills)

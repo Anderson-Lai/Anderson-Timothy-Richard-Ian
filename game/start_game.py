@@ -16,14 +16,14 @@ class Position(ABC):
 from game.draw_stars import draw_stars
 
 class Enemy(Position):
-    # put in default values for tba and type for now
+    # put in default values for spawntick and type for now
     # allows code to compile as they currently have no implementation
-    def __init__(self, x: int, y: int, length: int, width: int, tba: int = 0, type: str = "") -> None:
+    def __init__(self, x: int, y: int, length: int, width: int, spawntick: int = 0, type: str = "") -> None:
         super().__init__(x, y, length, width)
 
-        # assign the new parameters
-        # i have no idea what they are for ian
-        self.tba = tba
+        #spawntick is the frame the enemy spawned on (for reference on whether or not it will shoot)
+        #type is the type of enemy (because we have more than one type)
+        self.spawntick = spawntick
         self.type = type
 
 class Projectile(Position):
@@ -88,11 +88,8 @@ def start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed) 
         if projectiles[i].pos_y <= -20: 
             projectiles.pop(i)
 
-    # adds an enemy
     if proj_time_counter % 60 == 0:
-        # temporary hard-coded values
-        # i have no idea what "tba" and "type" are for
-        # put in some filler values to allow the code to compile
+        
         enemies.append(Enemy(300, -40, 50, 50, 0, ""))
 
     # draws and moves enemy
