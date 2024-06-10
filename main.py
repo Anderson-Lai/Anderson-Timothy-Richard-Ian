@@ -83,7 +83,9 @@ def main() -> int:
             enemy_kills = 0
             current_score = get_score(enemy_kills)
             high_score = get_high_score()
+            # difficulty variables
             difficulty = get_difficulty()
+            # lives variables
             lives = num_lives(difficulty)
 
             proj_time_counter += 1

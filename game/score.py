@@ -19,11 +19,3 @@ def draw_score(screen, high_score, current_score):
     #draws current score
     score = font.render(f"{current_score}", True, font_colour)
     screen.blit(score, (625, 95))
-
-'''
-EXAMPLE VARIABLES
-enemy_kills = 4
-player_score = score(enemy_kills)
-'''
-
-# draw_score(player_score)

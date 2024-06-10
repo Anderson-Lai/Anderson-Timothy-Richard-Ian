@@ -20,13 +20,3 @@ def draw_removed_hearts(screen, lives:int) -> int:
     heart_radius = 13
     for i in range(lives):
         pygame.draw.circle(screen, heart_colour, ((625+(heart_radius/2))+heart_radius*2.65*i, 175), heart_radius)
-
-
-'''
-EXAMPLE VARIABLES
-game_difficulty = "easy"
-lives = num_lives(game_difficulty)
-hit = True
-'''
-
-# drawremove_hearts(lives, hit)
