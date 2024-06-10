@@ -2,6 +2,7 @@ import pygame
 from gameSettings.changing.change_difficulty import change_difficulty
 from gameSettings.changing.change_sensitivity import change_sensitivity
 from gameSettings.getting.get_sensitivity import get_sensitivity
+from menu import restart
 
 def handle_events(events: dict):
 
@@ -35,6 +36,7 @@ def handle_events(events: dict):
             elif game_state == "settings" and 50 <= x <= 50 + 125 \
             and 50 <= y <= 50 + 125:
                 events["gameState"] = "menu"
+
             # opens pause screen
             elif game_state == "game" and 710 <= x <= 710 + 80 \
             and 705 <= y <= 705 + 80:
@@ -46,7 +48,8 @@ def handle_events(events: dict):
             # restart button
             elif game_state == "paused" and 225 <= x <= 225 + 350 \
             and 400 <= y <= 400 + 100:
-                events["gameState"] = "game" # same functionality as resume button but resets enemy positions and score
+                restart()
+                events["gameState"] = "game"
             # return to main menu button
             elif game_state == "paused" and 225 <= x <= 225 + 350 \
             and 525 <= y <= 525 + 100:

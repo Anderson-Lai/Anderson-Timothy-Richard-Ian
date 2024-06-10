@@ -63,9 +63,9 @@ def main() -> int:
         handle_events(event_variables)
 
         # destructuring the dictionary
+        running: bool = event_variables["running"]
         game_state: str = event_variables["gameState"]
         location: int = event_variables["location"]
-        running: bool = event_variables["running"]
         # GAME STATE UPDATES
     
         # if this is shown, something went wrong

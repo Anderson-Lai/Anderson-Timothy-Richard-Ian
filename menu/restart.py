@@ -1,0 +1,4 @@
+
+
+def restart() -> None:
+    pass
