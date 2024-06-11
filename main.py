@@ -1,4 +1,5 @@
 import pygame
+from time import sleep
 # event handling imports
 from eventHandling.handle_events import handle_events
 # menu imports
@@ -122,6 +123,9 @@ def main() -> int:
                 # break out of the if statement to prevent the game
                 # from constantly restarting
                 event_variables["restart"] = False
+
+                # give the program time to reset everything
+                sleep(0.05)
         elif game_state == "dead":
             # get the score on death
             # pass as parameter to this funciton
