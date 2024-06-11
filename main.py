@@ -62,6 +62,7 @@ def main() -> int:
     enemies: list[Enemy] = []
     
     running: bool = True
+    # Main game loop
     while running:
         # EVENT HANDLING
         # dictionaries are pass by reference by default
