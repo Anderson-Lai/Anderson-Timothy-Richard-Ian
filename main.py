@@ -129,8 +129,7 @@ def main() -> int:
         elif game_state == "dead":
             # get the score on death
             # pass as parameter to this funciton
-            # -1 is a placeholder value for now
-            save_score(-1)
+            save_score(current_score)
 
         
         # Must be the last two lines of the game loop
