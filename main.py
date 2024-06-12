@@ -20,7 +20,7 @@ from gameResults.getting.get_high_score import get_high_score
 from game.start_game import start_game, Enemy, Projectile
 from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
-# power up imports
+# power up import
 from powerUps.create_powerups import create_powerups
 # cosmetic imports
 from cosmetics.create_cosmetics import create_cosmetics
