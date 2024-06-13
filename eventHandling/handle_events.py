@@ -4,6 +4,8 @@ from gameSettings.changing.change_sensitivity import change_sensitivity
 from gameSettings.getting.get_sensitivity import get_sensitivity
 from modifications.getting.get_coins import get_coins
 from modifications.changing.change_upgrade import change_upgrade
+from modifications.changing.change_coins import change_coins
+from modifications.getting.get_upgrade_state import get_upgrade_state
 
 def handle_events(events: dict):
 
@@ -43,34 +45,52 @@ def handle_events(events: dict):
             # double shot
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 100 <= y <= 100 + 65:
-                if coins >= 1000:
+                if get_upgrade_state("doubleShot"):
+                    pass
+                elif coins >= 1000:
                     change_upgrade("doubleShot", True)
+                    change_coins(-1000)
                     
             # multi shot
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 190 <= y <= 190 + 65:
-                if coins >= 1500:
+                if get_upgrade_state("multiShot"):
+                    pass
+                elif coins >= 1500:
                     change_upgrade("multiShot", True)
+                    change_coins(-1500)
             # extra life
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 280 <= y <= 280 + 65:
-                if coins >= 2500:
+                if get_upgrade_state("extraLife"):
+                    pass
+                elif coins >= 2500:
                     change_upgrade("extraLife", True)
+                    change_coins(-2500)
             # faster fire rate 1
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 370 <= y <= 370 + 65:
-                if coins >= 1500:
+                if get_upgrade_state("fasterFireRate1"):
+                    pass
+                elif coins >= 1500:
                     change_upgrade("fasterFireRate1", True)
+                    change_coins(-1500)
             # faster fire rate 2
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 460 <= y <= 460 + 65:
-                if coins >= 3000:
+                if get_upgrade_state("fasterFireRate2"):
+                    pass
+                elif coins >= 3000:
                     change_upgrade("fasterFireRate2", True)
+                    change_coins(-3000)
             # faster fire rate 3
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 550 <= y <= 550 + 65:
-                if coins >= 5000:
+                if get_upgrade_state("fasterFireRate3"):
+                    pass
+                elif coins >= 5000:
                     change_upgrade("fasterFireRate3", True)
+                    change_coins(-5000)
             
             # opens pause screen
             elif game_state == "game" and 710 <= x <= 710 + 80 \
