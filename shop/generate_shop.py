@@ -64,3 +64,9 @@ def generate_shop(screen) -> None:
     fire_rate_3 = pygame.font.SysFont(font, font_size)
     rendered_fire_rate_3 = fire_rate_3.render("Faster fire rate 3 $5000", True, text_colour)
     screen.blit(rendered_fire_rate_3, (200, first_rect_x + text_difference + 5 * space ))
+
+    # go back to main menu
+    pygame.draw.rect(screen, (144, 238, 144), pygame.Rect(50, 50, 125, 125))
+    return_icon = pygame.image.load("./gameImages/return_icon.png")
+    smaller_return_icon = pygame.transform.scale(return_icon, (110, 110))
+    screen.blit(smaller_return_icon, (57.5, 57.5))
