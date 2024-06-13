@@ -3,6 +3,7 @@ from gameSettings.changing.change_difficulty import change_difficulty
 from gameSettings.changing.change_sensitivity import change_sensitivity
 from gameSettings.getting.get_sensitivity import get_sensitivity
 from modifications.getting.get_coins import get_coins
+from modifications.changing.change_upgrade import change_upgrade
 
 def handle_events(events: dict):
 
@@ -12,7 +13,6 @@ def handle_events(events: dict):
     # as it should only be used once in the pygame.QUIT event
 
     coins = get_coins()
-    
     sensitivity = get_sensitivity()
 
     for event in pygame.event.get():
@@ -44,33 +44,33 @@ def handle_events(events: dict):
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 100 <= y <= 100 + 65:
                 if coins >= 1000:
-                    # buy
-                    pass
+                    change_upgrade("doubleShot", True)
+                    
             # multi shot
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 190 <= y <= 190 + 65:
                 if coins >= 1500:
-                    pass
+                    change_upgrade("multiShot", True)
             # extra life
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 280 <= y <= 280 + 65:
                 if coins >= 2500:
-                    pass
+                    change_upgrade("extraLife", True)
             # faster fire rate 1
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 370 <= y <= 370 + 65:
                 if coins >= 1500:
-                    pass
+                    change_upgrade("fasterFireRate1", True)
             # faster fire rate 2
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 460 <= y <= 460 + 65:
                 if coins >= 3000:
-                    pass
+                    change_upgrade("fasterFireRate2", True)
             # faster fire rate 3
             elif game_state == "shop" and 450 <= x <= 450 + 100 \
             and 550 <= y <= 550 + 65:
                 if coins >= 5000:
-                    pass
+                    change_upgrade("fasterFireRate3", True)
             
             # opens pause screen
             elif game_state == "game" and 710 <= x <= 710 + 80 \
