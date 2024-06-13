@@ -69,6 +69,7 @@ def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: in
 proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int) -> int:
     
     screen.fill((0, 5, 40))
+    hit = False
 
     # stars script (create list, spawn stars, etc.)
     draw_stars(screen, proj_time_counter)
@@ -76,10 +77,6 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
         
     # add a new projectile
-    if proj_time_counter % proj_fire_rate == 0:
-        projectiles.append(Projectile(location + 25, 720, 10, 40))
-
-    # draws and moves every projectile
     if proj_time_counter % proj_fire_rate == 0:
         if get_upgrade_state("multiShot"):
             projectiles.append(Projectile(location + 25, 720, 10, 40))
@@ -96,11 +93,17 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
         else:
             projectiles.append(Projectile(location + 25, 720, 10, 40))
 
+    if proj_time_counter % 10 == 0:
+        enemies.append(Enemy(320, 0, 50, 50))
+
     # draws and moves enemy
     for i in range(len(enemies)):
         pygame.draw.rect(screen, (0, 255, 0), (enemies[i].pos_x, enemies[i].pos_y, enemies[i].length, enemies[i].width))
         enemies[i].pos_y += 10
     
+    for i in range(len(projectiles)):
+        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, projectiles[i].pos_y, projectiles[i].length, projectiles[i].width))
+        projectiles[i].pos_y -= proj_speed
         
     # size of projectile:
     # x is 10; y is 40
@@ -122,7 +125,6 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
                     del enemies[j]
                     enemy_kills += 1
 
-    hit = False
 
     # check if player touches enemy
     for i in range(len(enemies) - 1, -1, -1):
@@ -148,4 +150,4 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
 
-    return [enemy_kills, hit]
+    return (enemy_kills, hit)

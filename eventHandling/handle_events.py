@@ -7,7 +7,6 @@ from modifications.getting.get_coins import get_coins
 from modifications.changing.change_upgrade import change_upgrade
 from modifications.changing.change_coins import change_coins
 from modifications.getting.get_upgrade_state import get_upgrade_state
-from game.lives import num_lives
 
 def handle_events(events: dict):
 
@@ -93,7 +92,7 @@ def handle_events(events: dict):
                     pass
                 elif coins >= 5000:
                     change_upgrade("fasterFireRate3", True)
-                    change_coins(-5000)
+                    change_coins(-5000)       
             # returns to menu
             elif game_state == "shop" and 50 <= x <= 50 + 125 \
             and 50 <= y <= 50 + 125:
