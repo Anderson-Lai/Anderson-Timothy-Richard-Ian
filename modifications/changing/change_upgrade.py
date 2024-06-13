@@ -1,5 +1,5 @@
 import json
-from modifications.getting.get_modifications import get_modifications
+from modifications.getting.PRIVATE_get_modifications import get_modifications
 
 def change_upgrade(upgrade: str, state: bool) -> None:
     modifications = get_modifications()
