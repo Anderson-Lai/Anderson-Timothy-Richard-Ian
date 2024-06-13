@@ -126,17 +126,15 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
 
     # check if player touches enemy
     for i in range(len(enemies) - 1, -1, -1):
-            enemy = enemies[i]
-            player_width = 50
-            player_y = 720
-            if (location <= enemy.pos_x <= location + player_width or location <= enemy.pos_x + enemy.width <= location + player_width) \
-            and (player_y <= enemy.pos_y + enemy.width <= player_y + player_width):
-                del enemies[i]
-                enemy_kills -= 1
-                hit = True
+        enemy = enemies[i]
+        player_width = 50
+        player_y = 720
+        if (location <= enemy.pos_x <= location + player_width or location <= enemy.pos_x + enemy.width <= location + player_width) \
+        and (player_y <= enemy.pos_y + enemy.width <= player_y + player_width):
+            del enemies[i]
+            enemy_kills -= 1
+            hit = True
             
-    
-
     # draws black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
     pygame.draw.rect(screen, (0, 0, 0), (600, 0, 200, 800))
