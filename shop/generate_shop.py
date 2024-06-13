@@ -23,9 +23,9 @@ def generate_shop(screen) -> None:
     green = (0, 235, 0)
     red = (255, 0, 0)
 
-    text_difference = 35 # space from top of rect to where text is displayed
-    space = 90 # pixels from top of rectangle to next rect
     first_rect_x = 100 # position of the top of the first rectangle
+    space = 90 # pixels from top of rectangle to next rect
+    text_difference = 20 # space from top of rect to where text is displayed
 
     state = upgrade_state()
     
