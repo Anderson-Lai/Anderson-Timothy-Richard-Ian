@@ -94,6 +94,10 @@ def handle_events(events: dict):
                 elif coins >= 5000:
                     change_upgrade("fasterFireRate3", True)
                     change_coins(-5000)
+            # returns to menu
+            elif game_state == "shop" and 50 <= x <= 50 + 125 \
+            and 50 <= y <= 50 + 125:
+                events["gameState"] = "menu"
             
             # opens pause screen
             elif game_state == "game" and 710 <= x <= 710 + 80 \

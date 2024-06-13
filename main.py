@@ -20,6 +20,7 @@ from gameResults.getting.get_high_score import get_high_score
 from game.start_game import start_game, Enemy, Projectile
 from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
+from game.money import get_money, draw_money
 # modification imports (contains cosmetics, powerups, and a currency)
 from modifications.create_modifications import create_modifications
 from modifications.changing.change_coins import change_coins
@@ -103,8 +104,7 @@ def main() -> int:
             enemy_kills, hit = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
-            if hit:
-                lives -= 1
+            draw_money(screen, money)
 
             if previous_kills != enemy_kills:
                 difference = enemy_kills -  previous_kills
