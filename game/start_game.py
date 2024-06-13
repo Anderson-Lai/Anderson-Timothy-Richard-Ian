@@ -1,6 +1,7 @@
 import pygame
 from game.draw_enemies import draw_enemies
 from abc import ABC
+from modifications.getting.get_upgrade_state import get_upgrade_state
 import random
 
 # makes Position an abstract class
@@ -79,7 +80,7 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
         projectiles.append(Projectile(location + 25, 720, 10, 40))
 
     # draws and moves every projectile
-   if proj_time_counter % proj_fire_rate == 0:
+    if proj_time_counter % proj_fire_rate == 0:
         if get_upgrade_state("multiShot"):
             projectiles.append(Projectile(location + 25, 720, 10, 40))
             projectiles.append(Projectile(location + 40, 720, 10, 40))
