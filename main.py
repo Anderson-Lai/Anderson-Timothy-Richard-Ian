@@ -22,6 +22,7 @@ from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
 # modification imports (contains cosmetics, powerups, and a currency)
 from modifications.create_modifications import create_modifications
+from modifications.change_coins import change_coins
 # game_states: menu, shop, settings, game, dead
  
 def main() -> int:
@@ -55,6 +56,7 @@ def main() -> int:
     proj_fire_rate: int = 30
     proj_speed: int = 20
     enemy_kills: int = 0
+    previous_kills: int = enemy_kills
 
     projectiles: list[Projectile] = []
     enemies: list[Enemy] = []
@@ -96,11 +98,17 @@ def main() -> int:
             # lives variables
             lives = num_lives(difficulty)
 
+            # checks if any enemies were killed 
+            previous_kills = enemy_kills
+
             proj_time_counter += 1
-            enemy_kills = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, 
-                       projectiles, enemies, enemy_kills)
+            enemy_kills = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
+
+            if previous_kills != enemy_kills:
+                difference = enemy_kills -  previous_kills
+                change_coins(difference * 10)
 
             if lives <= 0:
                 event_variables["gameState"] = "dead"
@@ -110,15 +118,13 @@ def main() -> int:
                 # delete all projectiles and enemies since the game is restarting
                 projectiles.clear()
                 enemies.clear()
-                
-                # kills are proportional to score
-                # resetting kills also resets score
-                enemy_kills = 0
-                # reset current_score just in case (defensive programming)
-                current_score = 0
 
-                # break out of the if statement to prevent the game
-                # from constantly restarting
+                # reset kills and scores
+                enemy_kills = 0
+                current_score = 0
+                previous_kills = 0
+
+                # break out of the if statement for the next iteration
                 event_variables["restart"] = False
 
                 # give the program time to reset everything

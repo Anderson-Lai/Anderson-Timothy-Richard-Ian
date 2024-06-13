@@ -22,4 +22,4 @@ def create_modifications() -> None:
             pass
     except FileNotFoundError:
         with open("./jsonFiles/modifications.json", "w") as file:
-            json.dump(settings, file);
+            json.dump(settings, file)
