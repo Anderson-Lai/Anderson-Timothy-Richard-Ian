@@ -2,10 +2,12 @@ import pygame
 from gameSettings.changing.change_difficulty import change_difficulty
 from gameSettings.changing.change_sensitivity import change_sensitivity
 from gameSettings.getting.get_sensitivity import get_sensitivity
+from gameSettings.getting.get_difficulty import get_difficulty
 from modifications.getting.get_coins import get_coins
 from modifications.changing.change_upgrade import change_upgrade
 from modifications.changing.change_coins import change_coins
 from modifications.getting.get_upgrade_state import get_upgrade_state
+from game.lives import num_lives
 
 def handle_events(events: dict):
 
@@ -16,6 +18,7 @@ def handle_events(events: dict):
 
     coins = get_coins()
     sensitivity = get_sensitivity()
+    difficulty = get_difficulty()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

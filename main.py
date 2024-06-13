@@ -56,9 +56,10 @@ def main() -> int:
     proj_speed: int = 20
     enemy_kills: int = 0
     previous_kills: int = enemy_kills
-
     projectiles: list[Projectile] = []
     enemies: list[Enemy] = []
+    difficulty = get_difficulty()
+    lives: int = num_lives(difficulty)
     
     running: bool = True
     while running:
@@ -93,17 +94,17 @@ def main() -> int:
             high_score = get_high_score()
             # difficulty variables
             difficulty = get_difficulty()
-            # lives variables
-            lives = num_lives(difficulty)
 
             # checks if any enemies were killed 
             previous_kills = enemy_kills
 
             proj_time_counter += 1
             # draw the game
-            enemy_kills = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
+            enemy_kills, hit = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
+            if hit:
+                lives -= 1
 
             if previous_kills != enemy_kills:
                 difference = enemy_kills -  previous_kills

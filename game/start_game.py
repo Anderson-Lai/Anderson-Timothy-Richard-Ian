@@ -1,6 +1,7 @@
 import pygame
 from game.draw_enemies import draw_enemies
 from abc import ABC
+import random
 
 # makes Position an abstract class
 class Position(ABC):
@@ -89,7 +90,7 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
 
     if proj_time_counter % 60 == 0:
         
-        enemies.append(Enemy(300, -40, 50, 50, 0, ""))
+        enemies.append(Enemy(random.randrange(40, 560),-40, 50, 50, 0, ""))
 
     # draws and moves enemy
     for i in range(len(enemies)):
@@ -117,6 +118,8 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
                     del enemies[j]
                     enemy_kills += 1
 
+    hit = False
+
     # check if player touches enemy
     for i in range(len(enemies) - 1, -1, -1):
             enemy = enemies[i]
@@ -126,6 +129,9 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             and (player_y <= enemy.pos_y + enemy.width <= player_y + player_width):
                 del enemies[i]
                 enemy_kills -= 1
+                hit = True
+            
+    
 
     # draws black border
     pygame.draw.rect(screen, (0, 255, 0), (location + 5, 720, 50, 50))
@@ -140,4 +146,4 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
 
-    return enemy_kills
+    return [enemy_kills, hit]
