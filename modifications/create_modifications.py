@@ -12,7 +12,7 @@ def create_modifications() -> None:
         "fasterFireRate2": False,
         "fasterFireRate3": False,
         # cosmetics
-        "shipColour": "green", "red"
+        "shipColour": "green",
         # coins
         "coins": 0
     }
