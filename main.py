@@ -108,6 +108,7 @@ def main() -> int:
             enemy_kills, hit = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
+            
             if hit:
                 lives -= 1
 
