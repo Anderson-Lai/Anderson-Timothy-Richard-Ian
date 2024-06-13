@@ -79,18 +79,21 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
         projectiles.append(Projectile(location + 25, 720, 10, 40))
 
     # draws and moves every projectile
-    for i in range(len(projectiles) - 1, -1, -1):
-        projectiles[i].pos_y -= proj_speed
-
-        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, 
-        projectiles[i].pos_y - (projectiles[i].length // 2), projectiles[i].length, projectiles[i].width))
-
-        if projectiles[i].pos_y <= -20: 
-            projectiles.pop(i)
-
-    if proj_time_counter % 60 == 0:
-        
-        enemies.append(Enemy(random.randrange(40, 560),-40, 50, 50, 0, ""))
+   if proj_time_counter % proj_fire_rate == 0:
+        if get_upgrade_state("multiShot"):
+            projectiles.append(Projectile(location + 25, 720, 10, 40))
+            projectiles.append(Projectile(location + 40, 720, 10, 40))
+            projectiles.append(Projectile(location + 10, 720, 10, 40))
+        else:
+            projectiles.append(Projectile(location + 25, 720, 10, 40))
+    
+    if proj_time_counter % proj_fire_rate == 10 and get_upgrade_state("doubleShot"):
+        if get_upgrade_state("multiShot"):
+            projectiles.append(Projectile(location + 25, 720, 10, 40))
+            projectiles.append(Projectile(location + 40, 720, 10, 40))
+            projectiles.append(Projectile(location + 10, 720, 10, 40))
+        else:
+            projectiles.append(Projectile(location + 25, 720, 10, 40))
 
     # draws and moves enemy
     for i in range(len(enemies)):
