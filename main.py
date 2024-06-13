@@ -95,6 +95,10 @@ def main() -> int:
             high_score = get_high_score()
             # difficulty variables
             difficulty = get_difficulty()
+            # lives variables
+            lives = num_lives(difficulty)
+            # money variables
+            money = get_money(enemy_kills)
 
             # checks if any enemies were killed 
             previous_kills = enemy_kills
@@ -104,7 +108,8 @@ def main() -> int:
             enemy_kills, hit = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
-            draw_money(screen, money)
+            if hit:
+                lives -= 1
 
             if previous_kills != enemy_kills:
                 difference = enemy_kills -  previous_kills
