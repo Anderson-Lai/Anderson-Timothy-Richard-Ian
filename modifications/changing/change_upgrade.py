@@ -2,8 +2,8 @@ import json
 from modifications.getting.get_modifications import get_modifications
 
 def change_upgrade(upgrade: str, state: bool) -> None:
-    state = get_modifications()
-    state[upgrade] = state
+    modifications = get_modifications()
+    modifications[upgrade] = state
 
-    with open("./jsonFiles/modifications.json") as file:
-        json.dump(state, file)
+    with open("./jsonFiles/modifications.json", "w") as file:
+        json.dump(modifications, file)
