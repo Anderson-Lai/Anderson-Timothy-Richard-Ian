@@ -1,5 +1,5 @@
 import json
-from modifications.get_coins import get_coins
+from modifications.getting.get_coins import get_coins
 
 def change_coins(amount: int) -> None:
     coins = get_coins()

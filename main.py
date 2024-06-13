@@ -22,11 +22,10 @@ from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
 # modification imports (contains cosmetics, powerups, and a currency)
 from modifications.create_modifications import create_modifications
-from modifications.change_coins import change_coins
+from modifications.changing.change_coins import change_coins
 # game_states: menu, shop, settings, game, dead
  
 def main() -> int:
-    # pygame template
     pygame.init()
     # pygame window name
     pygame.display.set_caption('Space Invaders')
@@ -62,7 +61,6 @@ def main() -> int:
     enemies: list[Enemy] = []
     
     running: bool = True
-    # Main game loop
     while running:
         # EVENT HANDLING
         # dictionaries are pass by reference by default
@@ -102,6 +100,7 @@ def main() -> int:
             previous_kills = enemy_kills
 
             proj_time_counter += 1
+            # draw the game
             enemy_kills = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)

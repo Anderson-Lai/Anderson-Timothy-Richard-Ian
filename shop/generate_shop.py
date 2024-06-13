@@ -1,4 +1,5 @@
 import pygame
+from modifications.getting.get_upgrade_state import upgrade_state
 
 """
 items:
@@ -25,6 +26,8 @@ def generate_shop(screen) -> None:
     text_difference = 35 # space from top of rect to where text is displayed
     space = 90 # pixels from top of rectangle to next rect
     first_rect_x = 100 # position of the top of the first rectangle
+
+    state = upgrade_state()
     
     # double shot
     pygame.draw.rect(screen, green, pygame.Rect(450, first_rect_x, 100, 65))
