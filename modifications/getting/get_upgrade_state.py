@@ -1,11 +1,6 @@
-import json
-from modifications.getting.get_modifications import get_modifications
+from modifications.getting.get_upgrades import get_upgrades
 
-def upgrade_state() -> dict[str, bool]:
-    
-    settings = get_modifications()
+def get_upgrade_state(upgrade: str) -> bool:
 
-    del settings["coins"]
-    del settings["shipColour"]
-
-    return settings
+    settings = get_upgrades()
+    return settings[upgrade]
