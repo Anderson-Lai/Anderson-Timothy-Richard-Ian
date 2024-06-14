@@ -106,12 +106,13 @@ def main() -> int:
             # checks if any enemies were killed 
             previous_kills = enemy_kills
 
-            proj_time_counter += 1
             # draw the game
             (enemy_kills, hit) = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
             draw_money(screen, money)
+            
+            proj_time_counter += 1
 
             # punishment for getting hit
             if hit:
