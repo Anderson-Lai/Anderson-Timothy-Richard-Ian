@@ -1,10 +1,5 @@
 import pygame
 
-def get_money(enemy_kills: int) -> int:
-    gain = 100
-    money = gain * enemy_kills
-    return money
-
 def draw_money(screen, money):
     font_type = "comic sans"
     font_size = 30

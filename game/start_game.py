@@ -94,7 +94,7 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             projectiles.append(Projectile(location + 25, 720, 10, 40))
 
     # draws enemies
-    if proj_time_counter % 10 == 0:
+    if proj_time_counter % 40 == 0:
         enemies.append(Enemy(320, 0, 50, 50))
 
     # draws and moves enemy
