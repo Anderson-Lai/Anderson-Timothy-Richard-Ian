@@ -139,12 +139,12 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
                 if projectile.post_collide(enemy):
                     projectiles[i].pos_y = enemy.pos_y + enemy.width
     
-    if get_upgrade_state("fasterFireRate1"):
-        proj_fire_rate = 30
+    if get_upgrade_state("fasterFireRate3"):
+        proj_fire_rate = 10
     elif get_upgrade_state("fasterFireRate2"):
         proj_fire_rate = 20
-    elif get_upgrade_state("fasterFireRate3"):
-        proj_fire_rate = 10
+    elif get_upgrade_state("fasterFireRate1"):
+        proj_fire_rate = 30
 
     # add projectiles
     if proj_time_counter % proj_fire_rate == 0:
