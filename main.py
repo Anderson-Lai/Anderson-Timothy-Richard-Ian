@@ -102,6 +102,8 @@ def main() -> int:
             difficulty = get_difficulty()
             # money variables
             money = get_coins()
+            if money < 0:
+                money = 0
 
             # checks if any enemies were killed 
             previous_kills = enemy_kills
