@@ -114,7 +114,7 @@ def main() -> int:
             (enemy_kills, hit, proj_fire_rate) = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
-            draw_money(screen, money)
+            draw_money(screen, money, (650, 320), 30)
 
             proj_time_counter += 1
 
