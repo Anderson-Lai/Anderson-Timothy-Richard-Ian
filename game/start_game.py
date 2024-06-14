@@ -138,6 +138,13 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             else:
                 if projectile.post_collide(enemy):
                     projectiles[i].pos_y = enemy.pos_y + enemy.width
+    
+    if get_upgrade_state("fasterFireRate1"):
+        proj_fire_rate = 30
+    elif get_upgrade_state("fasterFireRate2"):
+        proj_fire_rate = 20
+    elif get_upgrade_state("fasterFireRate3"):
+        proj_fire_rate = 10
 
     # add projectiles
     if proj_time_counter % proj_fire_rate == 0:
@@ -148,13 +155,14 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
         else:
             projectiles.append(Projectile(location + 20, 720, 10, 40))
     
-    if proj_time_counter % proj_fire_rate == 10 and get_upgrade_state("doubleShot"):
+    if proj_time_counter % proj_fire_rate == 5 and get_upgrade_state("doubleShot"):
         if get_upgrade_state("multiShot"):
             projectiles.append(Projectile(location + 20, 720,10, 40))
             projectiles.append(Projectile(location + 35, 720, 10, 40))
             projectiles.append(Projectile(location + 5, 720, 10, 40))
         else:
             projectiles.append(Projectile(location + 20, 720, 10, 40))
+            
 
     # add an enemy
     if proj_time_counter % 40 == 0:
@@ -175,4 +183,4 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
 
-    return (enemy_kills, hit)
+    return (enemy_kills, hit, proj_fire_rate)
