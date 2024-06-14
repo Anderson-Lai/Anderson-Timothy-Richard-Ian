@@ -3,6 +3,9 @@ import pygame
 def get_score(enemy_kills: int) -> int:
     gain = 10
     score = gain * enemy_kills
+
+    if score <= 0:
+        return 0
     return score
 
 def draw_score(screen, high_score, current_score):
