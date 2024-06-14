@@ -102,8 +102,6 @@ def main() -> int:
             difficulty = get_difficulty()
             # money variables
             money = get_coins()
-            if money < 0:
-                money = 0
 
             # checks if any enemies were killed 
             previous_kills = enemy_kills
@@ -113,7 +111,7 @@ def main() -> int:
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
             draw_money(screen, money)
-            
+
             proj_time_counter += 1
 
             # punishment for getting hit
