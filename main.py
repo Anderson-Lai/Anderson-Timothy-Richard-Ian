@@ -85,12 +85,16 @@ def main() -> int:
             generate_menu(screen)
             # create a rectangle
             # on click, change the 'game_state' variable
-        elif game_state == "shop":
-            generate_shop(screen)
-        elif game_state == "settings":
-            game_settings(screen)
+
+            # all live-changing states all return to menu before going to game
             difficulty = get_difficulty()
             lives = num_lives(difficulty)
+        elif game_state == "shop":
+            generate_shop(screen)
+
+        elif game_state == "settings":
+            game_settings(screen)
+
         elif game_state == "paused":
             generate_pause_menu(screen)
         elif game_state == "game":
