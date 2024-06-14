@@ -123,7 +123,7 @@ def main() -> int:
             # check for any new kills to increase coin amount
             if previous_kills != enemy_kills:
                 difference = enemy_kills -  previous_kills
-                change_coins(difference * 100)
+                change_coins(difference * 10)
 
             if restart:
                 save_score(current_score)

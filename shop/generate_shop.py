@@ -1,5 +1,6 @@
 import pygame
-from modifications.getting.get_upgrades import get_upgrades
+from modifications.getting.get_upgrade_state import get_upgrade_state
+from modifications.getting.get_coins import get_coins
 
 """
 items:
@@ -23,44 +24,46 @@ def generate_shop(screen) -> None:
     green = (0, 235, 0)
     red = (255, 0, 0)
 
-    first_rect_x = 100 # position of the top of the first rectangle
+    first_rect_x = 115 # position of the top of the first rectangle
     space = 90 # pixels from top of rectangle to next rect
     text_difference = 20 # space from top of rect to where text is displayed
 
-    state = get_upgrades()
+    coin_text = pygame.font.SysFont(font, 32)
+    rendered_coin_text = coin_text.render(f"Coins: {get_coins()}", True, text_colour)
+    screen.blit(rendered_coin_text, (335, 50))
     
     # double shot
-    pygame.draw.rect(screen, green, pygame.Rect(450, first_rect_x, 100, 65))
+    pygame.draw.rect(screen, green if (get_upgrade_state("doubleShot")) else red, pygame.Rect(450, first_rect_x, 100, 65))
     double_shot = pygame.font.SysFont(font, font_size)
     rendered_double_shot = double_shot.render("Double shot $1000", True, text_colour)
     screen.blit(rendered_double_shot, (200, first_rect_x + text_difference))
 
     # multishot
-    pygame.draw.rect(screen, green, pygame.Rect(450, first_rect_x + space, 100, 65))
+    pygame.draw.rect(screen, green if (get_upgrade_state("multiShot")) else red, pygame.Rect(450, first_rect_x + space, 100, 65))
     multi_shot = pygame.font.SysFont(font, font_size)
-    rendered_multi_shot = multi_shot.render("Multi-shot $1500", True, text_colour)
+    rendered_multi_shot = multi_shot.render("Multi shot $1500", True, text_colour)
     screen.blit(rendered_multi_shot, (200, first_rect_x + text_difference + space ))
 
     # extra lives
-    pygame.draw.rect(screen, green, pygame.Rect(450, first_rect_x + 2 * space, 100, 65))
+    pygame.draw.rect(screen, green if (get_upgrade_state("extraLife")) else red, pygame.Rect(450, first_rect_x + 2 * space, 100, 65))
     extra_lives = pygame.font.SysFont(font, font_size)
-    rendered_extra_lives = extra_lives.render("Extra-Lives $2500", True, text_colour)
+    rendered_extra_lives = extra_lives.render("Extra lives $2500", True, text_colour)
     screen.blit(rendered_extra_lives, (200, first_rect_x + text_difference + 2 * space ))
 
     # faster fire rate (1)
-    pygame.draw.rect(screen, green, pygame.Rect(450, first_rect_x + 3 * space, 100, 65))
+    pygame.draw.rect(screen, green if (get_upgrade_state("fasterFireRate1")) else red, pygame.Rect(450, first_rect_x + 3 * space, 100, 65))
     fire_rate_1 = pygame.font.SysFont(font, font_size)
     rendered_fire_rate_1 = fire_rate_1.render("Faster fire rate 1 $1500", True, text_colour)
     screen.blit(rendered_fire_rate_1, (200, first_rect_x + text_difference + 3 * space ))
 
     # faster fire rate (2)
-    pygame.draw.rect(screen, green, pygame.Rect(450, first_rect_x + 4 * space, 100, 65))
+    pygame.draw.rect(screen, green if (get_upgrade_state("fasterFireRate2")) else red, pygame.Rect(450, first_rect_x + 4 * space, 100, 65))
     fire_rate_2 = pygame.font.SysFont(font, font_size)
     rendered_fire_rate_2 = fire_rate_2.render("Faster fire rate 2 $3000", True, text_colour)
     screen.blit(rendered_fire_rate_2, (200, first_rect_x + text_difference + 4 * space ))
 
     # faster fire rate (3)
-    pygame.draw.rect(screen, green, pygame.Rect(450, first_rect_x + 5 * space, 100, 65))
+    pygame.draw.rect(screen, green if (get_upgrade_state("fasterFireRate3")) else red, pygame.Rect(450, first_rect_x + 5 * space, 100, 65))
     fire_rate_3 = pygame.font.SysFont(font, font_size)
     rendered_fire_rate_3 = fire_rate_3.render("Faster fire rate 3 $5000", True, text_colour)
     screen.blit(rendered_fire_rate_3, (200, first_rect_x + text_difference + 5 * space ))
