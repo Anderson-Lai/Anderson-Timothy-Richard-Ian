@@ -27,7 +27,7 @@ from modifications.changing.change_coins import change_coins
 from modifications.getting.get_coins import get_coins
 
 # game_states: menu, shop, settings, game, dead
-
+ 
 def main() -> int:
     pygame.init()
     # pygame window name
