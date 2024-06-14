@@ -2,7 +2,6 @@ import pygame
 from game.draw_enemies import draw_enemies
 from abc import ABC
 from modifications.getting.get_upgrade_state import get_upgrade_state
-import random
 
 # makes Position an abstract class
 class Position(ABC):
@@ -82,43 +81,8 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     draw_stars(screen, proj_time_counter)
     
     # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
-        
-    # draws enemy
-    for i in range(len(enemies)):
-        enemies[i].pos_y += 10
-        pygame.draw.rect(screen, (0, 255, 0), (enemies[i].pos_x, enemies[i].pos_y, enemies[i].length, enemies[i].width))
-    
-    # draw projectiles
-    for i in range(len(projectiles)):
-        projectiles[i].pos_y -= proj_speed
-        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, projectiles[i].pos_y, projectiles[i].length, projectiles[i].width))
 
-    # add a new projectile
-    if proj_time_counter % proj_fire_rate == 0:
-        if get_upgrade_state("multiShot"):
-            projectiles.append(Projectile(location + 20, 720, 10, 40))
-            projectiles.append(Projectile(location + 35, 720, 10, 40))
-            projectiles.append(Projectile(location + 5, 720, 10, 40))
-        else:
-            projectiles.append(Projectile(location + 20, 720, 10, 40))
-    
-    if proj_time_counter % proj_fire_rate == 10 and get_upgrade_state("doubleShot"):
-        if get_upgrade_state("multiShot"):
-            projectiles.append(Projectile(location + 20, 720, 10, 40))
-            projectiles.append(Projectile(location + 35, 720, 10, 40))
-            projectiles.append(Projectile(location + 5, 720, 10, 40))
-        else:
-            projectiles.append(Projectile(location + 20, 720, 10, 40))
-
-    # add an enemies
-    if proj_time_counter % 40 == 0:
-        enemies.append(Enemy(320, 0, 50, 100))
-
-    # size of projectile:
-    # x is 10; y is 40
-    # size of enemies:
-    # 50, 50
-    # hit detection
+    # check if projectile hits enemy
     for i in range(len(projectiles) - 1, -1, -1):
         projectile = projectiles[i]
         for j in range(len(enemies) - 1, -1, -1):
@@ -134,7 +98,6 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
                     del enemies[j]
                     enemy_kills += 1
 
-
     # check if player touches enemy
     for i in range(len(enemies) - 1, -1, -1):
         enemy = enemies[i]
@@ -146,6 +109,38 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             # punishments for being hit
             enemy_kills -= 1
             hit = True
+
+    # draw and move projectiles
+    for i in range(len(projectiles) - 1, -1, -1):
+        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, projectiles[i].pos_y, projectiles[i].length, projectiles[i].width))
+        projectiles[i].pos_y -= proj_speed
+
+    # draws and move enemy
+    for i in range(len(enemies) - 1, -1, -1):
+        pygame.draw.rect(screen, (0, 255, 0), (enemies[i].pos_x, enemies[i].pos_y, enemies[i].length, enemies[i].width))
+        enemies[i].pos_y += 10
+
+    # add projectiles
+    if proj_time_counter % proj_fire_rate == 0:
+        if get_upgrade_state("multiShot"):
+            projectiles.append(Projectile(location + 20, 720, 10, 40))
+            projectiles.append(Projectile(location + 35, 720, 10, 40))
+            projectiles.append(Projectile(location + 5, 720, 10, 40))
+        else:
+            projectiles.append(Projectile(location + 20, 720, 10, 40))
+    
+    if proj_time_counter % proj_fire_rate == 10 and get_upgrade_state("doubleShot"):
+        if get_upgrade_state("multiShot"):
+            projectiles.append(Projectile(location + 20, 720,10, 40))
+            projectiles.append(Projectile(location + 35, 720, 10, 40))
+            projectiles.append(Projectile(location + 5, 720, 10, 40))
+        else:
+            projectiles.append(Projectile(location + 20, 720, 10, 40))
+
+    # add an enemy
+    if proj_time_counter % 40 == 0:
+        enemies.append(Enemy(320, 0, 50, 100))
+
 
     # draws player     
     pygame.draw.rect(screen, (0, 255, 0), (location, 720, 50, 50))
