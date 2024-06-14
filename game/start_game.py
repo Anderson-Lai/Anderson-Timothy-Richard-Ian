@@ -82,6 +82,14 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     
     # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
 
+    # draws projectiles
+    for i in range(len(projectiles) - 1, -1, -1):
+        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, projectiles[i].pos_y, projectiles[i].length, projectiles[i].width))
+
+    # draws enemies
+    for i in range(len(enemies) - 1, -1, -1):
+        pygame.draw.rect(screen, (0, 255, 0), (enemies[i].pos_x, enemies[i].pos_y, enemies[i].length, enemies[i].width))
+
     # check if projectile hits enemy
     for i in range(len(projectiles) - 1, -1, -1):
         projectile = projectiles[i]
@@ -110,15 +118,26 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             enemy_kills -= 1
             hit = True
 
-    # draw and move projectiles
+    # projectile movement
     for i in range(len(projectiles) - 1, -1, -1):
-        pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, projectiles[i].pos_y, projectiles[i].length, projectiles[i].width))
         projectiles[i].pos_y -= proj_speed
-
-    # draws and move enemy
+    
+    # enemy movement
     for i in range(len(enemies) - 1, -1, -1):
-        pygame.draw.rect(screen, (0, 255, 0), (enemies[i].pos_x, enemies[i].pos_y, enemies[i].length, enemies[i].width))
         enemies[i].pos_y += 10
+    
+    # snap the projectile to the enemy's base if projectile would hit the enemy after incrementation
+    # prevents bullet from being drawn inside the enemy
+    for i in range(len(projectiles) - 1, -1, -1):
+        projectile = projectiles[i]
+        for j in range(len(enemies) - 1, -1, -1):
+            enemy = enemies[j]
+            if projectile.pos_x >= enemy.pos_x:
+                if projectile.pre_collide(enemy):
+                    projectiles[i].pos_y = enemy.pos_y + enemy.width
+            else:
+                if projectile.post_collide(enemy):
+                    projectiles[i].pos_y = enemy.pos_y + enemy.width
 
     # add projectiles
     if proj_time_counter % proj_fire_rate == 0:
@@ -139,7 +158,7 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
 
     # add an enemy
     if proj_time_counter % 40 == 0:
-        enemies.append(Enemy(320, 0, 50, 100))
+        enemies.append(Enemy(320, 0, 50, 50))
 
 
     # draws player     
@@ -155,6 +174,5 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     pause_button = pygame.image.load("./gameImages/pause_button.png")
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
-
 
     return (enemy_kills, hit)

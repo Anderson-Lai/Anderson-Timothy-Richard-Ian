@@ -150,6 +150,9 @@ def main() -> int:
         
     pygame.quit()
     
+    # in case the 'x' is pressed
+    save_score(current_score)
+    
     return 0
 
 if __name__ == "__main__":
