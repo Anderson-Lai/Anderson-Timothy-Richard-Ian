@@ -61,6 +61,7 @@ def main() -> int:
     previous_kills: int = enemy_kills
     projectiles: list[Projectile] = []
     enemies: list[Enemy] = []
+
     difficulty: str = get_difficulty()
     lives: int = num_lives(difficulty)
     
@@ -88,6 +89,8 @@ def main() -> int:
             generate_shop(screen)
         elif game_state == "settings":
             game_settings(screen)
+            difficulty = get_difficulty()
+            lives = num_lives(difficulty)
         elif game_state == "paused":
             generate_pause_menu(screen)
         elif game_state == "game":
