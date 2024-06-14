@@ -127,7 +127,7 @@ def main() -> int:
             # check for any new kills to increase coin amount
             if previous_kills != enemy_kills:
                 difference = enemy_kills -  previous_kills
-                change_coins(difference * 10)
+                change_coins(difference * 50)
 
             if restart:
                 save_score(current_score)
@@ -136,10 +136,11 @@ def main() -> int:
                 projectiles.clear()
                 enemies.clear()
 
-                # reset kills and scores
+                # reset kills, scores, and lives
                 enemy_kills = 0
                 current_score = 0
                 previous_kills = 0
+                lives = num_lives(difficulty)
 
                 # break out of the if statement for the next iteration
                 event_variables["restart"] = False
