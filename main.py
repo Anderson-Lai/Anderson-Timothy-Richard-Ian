@@ -20,13 +20,14 @@ from gameResults.getting.get_high_score import get_high_score
 from game.start_game import start_game, Enemy, Projectile
 from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
-from game.money import draw_money
+from game.draw_money import draw_money
 # modification imports (contains cosmetics, powerups, and a currency)
 from modifications.create_modifications import create_modifications
 from modifications.changing.change_coins import change_coins
 from modifications.getting.get_coins import get_coins
+
 # game_states: menu, shop, settings, game, dead
- 
+
 def main() -> int:
     pygame.init()
     # pygame window name
@@ -60,7 +61,7 @@ def main() -> int:
     previous_kills: int = enemy_kills
     projectiles: list[Projectile] = []
     enemies: list[Enemy] = []
-    difficulty = get_difficulty()
+    difficulty: str = get_difficulty()
     lives: int = num_lives(difficulty)
     
     running: bool = True
@@ -96,8 +97,6 @@ def main() -> int:
             high_score = get_high_score()
             # difficulty variables
             difficulty = get_difficulty()
-            # lives variables
-            lives = num_lives(difficulty)
             # money variables
             money = get_coins()
 
@@ -111,15 +110,17 @@ def main() -> int:
             draw_score(screen, high_score, current_score)
             draw_money(screen, money)
 
+            # punishment for getting hit
             if hit:
                 lives -= 1
+            if lives <= 0:
+                event_variables["gameState"] = "dead"
 
+            # check for any new kills to increase coin amount
             if previous_kills != enemy_kills:
                 difference = enemy_kills -  previous_kills
                 change_coins(difference * 100)
 
-            if lives <= 0:
-                event_variables["gameState"] = "dead"
             if restart:
                 save_score(current_score)
 

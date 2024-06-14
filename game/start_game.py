@@ -135,6 +135,8 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
         if (location <= enemy.pos_x <= location + player_width or location <= enemy.pos_x + enemy.width <= location + player_width) \
         and (player_y <= enemy.pos_y + enemy.width <= player_y + player_width):
             del enemies[i]
+
+            # punishments for being hit
             enemy_kills -= 1
             hit = True
             
