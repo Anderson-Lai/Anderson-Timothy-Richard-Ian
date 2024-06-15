@@ -31,7 +31,8 @@ class Enemy(Position):
     def collide_with_player(self, player_location: int, player_width: int, player_y: int) -> bool:
         if (player_location <= self.pos_x <= player_location + player_width 
             or player_location <= self.pos_x + self.width <= player_location + player_width) \
-        and (player_y <= self.pos_y + self.width <= player_y + player_width):
+        and (player_y <= self.pos_y <= player_y + player_width 
+             or player_y <= self.pos_y + self.width <= player_y + player_width):
             return True
         return False
 
