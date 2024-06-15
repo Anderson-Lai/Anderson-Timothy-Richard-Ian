@@ -19,13 +19,14 @@ from game.draw_stars import draw_stars
 class Enemy(Position):
     # put in default values for spawntick and type for now
     # allows code to compile as they currently have no implementation
-    def __init__(self, x: int, y: int, length: int, width: int, spawntick: int = 0, type: str = "") -> None:
+    def __init__(self, x: int, y: int, length: int, width: int, health: int, spawntick: int = 0, type: str = "") -> None:
         super().__init__(x, y, length, width)
 
         #spawntick is the frame the enemy spawned on (for reference on whether or not it will shoot)
         #type is the type of enemy (because we have more than one type)
         self.spawntick = spawntick
         self.type = type
+        self.health = health
     
     def collide_with_player(self, player_location: int, player_width: int, player_y: int) -> bool:
         if (player_location <= self.pos_x <= player_location + player_width 
@@ -59,17 +60,18 @@ class Projectile(Position):
 # spawned in random order at a constant rate, up until next wave is spawned
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
+# ENEMY TYPES: "light warship"(small), "heavy warship"(big), "starship"(very big)
+class EnemyWaves:
+    def __init__(self, wave_number: int, light_warship_count: int, heavy_warship_count: int, starship_count: int):
+        self.wave_number = wave_number
+        self.light_warship_count = light_warship_count
+        self.heavy_warship_count = heavy_warship_count
+        self.starship_count = starship_count
 
+waves: list[EnemyWaves] = [
 
-enemies = []
-waves = [
     
-    [300, 4, 3]
-         
-
 ]
-
-# all the projectiles and enemies currently alive
 
 def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: int, 
 proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int) -> int:
@@ -80,7 +82,6 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     # stars script (create list, spawn stars, etc.)
     draw_stars(screen, proj_time_counter)
     
-    # ENEMY TYPES: "glider", "light warship"(small), "heavy warship"(big), "starship"(very big)
 
     # draws projectiles
     for i in range(len(projectiles) - 1, -1, -1):
@@ -166,7 +167,7 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
 
     # add an enemy
     if proj_time_counter % 40 == 0:
-        enemies.append(Enemy(320, 0, 50, 50))
+        enemies.append(Enemy(320, 0, 50, 50, 1))
 
 
     # draws player     
