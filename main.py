@@ -98,7 +98,6 @@ def main() -> int:
         elif game_state == "paused":
             generate_pause_menu(screen)
         elif game_state == "game":
-            
             # score variables
             current_score = get_score(enemy_kills)
             high_score = get_high_score()
@@ -107,7 +106,7 @@ def main() -> int:
             # money variables
             money = get_coins()
 
-            # checks if any enemies were killed 
+            # checks if any enemies were kil    led 
             previous_kills = enemy_kills
 
             # draw the game

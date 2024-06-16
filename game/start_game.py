@@ -2,6 +2,7 @@ import pygame
 from game.draw_enemies import draw_enemies
 from abc import ABC
 from modifications.getting.get_upgrade_state import get_upgrade_state
+import random
 
 # makes Position an abstract class
 class Position(ABC):
@@ -19,13 +20,11 @@ from game.draw_stars import draw_stars
 class Enemy(Position):
     # put in default values for spawntick and type for now
     # allows code to compile as they currently have no implementation
-    def __init__(self, x: int, y: int, length: int, width: int, health: int, spawntick: int = 0, type: str = "") -> None:
+    def __init__(self, x: int, y: int, length: int, width: int, health: int, spawntick: int = 0) -> None:
         super().__init__(x, y, length, width)
 
         #spawntick is the frame the enemy spawned on (for reference on whether or not it will shoot)
-        #type is the type of enemy (because we have more than one type)
         self.spawntick = spawntick
-        self.type = type
         self.health = health
     
     def collide_with_player(self, player_location: int, player_width: int, player_y: int) -> bool:
@@ -52,6 +51,15 @@ class Projectile(Position):
             return True 
         return False
     
+enemytypes: dict = {
+
+    1: [20, 20, 1], #small ship
+    2: [30, 30, 4], #medium ship
+    3: [40, 40, 30] #BIG ship
+
+}
+
+
 
 # notes for enemy waves: 
 # constant spawning, locked to frame #
@@ -63,22 +71,29 @@ class Projectile(Position):
 
 # ENEMY TYPES: "light warship"(small), "heavy warship"(big), "starship"(very big)
 class EnemyWaves:
-    def __init__(self, wave_number: int, light_warship_count: int, heavy_warship_count: int, starship_count: int):
-        self.wave_number = wave_number
+    def __init__(self, wave_frame: int, light_warship_count: int, heavy_warship_count: int, starship_count: int):
+        self.wave_frame = wave_frame
         self.light_warship_count = light_warship_count
         self.heavy_warship_count = heavy_warship_count
         self.starship_count = starship_count
 
 waves: list[EnemyWaves] = [
 
+    [0, 3, 3, 3],
+    [10000, 0, 0, 0]
     
 ]
+
+enemy_spawn_rate: int = 1
 
 def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: int, 
 proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int) -> int:
     
     screen.fill((0, 5, 40))
     hit = False
+    enemy_spawn_rate: int = 1
+
+    
 
     # stars script (create list, spawn stars, etc.)
     draw_stars(screen, proj_time_counter)
@@ -166,10 +181,20 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             projectiles.append(Projectile(location + 20, 720, 10, 40))
             
 
-    # add an enemy
-    if proj_time_counter % 40 == 0:
-        enemies.append(Enemy(320, 0, 50, 50, 1))
+    # add enemies based on wave
+    for i in range(len(waves) -1, -1, -1):
+        if waves[i][0] == proj_time_counter:
+            enemy_spawn_rate = round((waves[i+1][0] - waves[i][0])/(waves[i][1] + waves[i][2] + waves[i][3])) - 1
+        if waves[i][0] <= proj_time_counter and waves[i+1][0] >= proj_time_counter and proj_time_counter % enemy_spawn_rate == 0:
+            while True:
+                seed = random.randint(1,3)
+                if waves[i][seed] > 0:
+                    waves[i][seed] -= 1
+                    enemies.append(Enemy(random.randint(30,570), -40, enemytypes[seed][0], enemytypes[seed][1], enemytypes[seed][2])) 
+                    break
 
+            
+    print(enemies)
 
     # draws player     
     pygame.draw.rect(screen, (0, 255, 0), (location, 720, 50, 50))
