@@ -3,6 +3,7 @@ from game.draw_enemies import draw_enemies
 from abc import ABC
 from modifications.getting.get_upgrade_state import get_upgrade_state
 import random
+from math import ceil
 
 # makes Position an abstract class
 class Position(ABC):
@@ -50,16 +51,16 @@ class Projectile(Position):
         and enemy.pos_y <= self.pos_y <= enemy.pos_y + enemy.width:
             return True 
         return False
-    
-enemytypes: dict = {
 
-    1: [20, 20, 1], #small ship
-    2: [30, 30, 4], #medium ship
-    3: [40, 40, 30] #BIG ship
+class EnemyWaves:
+    def __init__(self, wave_frame: int, light_warship_count: int, heavy_warship_count: int, starship_count: int):
+        self.wave_frame = wave_frame
+        self.light_warship_count = light_warship_count
+        self.heavy_warship_count = heavy_warship_count
+        self.starship_count = starship_count
 
-}
-
-
+        # not found in the constructor
+        self.total_enemies = light_warship_count + heavy_warship_count + starship_count
 
 # notes for enemy waves: 
 # constant spawning, locked to frame #
@@ -69,20 +70,52 @@ enemytypes: dict = {
 # spawned in random order at a constant rate, up until next wave is spawned
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
-# ENEMY TYPES: "light warship"(small), "heavy warship"(big), "starship"(very big)
-class EnemyWaves:
-    def __init__(self, wave_frame: int, light_warship_count: int, heavy_warship_count: int, starship_count: int):
-        self.wave_frame = wave_frame
-        self.light_warship_count = light_warship_count
-        self.heavy_warship_count = heavy_warship_count
-        self.starship_count = starship_count
+
+enemytypes: dict = {
+
+    1: [20, 20, 1], #small ship
+    2: [30, 30, 4], #medium ship
+    3: [40, 40, 30] #BIG ship
+
+}
+
+enemy_types: dict[str, Enemy] = {
+    
+    "small_ship" : Enemy(0, 0, 20, 20, 1),
+    "medium_ship" : Enemy(0, 0, 30, 30, 4),
+    "big_ship" : Enemy(0, 0, 40, 40, 30)
+}
 
 waves: list[EnemyWaves] = [
 
-    [0, 3, 3, 3],
-    [10000, 0, 0, 0]
+    EnemyWaves(0, 3, 3, 3),
+    EnemyWaves(10000, 0, 0, 0),
     
 ]
+
+"""
+spawn_rate is calculated by :
+
+take the wave_frame difference between wave x and wave x + 1
+take the number of enemies wave x has
+divide; thus the spawn_interval can be summarized as :
+
+ceil ( ((wave_x+1).wave_frame - (wave_x).wave_frame) / wave_x.total_enemies )
+
+ceiling to prevent any rounding bugs, too fast of a spawn rate > too slow of a spawn rate
+
+"""
+spawn_rates: list[int] = []
+
+for i in range(len(waves) - 1):
+    frame_difference: int = waves[i + 1] - waves[i]
+    spawn_interval = ceil(frame_difference / waves[i].total_enemies)
+
+    spawn_rates.append(spawn_interval)
+
+    # duplicate the previous spawning rate for the final wave as there is no other wave to base the speed off of
+    if i == len(waves) - 2:
+        spawn_rates.append(spawn_interval)
 
 enemy_spawn_rate: int = 1
 
@@ -182,8 +215,8 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             
 
     # add enemies based on wave
-    for i in range(len(waves) -1, -1, -1):
-        if waves[i][0] == proj_time_counter:
+    for i in range(len(waves), -1, -1):
+        if waves[i].wave_frame == proj_time_counter:
             enemy_spawn_rate = round((waves[i+1][0] - waves[i][0])/(waves[i][1] + waves[i][2] + waves[i][3])) - 1
         if waves[i][0] <= proj_time_counter and waves[i+1][0] >= proj_time_counter and proj_time_counter % enemy_spawn_rate == 0:
             while True:
