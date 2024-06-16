@@ -70,15 +70,6 @@ class EnemyWaves:
 # spawned in random order at a constant rate, up until next wave is spawned
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
-
-enemytypes: dict = {
-
-    1: [20, 20, 1], #small ship
-    2: [30, 30, 4], #medium ship
-    3: [40, 40, 30] #BIG ship
-
-}
-
 enemy_types: dict[str, Enemy] = {
     
     "small_ship" : Enemy(0, 0, 20, 20, 1),
@@ -236,7 +227,12 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
         # if all the enemies of that wave are exhausted, delete that wave
         else:
             del waves[curr_spawn_rate_index]
-            del spawn_rate[curr_spawn_rate_index]
+            del spawn_rates[curr_spawn_rate_index]
+
+            # both should hit 0 at the same time
+            if len(waves) == 0 or len(spawn_rates) == 0:
+                pass
+                # change the game state
 
             
     print(enemies, proj_time_counter, spawn_rate)
