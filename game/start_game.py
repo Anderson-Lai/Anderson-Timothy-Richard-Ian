@@ -89,7 +89,7 @@ enemy_types: dict[str, Enemy] = {
 waves: list[EnemyWaves] = [
 
     EnemyWaves(0, 3, 3, 3),
-    EnemyWaves(10000, 0, 0, 0),
+    EnemyWaves(100, 0, 0, 0),
     
 ]
 
@@ -98,17 +98,16 @@ spawn_rate is calculated by :
 
 take the wave_frame difference between wave x and wave x + 1
 take the number of enemies wave x has
-divide; thus the spawn_interval can be summarized as :
+divide; thus the spawn_rate can be summarized as :
 
 ceil ( ((wave_x+1).wave_frame - (wave_x).wave_frame) / wave_x.total_enemies )
 
 ceiling to prevent any rounding bugs, too fast of a spawn rate > too slow of a spawn rate
-
 """
 spawn_rates: list[int] = []
 
 for i in range(len(waves) - 1):
-    frame_difference: int = waves[i + 1] - waves[i]
+    frame_difference: int = waves[i + 1].wave_frame - waves[i].wave_frame
     spawn_interval = ceil(frame_difference / waves[i].total_enemies)
 
     spawn_rates.append(spawn_interval)
@@ -117,14 +116,16 @@ for i in range(len(waves) - 1):
     if i == len(waves) - 2:
         spawn_rates.append(spawn_interval)
 
-enemy_spawn_rate: int = 1
+
+curr_spawn_rate_index = 0
 
 def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: int, 
 proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int) -> int:
     
     screen.fill((0, 5, 40))
     hit = False
-    enemy_spawn_rate: int = 1
+
+    spawn_rate = spawn_rates[curr_spawn_rate_index]
 
     
 
@@ -212,22 +213,33 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
             projectiles.append(Projectile(location + 5, 720, 10, 40))
         else:
             projectiles.append(Projectile(location + 20, 720, 10, 40))
-            
 
-    # add enemies based on wave
-    for i in range(len(waves), -1, -1):
-        if waves[i].wave_frame == proj_time_counter:
-            enemy_spawn_rate = round((waves[i+1][0] - waves[i][0])/(waves[i][1] + waves[i][2] + waves[i][3])) - 1
-        if waves[i][0] <= proj_time_counter and waves[i+1][0] >= proj_time_counter and proj_time_counter % enemy_spawn_rate == 0:
-            while True:
-                seed = random.randint(1,3)
-                if waves[i][seed] > 0:
-                    waves[i][seed] -= 1
-                    enemies.append(Enemy(random.randint(30,570), -40, enemytypes[seed][0], enemytypes[seed][1], enemytypes[seed][2])) 
-                    break
+    # enemy spawning
+    if proj_time_counter % spawn_rate == 0:
+        curr_enemy_wave = waves[curr_spawn_rate_index]
+
+        # smallest ships
+        if curr_enemy_wave.light_warship_count > 0:
+            stats = enemy_types["small_ship"]
+            enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
+            curr_enemy_wave.light_warship_count -= 1
+        # medium
+        elif curr_enemy_wave.heavy_warship_count > 0:
+            stats = enemy_types["medium_ship"]
+            enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
+            curr_enemy_wave.heavy_warship_count -= 1
+        # largest
+        elif curr_enemy_wave.starship_count > 0:
+            stats = enemy_types["big_ship"]
+            enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
+            curr_enemy_wave.starship_count -= 1
+        # if all the enemies of that wave are exhausted, delete that wave
+        else:
+            del waves[curr_spawn_rate_index]
+            del spawn_rate[curr_spawn_rate_index]
 
             
-    print(enemies)
+    print(enemies, proj_time_counter, spawn_rate)
 
     # draws player     
     pygame.draw.rect(screen, (0, 255, 0), (location, 720, 50, 50))
