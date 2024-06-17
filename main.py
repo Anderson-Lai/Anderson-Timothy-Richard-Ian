@@ -57,7 +57,7 @@ def main() -> int:
     }
 
     # became the frame rate variable
-    proj_time_counter: int = 0
+    frame_counter: int = 0
 
     # will be modified by the fasterFireRate upgrade
     proj_fire_rate: int = 40
@@ -151,7 +151,7 @@ def main() -> int:
 
             # draw the game
             (enemy_kills, hit, proj_fire_rate, event_variables["gameState"]) = \
-            start_game(screen, location, proj_time_counter, 
+            start_game(screen, location, frame_counter, 
                     proj_fire_rate, proj_speed, projectiles, 
                     enemies, enemy_kills, game_state,
                     waves_copy, spawn_rates_copy)
@@ -159,7 +159,7 @@ def main() -> int:
             draw_score(screen, high_score, current_score)
             draw_money(screen, money, (650, 320), 30)
 
-            proj_time_counter += 1
+            frame_counter += 1
 
             # punishment for getting hit
             if hit:

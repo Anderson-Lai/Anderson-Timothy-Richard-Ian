@@ -75,7 +75,7 @@ enemy_types: dict[str, Enemy] = {
     "big_ship" : Enemy(0, 0, 40, 40, 30, 2)
 }
 
-def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: int, 
+def start_game(screen, location: int, frame_counter: int, proj_fire_rate: int, 
 proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int, game_state: str,
 waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     
@@ -83,7 +83,7 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     hit = False
 
     # stars script (create list, spawn stars, etc.)
-    draw_stars(screen, proj_time_counter)
+    draw_stars(screen, frame_counter)
     
     # draws projectiles
     for i in range(len(projectiles) - 1, -1, -1):
@@ -154,7 +154,7 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
         proj_fire_rate = 30
 
     # add projectiles
-    if proj_time_counter % proj_fire_rate == 0:
+    if frame_counter % proj_fire_rate == 0:
         if get_upgrade_state("multiShot"):
             projectiles.append(Projectile(location + 20, 720, 10, 40))
             projectiles.append(Projectile(location + 35, 720, 10, 40))
@@ -162,7 +162,7 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
         else:
             projectiles.append(Projectile(location + 20, 720, 10, 40))
     
-    if proj_time_counter % proj_fire_rate == 5 and get_upgrade_state("doubleShot"):
+    if frame_counter % proj_fire_rate == 5 and get_upgrade_state("doubleShot"):
         if get_upgrade_state("multiShot"):
             projectiles.append(Projectile(location + 20, 720,10, 40))
             projectiles.append(Projectile(location + 35, 720, 10, 40))
@@ -174,7 +174,7 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
 
     try:
         spawn_rate = spawn_rates[0]
-        if proj_time_counter % spawn_rate == 0:
+        if frame_counter % spawn_rate == 0:
             curr_enemy_wave = waves[0]
 
             # smallest ships

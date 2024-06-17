@@ -9,8 +9,8 @@ class Star(Position):
 
 stars: list[Star] = []
 
-def draw_stars(screen, proj_time_counter: int) -> None:
-    if proj_time_counter % 4 == 0 :
+def draw_stars(screen, frame_counter: int) -> None:
+    if frame_counter % 4 == 0 :
         stars.append(Star(randint(-280, 280), randint(-15, 15), 2))
     for n in range(len(stars) - 1, -1, -1):
     
