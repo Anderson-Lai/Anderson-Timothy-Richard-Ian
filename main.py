@@ -27,7 +27,8 @@ from game.draw_money import draw_money
 from modifications.create_modifications import create_modifications
 from modifications.changing.change_coins import change_coins
 from modifications.getting.get_coins import get_coins
-
+# game dead import
+from gameResults.menudeath import menudeath
 # game_states: menu, shop, settings, game, dead
  
 def main() -> int:
@@ -196,9 +197,10 @@ def main() -> int:
             # get the score on death
             # pass as parameter to this funciton
             save_score(current_score)
+            menudeath(screen)
         elif game_state == "win":
             screen.fill((0, 255, 0))
-
+            
         
         # Must be the last two lines of the game loop
         pygame.display.flip()
