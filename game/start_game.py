@@ -68,14 +68,14 @@ class EnemyWaves:
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
 enemy_types: dict[str, Enemy] = {
-    "small_ship" : Enemy(0, 0, 20, 20, 1, 8),
-    "medium_ship" : Enemy(0, 0, 30, 30, 4, 4),
-    "big_ship" : Enemy(0, 0, 40, 40, 30, 2)
+    "small_ship" : Enemy(None, None, 20, 20, 1, 8),
+    "medium_ship" : Enemy(None, None, 40, 40, 4, 4),
+    "big_ship" : Enemy(None, None, 75, 75, 30, 2)
 }
 
 def start_game(screen, location: int, frame_counter: int, proj_fire_rate: int, 
 proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int, game_state: str,
-waves: list[EnemyWaves], spawn_rates: list[int], lives: int) -> tuple[int, bool, int, str]:
+waves: list[EnemyWaves], spawn_rates: list[int], lives: int) -> tuple[int, int, int, str]:
     
     screen.fill((0, 5, 40))
 
@@ -180,19 +180,19 @@ waves: list[EnemyWaves], spawn_rates: list[int], lives: int) -> tuple[int, bool,
             # smallest ships
             if curr_enemy_wave.light_warship_count > 0:
                 stats = enemy_types["small_ship"]
-                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health, stats.movement_speed))
+                enemies.append(Enemy(random.randint(20, 525), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.light_warship_count -= 1
 
             # medium
             elif curr_enemy_wave.heavy_warship_count > 0:
                 stats = enemy_types["medium_ship"]
-                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health, stats.movement_speed))
+                enemies.append(Enemy(random.randint(20, 525), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.heavy_warship_count -= 1
 
             # largest
             elif curr_enemy_wave.starship_count > 0:
                 stats = enemy_types["big_ship"]
-                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health, stats.movement_speed))
+                enemies.append(Enemy(random.randint(20, 525), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.starship_count -= 1
 
             # if all the enemies of that wave are exhausted, delete that wave

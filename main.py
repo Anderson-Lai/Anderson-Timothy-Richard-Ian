@@ -28,13 +28,13 @@ from modifications.create_modifications import create_modifications
 from modifications.changing.change_coins import change_coins
 from modifications.getting.get_coins import get_coins
 # game dead import
-from gameResults.menu_death import menudeath
+from menu.menu_death import death_menu
 # game_states: menu, shop, settings, game, dead
  
 def main() -> int:
     pygame.init()
     # pygame window name
-    pygame.display.set_caption('Jia Kai Li')
+    pygame.display.set_caption("Space Colonizers")
 
     WIDTH = 800
     HEIGHT = 800
@@ -75,7 +75,7 @@ def main() -> int:
 
     # number of each enemy type per wave
     waves: list[EnemyWaves] = [
-        EnemyWaves(1000, 0, 0, 5),
+        EnemyWaves(1000, 1, 2, 3),
         EnemyWaves(100, 100, 3, 2),
         EnemyWaves(100, 0, 0, 1),
     ]
@@ -105,6 +105,8 @@ def main() -> int:
 
     difficulty: str = get_difficulty()
     lives: int = num_lives(difficulty)
+
+    current_score = 0
     
     running: bool = True
     while running:
@@ -197,7 +199,7 @@ def main() -> int:
             # get the score on death
             # pass as parameter to this funciton
             save_score(current_score)
-            menudeath(screen)
+            death_menu(screen)
         elif game_state == "win":
             screen.fill((0, 255, 0))
             

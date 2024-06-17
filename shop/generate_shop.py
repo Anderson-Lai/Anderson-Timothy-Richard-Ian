@@ -1,5 +1,5 @@
 import pygame
-from draw_text import draw_text
+from textDrawing.draw_text import draw_text
 from modifications.getting.get_upgrade_state import get_upgrade_state
 # money imports
 from modifications.getting.get_coins import get_coins

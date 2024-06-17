@@ -1,5 +1,5 @@
 import pygame
-from draw_text import draw_text
+from textDrawing.draw_text import draw_text
 
 
 def generate_pause_menu(screen) -> None:

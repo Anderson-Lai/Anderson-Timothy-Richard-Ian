@@ -1,4 +1,4 @@
-from draw_text import draw_text
+from textDrawing.draw_text import draw_text
 
 def get_score(enemy_kills: int) -> int:
     gain = 10

@@ -1,4 +1,4 @@
-from draw_text import draw_text
+from textDrawing.draw_text import draw_text
 
 def draw_money(screen, money:int, coordinates:tuple, size:int) -> None:
     # draws money

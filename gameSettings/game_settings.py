@@ -1,5 +1,5 @@
 import pygame
-from draw_text import draw_text
+from textDrawing.draw_text import draw_text
 from gameSettings.getting.get_sensitivity import get_sensitivity
 from gameSettings.getting.get_difficulty import get_difficulty
 
