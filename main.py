@@ -1,5 +1,7 @@
 import pygame
 from time import sleep
+from math import ceil
+from copy import deepcopy
 # event handling imports
 from eventHandling.handle_events import handle_events
 # menu imports
@@ -17,7 +19,7 @@ from gameResults.save_score import save_score
 from gameResults.create_score import create_score
 from gameResults.getting.get_high_score import get_high_score
 # game imports
-from game.start_game import start_game, Enemy, Projectile
+from game.start_game import start_game, Enemy, Projectile, EnemyWaves
 from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
 from game.draw_money import draw_money
@@ -54,13 +56,53 @@ def main() -> int:
         "restart": False,
     }
 
+    # became the frame rate variable
     proj_time_counter: int = 0
+
+    # will be modified by the fasterFireRate upgrade
     proj_fire_rate: int = 40
+    # how fast the projectile moves
     proj_speed: int = 20
+
     enemy_kills: int = 0
+    # used to keep track of new kills
     previous_kills: int = enemy_kills
+
+    # all the projectiles and enemies currently drawn
     projectiles: list[Projectile] = []
     enemies: list[Enemy] = []
+
+    # waves the rate enemies spawn at
+    waves: list[EnemyWaves] = [
+        EnemyWaves(0, 3, 3, 3),
+        EnemyWaves(100, 0, 0, 0),
+    ]
+
+    """
+    spawn_rate is calculated by :
+
+    take the wave_frame difference between wave x and wave x + 1
+    take the number of enemies wave x has
+    divide; thus the spawn_rate can be summarized as :
+
+    ceil ( ((wave_x+1).wave_frame - (wave_x).wave_frame) / wave_x.total_enemies )
+
+    ceiling to prevent any rounding bugs, too fast of a spawn rate > too slow of a spawn rate
+    """
+    spawn_rates: list[int] = []
+
+    for i in range(len(waves) - 1):
+        frame_difference: int = waves[i + 1].wave_frame - waves[i].wave_frame
+        spawn_interval = ceil(frame_difference / waves[i].total_enemies)
+
+        spawn_rates.append(spawn_interval)
+
+        # duplicate the previous spawning rate for the final wave as there is no other wave to base the speed off of
+        if i == len(waves) - 2:
+            spawn_rates.append(spawn_interval)
+
+    waves_copy: list[EnemyWaves] = deepcopy(waves)
+    spawn_rates_copy: list[int] = deepcopy(spawn_rates)
 
     difficulty: str = get_difficulty()
     lives: int = num_lives(difficulty)
@@ -110,7 +152,10 @@ def main() -> int:
             previous_kills = enemy_kills
 
             # draw the game
-            (enemy_kills, hit, proj_fire_rate) = start_game(screen, location, proj_time_counter, proj_fire_rate, proj_speed, projectiles, enemies, enemy_kills)
+            (enemy_kills, hit, proj_fire_rate, event_variables["gameState"]) = start_game(screen, location, proj_time_counter, 
+                                                                        proj_fire_rate, proj_speed, projectiles, 
+                                                                        enemies, enemy_kills, game_state,
+                                                                        waves_copy, spawn_rates_copy)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
             draw_money(screen, money, (650, 320), 30)
@@ -144,12 +189,18 @@ def main() -> int:
                 # break out of the if statement for the next iteration
                 event_variables["restart"] = False
 
+                # reset the copies as they have been altered
+                waves_copy = deepcopy(waves)
+                spawn_rates_copy = deepcopy(spawn_rates)
+
                 # give the program time to reset everything
                 sleep(0.05)
         elif game_state == "dead":
             # get the score on death
             # pass as parameter to this funciton
             save_score(current_score)
+        elif game_state == "win":
+            screen.fill((0, 255, 0))
 
         
         # Must be the last two lines of the game loop

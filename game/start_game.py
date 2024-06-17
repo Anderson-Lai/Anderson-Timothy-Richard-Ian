@@ -71,54 +71,19 @@ class EnemyWaves:
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
 enemy_types: dict[str, Enemy] = {
-    
     "small_ship" : Enemy(0, 0, 20, 20, 1),
     "medium_ship" : Enemy(0, 0, 30, 30, 4),
     "big_ship" : Enemy(0, 0, 40, 40, 30)
 }
 
-waves: list[EnemyWaves] = [
-
-    EnemyWaves(0, 3, 3, 3),
-    EnemyWaves(100, 0, 0, 0),
-    
-]
-
-"""
-spawn_rate is calculated by :
-
-take the wave_frame difference between wave x and wave x + 1
-take the number of enemies wave x has
-divide; thus the spawn_rate can be summarized as :
-
-ceil ( ((wave_x+1).wave_frame - (wave_x).wave_frame) / wave_x.total_enemies )
-
-ceiling to prevent any rounding bugs, too fast of a spawn rate > too slow of a spawn rate
-"""
-spawn_rates: list[int] = []
-
-for i in range(len(waves) - 1):
-    frame_difference: int = waves[i + 1].wave_frame - waves[i].wave_frame
-    spawn_interval = ceil(frame_difference / waves[i].total_enemies)
-
-    spawn_rates.append(spawn_interval)
-
-    # duplicate the previous spawning rate for the final wave as there is no other wave to base the speed off of
-    if i == len(waves) - 2:
-        spawn_rates.append(spawn_interval)
-
-
-curr_spawn_rate_index = 0
-
 def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: int, 
-proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int) -> int:
+proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int, game_state: str,
+waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     
     screen.fill((0, 5, 40))
     hit = False
 
-    spawn_rate = spawn_rates[curr_spawn_rate_index]
-
-    
+    spawn_rate = spawn_rates[0]
 
     # stars script (create list, spawn stars, etc.)
     draw_stars(screen, proj_time_counter)
@@ -207,32 +172,36 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
 
     # enemy spawning
     if proj_time_counter % spawn_rate == 0:
-        curr_enemy_wave = waves[curr_spawn_rate_index]
+        curr_enemy_wave = waves[0]
 
         # smallest ships
         if curr_enemy_wave.light_warship_count > 0:
             stats = enemy_types["small_ship"]
             enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
             curr_enemy_wave.light_warship_count -= 1
+
         # medium
         elif curr_enemy_wave.heavy_warship_count > 0:
             stats = enemy_types["medium_ship"]
             enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
             curr_enemy_wave.heavy_warship_count -= 1
+
         # largest
         elif curr_enemy_wave.starship_count > 0:
             stats = enemy_types["big_ship"]
             enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
             curr_enemy_wave.starship_count -= 1
+
         # if all the enemies of that wave are exhausted, delete that wave
         else:
-            del waves[curr_spawn_rate_index]
-            del spawn_rates[curr_spawn_rate_index]
+            # waves.pop(0)
+            # spawn_rates.pop(0)
+            del waves[0]
+            del spawn_rates[0]
 
             # both should hit 0 at the same time
             if len(waves) == 0 or len(spawn_rates) == 0:
-                pass
-                # change the game state
+                game_state = "win"
 
             
     print(enemies, proj_time_counter, spawn_rate)
@@ -251,4 +220,4 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
 
-    return (enemy_kills, hit, proj_fire_rate)
+    return (enemy_kills, hit, proj_fire_rate, game_state)
