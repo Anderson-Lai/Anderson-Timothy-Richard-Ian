@@ -78,7 +78,6 @@ proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kill
 waves: list[EnemyWaves], spawn_rates: list[int], lives: int) -> tuple[int, bool, int, str]:
     
     screen.fill((0, 5, 40))
-    hit = False
 
     # stars script (create list, spawn stars, etc.)
     draw_stars(screen, frame_counter)
