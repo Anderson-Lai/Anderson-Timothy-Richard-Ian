@@ -194,8 +194,6 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
 
         # if all the enemies of that wave are exhausted, delete that wave
         else:
-            # waves.pop(0)
-            # spawn_rates.pop(0)
             del waves[0]
             del spawn_rates[0]
 

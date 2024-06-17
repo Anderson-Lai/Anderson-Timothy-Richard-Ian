@@ -72,7 +72,7 @@ def main() -> int:
     projectiles: list[Projectile] = []
     enemies: list[Enemy] = []
 
-    # waves the rate enemies spawn at
+    # number of each enemy type per wave
     waves: list[EnemyWaves] = [
         EnemyWaves(0, 3, 3, 3),
         EnemyWaves(100, 0, 0, 0),
@@ -89,6 +89,7 @@ def main() -> int:
 
     ceiling to prevent any rounding bugs, too fast of a spawn rate > too slow of a spawn rate
     """
+    # spawn rates of those enemies
     spawn_rates: list[int] = []
 
     for i in range(len(waves) - 1):
@@ -152,10 +153,11 @@ def main() -> int:
             previous_kills = enemy_kills
 
             # draw the game
-            (enemy_kills, hit, proj_fire_rate, event_variables["gameState"]) = start_game(screen, location, proj_time_counter, 
-                                                                        proj_fire_rate, proj_speed, projectiles, 
-                                                                        enemies, enemy_kills, game_state,
-                                                                        waves_copy, spawn_rates_copy)
+            (enemy_kills, hit, proj_fire_rate, event_variables["gameState"]) = \
+            start_game(screen, location, proj_time_counter, 
+                    proj_fire_rate, proj_speed, projectiles, 
+                    enemies, enemy_kills, game_state,
+                    waves_copy, spawn_rates_copy)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
             draw_money(screen, money, (650, 320), 30)
