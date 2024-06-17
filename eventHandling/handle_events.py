@@ -142,8 +142,8 @@ def handle_events(events: dict):
             if event.key == pygame.K_RIGHT and location <= 535:
                 events["location"] += sensitivity
 
-                if location + sensitivity >= 535:
-                    events["location"] = 535
+                if location + sensitivity >= 550:
+                    events["location"] = 550
             # move left
             elif event.key == pygame.K_LEFT and location >= 25:
                 events["location"] -= sensitivity
