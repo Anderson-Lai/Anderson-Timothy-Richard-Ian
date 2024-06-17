@@ -74,34 +74,30 @@ def main() -> int:
 
     # number of each enemy type per wave
     waves: list[EnemyWaves] = [
-        EnemyWaves(0, 3, 3, 3),
+        EnemyWaves(500, 3, 3, 3),
         EnemyWaves(100, 100, 3, 2),
-        EnemyWaves(200, 0, 0, 0),
+        EnemyWaves(100, 0, 0, 1),
     ]
 
     """
     spawn_rate is calculated by :
 
-    take the wave_frame difference between wave x and wave x + 1
-    take the number of enemies wave x has
+    take the frame_time of wave x
+    take the total number of enemies wave x has
     divide; thus the spawn_rate can be summarized as :
 
-    ceil ( ((wave_x+1).wave_frame - (wave_x).wave_frame) / wave_x.total_enemies )
+    ceil ( wave_x.frame_time / wave_x.total_enemies )
 
     ceiling to prevent any rounding bugs, too fast of a spawn rate > too slow of a spawn rate
     """
     # spawn rates of those enemies
     spawn_rates: list[int] = []
 
-    for i in range(len(waves) - 1):
-        frame_difference: int = waves[i + 1].wave_frame - waves[i].wave_frame
-        spawn_interval = ceil(frame_difference / waves[i].total_enemies)
+    for i in range(len(waves)):
+        frames: int = waves[i].frame_time
+        spawn_interval = ceil(frames / waves[i].total_enemies)
 
         spawn_rates.append(spawn_interval)
-
-        # duplicate the previous spawning rate for the final wave as there is no other wave to base the speed off of
-        if i == len(waves) - 2:
-            spawn_rates.append(spawn_interval)
 
     waves_copy: list[EnemyWaves] = deepcopy(waves)
     spawn_rates_copy: list[int] = deepcopy(spawn_rates)

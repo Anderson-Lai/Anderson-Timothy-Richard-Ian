@@ -52,8 +52,8 @@ class Projectile(Position):
         return False
 
 class EnemyWaves:
-    def __init__(self, wave_frame: int, light_warship_count: int, heavy_warship_count: int, starship_count: int):
-        self.wave_frame = wave_frame
+    def __init__(self, frame_time: int, light_warship_count: int, heavy_warship_count: int, starship_count: int):
+        self.frame_time = frame_time
         self.light_warship_count = light_warship_count
         self.heavy_warship_count = heavy_warship_count
         self.starship_count = starship_count
