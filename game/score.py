@@ -12,4 +12,4 @@ def draw_score(screen, high_score:int, current_score:int) -> None:
     #draws high score
     draw_text(screen, f"HI: {high_score}", "sfnsmono", 30 ,(255, 255, 255), False, (625, 35))
     #draws current score
-    draw_text(screen, f"HI: {current_score}", "sfnsmono", 30 ,(255, 255, 255), False, (625, 95))
+    draw_text(screen, f"{current_score}", "sfnsmono", 30 ,(255, 255, 255), False, (625, 95))
