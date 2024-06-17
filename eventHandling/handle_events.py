@@ -115,7 +115,15 @@ def handle_events(events: dict):
             elif game_state == "paused" and 225 <= x <= 225 + 350 \
             and 525 <= y <= 525 + 100:
                 events["gameState"] = "menu"
-
+            # return to main menu when you die
+            elif game_state == "dead" and 225 <= x <= 225 + 350 \
+            and 525 <= y <= 525 + 100:
+                events["gameState"] = "menu"
+            # restart when you die
+            elif game_state == "dead" and 225 <= x <= 225 + 350 \
+            and 400 <= y <= 400 + 100:
+                events["restart"] = True
+                events["gameState"] = "game"
             # changing settings
             # changing difficulty
             elif game_state == "settings" and 75 <= x <= 75 + 200 \
