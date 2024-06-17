@@ -28,7 +28,7 @@ from modifications.create_modifications import create_modifications
 from modifications.changing.change_coins import change_coins
 from modifications.getting.get_coins import get_coins
 # game dead import
-from gameResults.menudeath import menudeath
+from gameResults.menu_death import menudeath
 # game_states: menu, shop, settings, game, dead
  
 def main() -> int:

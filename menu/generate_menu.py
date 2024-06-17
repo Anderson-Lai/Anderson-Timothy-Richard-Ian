@@ -1,4 +1,5 @@
 import pygame
+from draw_text import draw_text
 
 """
 start game button
@@ -8,17 +9,14 @@ settings
 
 def generate_menu(screen):
     screen.fill((0, 0, 0))
+
     # game title
-    game_font = "sfnsmono"
-    game_font_size = 85
-    game_font_bold = True
-    game_font_colour = (0, 240, 60)
-    game_font = pygame.font.SysFont(game_font, game_font_size, game_font_bold)
-    # draw game title
-    title_top = game_font.render("SPACE", True, game_font_colour)
-    title_bottom = game_font.render("INVADERS", True, game_font_colour)
-    screen.blit(title_top, (260, 155))
-    screen.blit(title_bottom, (185, 225))
+    draw_text(screen, "SPACE", "sfnsmono", 85, (0, 240, 60), True, (260, 155))
+    draw_text(screen, "COLONIZERS", "sfnsmono", 85, (0, 240, 60), True, (160, 225))
+
+    # play game
+    pygame.draw.rect(screen, (255, 255, 237), pygame.Rect(175, 550, 450, 150))
+    draw_text(screen, "PLAY", "sfnsmono", 65, (0, 0, 0), True, (320, 582.5))
 
     # open shop
     pygame.draw.rect(screen, (211, 211, 211), pygame.Rect(50, 575, 100, 100))
@@ -31,13 +29,3 @@ def generate_menu(screen):
     settings_icon = pygame.image.load("./gameImages/settings_icon.png")
     smaller_settings_icon = pygame.transform.scale(settings_icon, (85, 85))
     screen.blit(smaller_settings_icon, (658.5, 582.5))
-
-    # start game button
-    pygame.draw.rect(screen, (255, 255, 237), pygame.Rect(175, 550, 450, 150))
-    play_font = "sfnsmono"
-    play_font_size = 65
-    play_font_bold = True
-    play_font_colour = (0, 0, 0)
-    play_font = pygame.font.SysFont(play_font, play_font_size, play_font_bold)
-    play_game_text = play_font.render("PLAY", True, play_font_colour)
-    screen.blit(play_game_text, (320, 582.5))
