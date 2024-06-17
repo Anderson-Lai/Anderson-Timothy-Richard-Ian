@@ -130,7 +130,8 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     # enemy movement
     for i in range(len(enemies) - 1, -1, -1):
         enemies[i].pos_y += enemies[i].movement_speed
-    
+        if enemies[i].pos_y > 900:
+            enemies.pop(i)
     # snap the projectile to the enemy's base if projectile would hit the enemy after incrementation
     # prevents bullet from being drawn inside the enemy
     for i in range(len(projectiles) - 1, -1, -1):
