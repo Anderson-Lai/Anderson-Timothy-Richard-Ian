@@ -2,7 +2,7 @@ import pygame
 from gameSettings.getting.get_sensitivity import get_sensitivity
 from gameSettings.getting.get_difficulty import get_difficulty
 
-def game_settings(screen):
+def game_settings(screen) -> None:
     screen.fill((0, 0, 0))
     # header font (provides context for buttons)
     header_font = "sfnsmono"

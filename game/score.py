@@ -8,7 +8,7 @@ def get_score(enemy_kills: int) -> int:
         return 0
     return score
 
-def draw_score(screen, high_score, current_score):
+def draw_score(screen, high_score:int, current_score:int) -> None:
     font_type = "sfnsmono"
     font_size = 30
     font_bold = False

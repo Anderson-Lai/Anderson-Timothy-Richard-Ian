@@ -5,6 +5,5 @@ def get_upgrades() -> dict[str, bool]:
     settings = PRIVATE_get_modifications()
 
     del settings["coins"]
-    del settings["shipColour"]
 
     return settings

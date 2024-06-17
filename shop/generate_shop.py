@@ -6,7 +6,6 @@ from game.draw_money import draw_money
 
 """
 items:
-ship colour <- do this last
 
 "doubleShot": False, <- rapidly shooting a second set of bullet after the first
 "multiShot": False, <- shooting 3 bullets at the same time
