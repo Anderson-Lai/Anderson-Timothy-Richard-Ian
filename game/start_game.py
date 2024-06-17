@@ -21,11 +21,10 @@ from game.draw_stars import draw_stars
 class Enemy(Position):
     # put in default values for spawntick and type for now
     # allows code to compile as they currently have no implementation
-    def __init__(self, x: int, y: int, length: int, width: int, health: int, spawntick: int = 0) -> None:
+    def __init__(self, x: int, y: int, length: int, width: int, health: int, movement_speed: int = 0) -> None:
         super().__init__(x, y, length, width)
 
-        #spawntick is the frame the enemy spawned on (for reference on whether or not it will shoot)
-        self.spawntick = spawntick
+        self.movement_speed = movement_speed
         self.health = health
     
     def collide_with_player(self, player_location: int, player_width: int, player_y: int) -> bool:
@@ -71,9 +70,9 @@ class EnemyWaves:
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
 enemy_types: dict[str, Enemy] = {
-    "small_ship" : Enemy(0, 0, 20, 20, 1),
-    "medium_ship" : Enemy(0, 0, 30, 30, 4),
-    "big_ship" : Enemy(0, 0, 40, 40, 30)
+    "small_ship" : Enemy(0, 0, 20, 20, 1, 8),
+    "medium_ship" : Enemy(0, 0, 30, 30, 4, 4),
+    "big_ship" : Enemy(0, 0, 40, 40, 30, 2)
 }
 
 def start_game(screen, location: int, proj_time_counter: int, proj_fire_rate: int, 
@@ -102,12 +101,16 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
             if projectile.pos_x >= enemy.pos_x:
                 if projectile.pre_collide(enemy):
                     del projectiles[i]
-                    del enemies[j]
+                    enemies[j].health -= 1
+                    if enemies[j].health <= 0:
+                        del enemies[j]
                     enemy_kills += 1
             else:
                 if projectile.post_collide(enemy):
                     del projectiles[i]
-                    del enemies[j]
+                    enemies[j].health -= 1
+                    if enemies[j].health <= 0:
+                        del enemies[j]
                     enemy_kills += 1
 
     # check if player touches enemy
@@ -128,7 +131,7 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     
     # enemy movement
     for i in range(len(enemies) - 1, -1, -1):
-        enemies[i].pos_y += 10
+        enemies[i].pos_y += enemies[i].movement_speed
     
     # snap the projectile to the enemy's base if projectile would hit the enemy after incrementation
     # prevents bullet from being drawn inside the enemy
@@ -177,19 +180,19 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
             # smallest ships
             if curr_enemy_wave.light_warship_count > 0:
                 stats = enemy_types["small_ship"]
-                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health))
+                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.light_warship_count -= 1
 
             # medium
             elif curr_enemy_wave.heavy_warship_count > 0:
                 stats = enemy_types["medium_ship"]
-                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health))
+                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.heavy_warship_count -= 1
 
             # largest
             elif curr_enemy_wave.starship_count > 0:
                 stats = enemy_types["big_ship"]
-                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health))
+                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.starship_count -= 1
 
             # if all the enemies of that wave are exhausted, delete that wave
