@@ -83,12 +83,9 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     screen.fill((0, 5, 40))
     hit = False
 
-    spawn_rate = spawn_rates[0]
-
     # stars script (create list, spawn stars, etc.)
     draw_stars(screen, proj_time_counter)
     
-
     # draws projectiles
     for i in range(len(projectiles) - 1, -1, -1):
         pygame.draw.rect(screen, (255, 0, 0), (projectiles[i].pos_x, projectiles[i].pos_y, projectiles[i].length, projectiles[i].width))
@@ -171,38 +168,43 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
             projectiles.append(Projectile(location + 20, 720, 10, 40))
 
     # enemy spawning
-    if proj_time_counter % spawn_rate == 0:
-        curr_enemy_wave = waves[0]
 
-        # smallest ships
-        if curr_enemy_wave.light_warship_count > 0:
-            stats = enemy_types["small_ship"]
-            enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
-            curr_enemy_wave.light_warship_count -= 1
+    try:
+        spawn_rate = spawn_rates[0]
+        if proj_time_counter % spawn_rate == 0:
+            curr_enemy_wave = waves[0]
 
-        # medium
-        elif curr_enemy_wave.heavy_warship_count > 0:
-            stats = enemy_types["medium_ship"]
-            enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
-            curr_enemy_wave.heavy_warship_count -= 1
+            # smallest ships
+            if curr_enemy_wave.light_warship_count > 0:
+                stats = enemy_types["small_ship"]
+                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health))
+                curr_enemy_wave.light_warship_count -= 1
 
-        # largest
-        elif curr_enemy_wave.starship_count > 0:
-            stats = enemy_types["big_ship"]
-            enemies.append(Enemy(random.randint(30,570), -40, stats.length, stats.width, stats.health))
-            curr_enemy_wave.starship_count -= 1
+            # medium
+            elif curr_enemy_wave.heavy_warship_count > 0:
+                stats = enemy_types["medium_ship"]
+                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health))
+                curr_enemy_wave.heavy_warship_count -= 1
 
-        # if all the enemies of that wave are exhausted, delete that wave
-        else:
-            del waves[0]
-            del spawn_rates[0]
+            # largest
+            elif curr_enemy_wave.starship_count > 0:
+                stats = enemy_types["big_ship"]
+                enemies.append(Enemy(random.randint(30, 570), -40, stats.length, stats.width, stats.health))
+                curr_enemy_wave.starship_count -= 1
 
-            # both should hit 0 at the same time
-            if len(waves) == 0 or len(spawn_rates) == 0:
-                game_state = "win"
+            # if all the enemies of that wave are exhausted, delete that wave
+            else:
+                del waves[0]
+                del spawn_rates[0]
 
-            
-    print(enemies, proj_time_counter, spawn_rate)
+                # both should hit 0 at the same time
+                # checks if the player magically kills all the enemies immediately after the final wave is finished spawning
+                if (len(waves) == 0 or len(spawn_rates) == 0) and len(enemies) == 0:
+                    game_state = "win"
+    except IndexError:
+        # checks if all the enemies are killed or not
+        if (len(waves) == 0 or len(spawn_rates) == 0) and len(enemies) == 0:
+            game_state = "win"
 
     # draws player     
     pygame.draw.rect(screen, (0, 255, 0), (location, 720, 50, 50))
