@@ -107,7 +107,7 @@ def main() -> int:
     
     running: bool = True
     while running:
-        # EVENT HANDLING
+        # EVENT HANDLING``
         # dictionaries are pass by reference by default
         handle_events(event_variables)
 
@@ -146,15 +146,15 @@ def main() -> int:
             # money variables
             money = get_coins()
 
-            # checks if any enemies were kil    led 
+            # checks if any enemies were killed 
             previous_kills = enemy_kills
 
             # draw the game
-            (enemy_kills, hit, proj_fire_rate, event_variables["gameState"]) = \
+            (enemy_kills, lives, proj_fire_rate, event_variables["gameState"]) = \
             start_game(screen, location, frame_counter, 
                     proj_fire_rate, proj_speed, projectiles, 
                     enemies, enemy_kills, game_state,
-                    waves_copy, spawn_rates_copy)
+                    waves_copy, spawn_rates_copy, lives)
             draw_removed_hearts(screen, lives)
             draw_score(screen, high_score, current_score)
             draw_money(screen, money, (650, 320), 30)
@@ -162,8 +162,6 @@ def main() -> int:
             frame_counter += 1
 
             # punishment for getting hit
-            if hit:
-                lives -= 1
             if lives <= 0:
                 event_variables["gameState"] = "dead"
 

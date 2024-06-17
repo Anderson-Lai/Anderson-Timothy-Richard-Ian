@@ -75,7 +75,7 @@ enemy_types: dict[str, Enemy] = {
 
 def start_game(screen, location: int, frame_counter: int, proj_fire_rate: int, 
 proj_speed: int, projectiles: list[Projectile], enemies: list[Enemy], enemy_kills: int, game_state: str,
-waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
+waves: list[EnemyWaves], spawn_rates: list[int], lives: int) -> tuple[int, bool, int, str]:
     
     screen.fill((0, 5, 40))
     hit = False
@@ -121,7 +121,7 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
 
             # punishments for being hit
             enemy_kills -= 1
-            hit = True
+            lives -= 1
 
     # projectile movement
     for i in range(len(projectiles) - 1, -1, -1):
@@ -130,8 +130,10 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     # enemy movement
     for i in range(len(enemies) - 1, -1, -1):
         enemies[i].pos_y += enemies[i].movement_speed
-        if enemies[i].pos_y > 900:
+        if enemies[i].pos_y >= 800:
             enemies.pop(i)
+            lives -= 1
+
     # snap the projectile to the enemy's base if projectile would hit the enemy after incrementation
     # prevents bullet from being drawn inside the enemy
     for i in range(len(projectiles) - 1, -1, -1):
@@ -222,4 +224,4 @@ waves: list[EnemyWaves], spawn_rates: list[int]) -> tuple[int, bool, int, str]:
     smaller_pause_button = pygame.transform.scale(pause_button, (50, 50))
     screen.blit(smaller_pause_button, (725, 720))
 
-    return (enemy_kills, hit, proj_fire_rate, game_state)
+    return (enemy_kills, lives, proj_fire_rate, game_state)
