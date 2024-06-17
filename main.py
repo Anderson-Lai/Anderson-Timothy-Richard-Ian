@@ -4,7 +4,7 @@ from math import ceil
 from copy import deepcopy
 # event handling imports
 from eventHandling.handle_events import handle_events
-# menu imports
+# menu import
 from menu.generate_menu import generate_menu
 # shop imports
 from shop.generate_shop import generate_shop
