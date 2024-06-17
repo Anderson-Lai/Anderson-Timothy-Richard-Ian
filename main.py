@@ -33,7 +33,7 @@ from modifications.getting.get_coins import get_coins
 def main() -> int:
     pygame.init()
     # pygame window name
-    pygame.display.set_caption('Space Invaders')
+    pygame.display.set_caption('Jia Kai Li')
 
     WIDTH = 800
     HEIGHT = 800
