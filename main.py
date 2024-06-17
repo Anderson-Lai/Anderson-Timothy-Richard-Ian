@@ -74,7 +74,7 @@ def main() -> int:
 
     # number of each enemy type per wave
     waves: list[EnemyWaves] = [
-        EnemyWaves(500, 3, 3, 3),
+        EnemyWaves(1000, 0, 0, 5),
         EnemyWaves(100, 100, 3, 2),
         EnemyWaves(100, 0, 0, 1),
     ]

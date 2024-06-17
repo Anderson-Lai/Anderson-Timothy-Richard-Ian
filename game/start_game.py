@@ -1,9 +1,7 @@
 import pygame
-from game.draw_enemies import draw_enemies
 from abc import ABC
 from modifications.getting.get_upgrade_state import get_upgrade_state
 import random
-from math import ceil
 
 # makes Position an abstract class
 class Position(ABC):
@@ -59,7 +57,7 @@ class EnemyWaves:
         self.starship_count = starship_count
 
         # not found in the constructor
-        self.total_enemies = light_warship_count + heavy_warship_count + starship_count
+        self.total_enemies = light_warship_count + heavy_warship_count + starship_count   
 
 # notes for enemy waves: 
 # constant spawning, locked to frame #
