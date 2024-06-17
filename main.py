@@ -10,7 +10,7 @@ from menu.generate_menu import generate_menu
 from shop.generate_shop import generate_shop
 # pause menu imports
 from menu.pause_menu import generate_pause_menu
-# game settings imports
+# game settings import
 from gameSettings.game_settings import game_settings
 from gameSettings.create_settings import create_settings
 from gameSettings.getting.get_difficulty import get_difficulty
