@@ -1,3 +1,13 @@
+# Anderson's, Timothy's, Richard's, and Ian's ICS3U CPT
+A clone of space invaders, but with a small twist<br>
+Enemies will fly at you, and on collision, you will lose a heart<br>
+If the enemy misses you and flies off the screne, you lose a heart <br>
+<br>
+
+## Controls
+Move left and right with the left and right arrow keys<br>
+Shooting is automatic
+
 ## Requirements
 - save preferences
   - customization settings/cosmetics
