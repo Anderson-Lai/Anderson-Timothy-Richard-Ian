@@ -17,7 +17,6 @@ def handle_events(events: dict):
 
     coins = get_coins()
     sensitivity = get_sensitivity()
-    difficulty = get_difficulty()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
