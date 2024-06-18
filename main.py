@@ -23,12 +23,13 @@ from game.start_game import start_game, Enemy, Projectile, EnemyWaves
 from game.lives import num_lives, draw_removed_hearts
 from game.score import get_score, draw_score
 from game.draw_money import draw_money
+from game.reset_game import reset_game
 # modification imports (contains cosmetics, powerups, and a currency)
 from modifications.create_modifications import create_modifications
 from modifications.changing.change_coins import change_coins
 from modifications.getting.get_coins import get_coins
 # game dead import
-from menu.menu_death import death_menu
+from menu.death_menu import death_menu
 # game_states: menu, shop, settings, game, dead
  
 def main() -> int:
@@ -75,7 +76,7 @@ def main() -> int:
 
     # number of each enemy type per wave
     waves: list[EnemyWaves] = [
-        EnemyWaves(1000, 1, 2, 3),
+        EnemyWaves(10, 30000, 2, 3),
         EnemyWaves(100, 100, 3, 2),
         EnemyWaves(100, 0, 0, 1),
     ]
@@ -174,32 +175,16 @@ def main() -> int:
                 change_coins(difference * 50)
 
             if restart:
-                save_score(current_score)
-
-                # delete all projectiles and enemies since the game is restarting
-                projectiles.clear()
-                enemies.clear()
-
-                # reset kills, scores, and lives
-                enemy_kills = 0
-                current_score = 0
-                previous_kills = 0
-                lives = num_lives(difficulty)
-
-                # break out of the if statement for the next iteration
-                event_variables["restart"] = False
-
-                # reset the copies as they have been altered
-                waves_copy = deepcopy(waves)
-                spawn_rates_copy = deepcopy(spawn_rates)
-
-                # give the program time to reset everything
-                sleep(0.05)
+                (enemy_kills, current_score, previous_kills, lives, waves_copy, spawn_rates_copy) = \
+                reset_game(current_score, projectiles, enemies, enemy_kills, previous_kills, event_variables,
+                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty)
         elif game_state == "dead":
-            # get the score on death
-            # pass as parameter to this funciton
-            save_score(current_score)
             death_menu(screen, high_score, current_score)
+
+            if restart:
+                (enemy_kills, current_score, previous_kills, lives, waves_copy, spawn_rates_copy) = \
+                reset_game(current_score, projectiles, enemies, enemy_kills, previous_kills, event_variables,
+                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty)
         elif game_state == "win":
             screen.fill((0, 255, 0))
             
