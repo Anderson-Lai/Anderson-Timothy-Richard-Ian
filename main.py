@@ -30,6 +30,7 @@ from modifications.changing.change_coins import change_coins
 from modifications.getting.get_coins import get_coins
 # game dead import
 from menu.death_menu import death_menu
+from menu.win_menu import win_menu
 # game_states: menu, shop, settings, game, dead
  
 def main() -> int:
@@ -76,9 +77,8 @@ def main() -> int:
 
     # number of each enemy type per wave
     waves: list[EnemyWaves] = [
-        EnemyWaves(10, 30000, 2, 3),
-        EnemyWaves(100, 100, 3, 2),
-        EnemyWaves(100, 0, 0, 1),
+        EnemyWaves(100, 1, 0, 0),
+        EnemyWaves(100, 1, 0, 0),
     ]
 
     """
@@ -186,9 +186,13 @@ def main() -> int:
                 reset_game(current_score, projectiles, enemies, enemy_kills, previous_kills, event_variables,
                         waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty)
         elif game_state == "win":
-            screen.fill((0, 255, 0))
+            win_menu(screen, high_score, current_score)
+
+            if restart:
+                (enemy_kills, current_score, previous_kills, lives, waves_copy, spawn_rates_copy) = \
+                reset_game(current_score, projectiles, enemies, enemy_kills, previous_kills, event_variables,
+                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty)
             
-        
         # Must be the last two lines of the game loop
         pygame.display.flip()
         clock.tick(30)

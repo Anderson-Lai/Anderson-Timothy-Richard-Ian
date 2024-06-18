@@ -2,10 +2,10 @@ import pygame
 from textDrawing.draw_text import draw_text
 
 
-def death_menu(screen, high_score, current_score):
+def win_menu(screen, high_score, current_score):
     screen.fill((0, 0, 0))
 
-    draw_text(screen, "You died!", "sfnsmono", 65, (255, 255, 255), False, (300, 150))
+    draw_text(screen, "You won!", "sfnsmono", 65, (255, 255, 255), False, (300, 150))
 
     draw_text(screen, f"All time high-score: {high_score}", "sfnsmono", 45, (255, 255, 255), False, (215, 250))
     draw_text(screen, f"Your score: {current_score}", "sfnsmono", 45, (255, 255, 255), False, (280, 325))
