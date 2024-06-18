@@ -77,7 +77,7 @@ def main() -> int:
 
     # number of each enemy type per wave
     waves: list[EnemyWaves] = [
-        EnemyWaves(100, 1, 1, 0),
+        EnemyWaves(10, 1, 1, 0),
         EnemyWaves(100, 1, 0, 0),
     ]
 
@@ -177,21 +177,21 @@ def main() -> int:
             if restart:
                 (enemy_kills, current_score, previous_kills, lives, waves_copy, spawn_rates_copy) = \
                 reset_game(current_score, projectiles, enemies, enemy_kills, previous_kills, event_variables,
-                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty)
+                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty, "game")
         elif game_state == "dead":
             death_menu(screen, high_score, current_score)
 
             if restart:
                 (enemy_kills, current_score, previous_kills, lives, waves_copy, spawn_rates_copy) = \
                 reset_game(current_score, projectiles, enemies, enemy_kills, previous_kills, event_variables,
-                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty)
+                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty, "menu")
         elif game_state == "win":
             win_menu(screen, high_score, current_score)
 
             if restart:
                 (enemy_kills, current_score, previous_kills, lives, waves_copy, spawn_rates_copy) = \
                 reset_game(current_score, projectiles, enemies, enemy_kills, previous_kills, event_variables,
-                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty)
+                        waves_copy, spawn_rates_copy, waves, spawn_rates, difficulty, "menu")
             
         # Must be the last two lines of the game loop
         pygame.display.flip()

@@ -120,14 +120,12 @@ def handle_events(events: dict):
             # return to main menu when you click
             elif game_state == "dead" and 225 <= x <= 225 + 380 \
             and 450 <= y <= 450 + 100:
-                events["gameState"] = "menu"
                 events["restart"] = True
             
             # win menu
             # return to main menu after click
             elif game_state == "win" and 225 <= x <= 225 + 380 \
             and 450 <= y <= 450 + 100:
-                events["gameState"] = "menu"
                 events["restart"] = True
 
             # changing settings

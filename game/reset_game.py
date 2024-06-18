@@ -7,7 +7,7 @@ from game.lives import num_lives
 def reset_game(current_score: int, projectiles: list[Projectile], enemies: list[Enemy],
                enemy_kills: int, previous_kills: int, event_variables: dict, 
                waves_copy: list[EnemyWaves], spawn_rates_copy: list[int],
-               waves: list[EnemyWaves], spawn_rates: list[int], difficulty: str) \
+               waves: list[EnemyWaves], spawn_rates: list[int], difficulty: str, target_game_state: str) \
                 -> tuple[int, int, int, int, list[EnemyWaves], list[int]]: 
         # enemy_kills, current_score, previous_kills, lives, waves_copy, spawn_rates_copy
         
@@ -25,6 +25,7 @@ def reset_game(current_score: int, projectiles: list[Projectile], enemies: list[
 
         # break out of the if statement for the next iteration
         event_variables["restart"] = False
+        event_variables["gameState"] = target_game_state
 
         # reset the copies as they have been altered
         waves_copy = deepcopy(waves)
