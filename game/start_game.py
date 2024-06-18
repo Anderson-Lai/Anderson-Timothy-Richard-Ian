@@ -68,9 +68,9 @@ class EnemyWaves:
 # i will probably make a reference sheet for the enemies (leo yang, eric zheng, etc.)
 
 enemy_types: dict[str, Enemy] = {
-    "small_ship" : Enemy(None, None, 20, 20, 1, 8),
-    "medium_ship" : Enemy(None, None, 40, 40, 4, 4),
-    "big_ship" : Enemy(None, None, 75, 75, 30, 2)
+    "small_ship" : Enemy(None, None, 35, 35, 1, 8),
+    "medium_ship" : Enemy(None, None, 55, 55, 4, 4),
+    "big_ship" : Enemy(None, None, 85, 85, 30, 2)
 }
 
 def start_game(screen, location: int, frame_counter: int, proj_fire_rate: int, 
