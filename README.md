@@ -8,8 +8,8 @@ Move left and right with the left and right arrow keys<br>
 Shooting is automatic
 
 ## Executable
-A compiled executable for WSL / Linux can be found on the "Compiled-Executable" branch in dist/main directory<br>
-Run the executable with ./dist/main/main<br>
+A compiled executable for WSL / Linux can be found on the "Compiled-Executable" branch<br>
+Run the executable with ./dist/main/main from the project's root directory<br>
 Compiled with pyinstaller<br>
 
 ## Requirements
