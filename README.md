@@ -7,6 +7,11 @@ If the enemy misses you and flies off the screen, you will lose a heart <br>
 Move left and right with the left and right arrow keys<br>
 Shooting is automatic
 
+## Executable
+A compiled executable for WSL / Linux can be found on the "Compiled-Executable" branch in dist/main directory<br>
+Run the executable with ./dist/main/main<br>
+Compiled with pyinstaller<br>
+
 ## Requirements
 - save preferences
   - customization settings/cosmetics
