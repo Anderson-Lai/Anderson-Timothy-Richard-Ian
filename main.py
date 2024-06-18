@@ -199,7 +199,7 @@ def main() -> int:
             # get the score on death
             # pass as parameter to this funciton
             save_score(current_score)
-            death_menu(screen)
+            death_menu(screen, high_score, current_score)
         elif game_state == "win":
             screen.fill((0, 255, 0))
             
