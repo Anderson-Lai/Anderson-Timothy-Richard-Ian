@@ -182,19 +182,19 @@ waves: list[EnemyWaves], spawn_rates: list[int], lives: int) -> tuple[int, int, 
                 stats = enemy_types["small_ship"]
                 enemies.append(Enemy(random.randint(20, 525), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.light_warship_count -= 1
-
+                curr_enemy_wave.total_enemies -= 1
             # medium
             elif curr_enemy_wave.heavy_warship_count > 0:
                 stats = enemy_types["medium_ship"]
                 enemies.append(Enemy(random.randint(20, 525), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.heavy_warship_count -= 1
-
+                curr_enemy_wave.total_enemies -= 1
             # largest
             elif curr_enemy_wave.starship_count > 0:
                 stats = enemy_types["big_ship"]
                 enemies.append(Enemy(random.randint(20, 525), -40, stats.length, stats.width, stats.health, stats.movement_speed))
                 curr_enemy_wave.starship_count -= 1
-
+                curr_enemy_wave.total_enemies -= 1
             # if all the enemies of that wave are exhausted, delete that wave
             else:
                 del waves[0]
@@ -204,6 +204,10 @@ waves: list[EnemyWaves], spawn_rates: list[int], lives: int) -> tuple[int, int, 
                 # checks if the player magically kills all the enemies immediately after the final wave is finished spawning
                 if (len(waves) == 0 or len(spawn_rates) == 0) and len(enemies) == 0:
                     game_state = "win"
+            
+        elif len(waves) == 1 and len(spawn_rates) == 1 and len(enemies) == 0 and waves[0].total_enemies == 0:
+            del waves[0]
+            del spawn_rates[0]
     except IndexError:
         # checks if all the enemies are killed or not
         if (len(waves) == 0 or len(spawn_rates) == 0) and len(enemies) == 0:
