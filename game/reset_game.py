@@ -26,7 +26,7 @@ def reset_game(current_score: int, projectiles: list[Projectile], enemies: list[
         # break out of the if statement for the next iteration
         event_variables["restart"] = False
         event_variables["gameState"] = target_game_state
-        event_variables["location"] = 375
+        event_variables["location"] = 260
 
         # reset the copies as they have been altered
         waves_copy = deepcopy(waves)

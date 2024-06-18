@@ -55,7 +55,7 @@ def main() -> int:
     event_variables = {
         "running": True,
         "gameState": "menu",
-        "location": 375,
+        "location": 260,
         "restart": False,
     }
 
@@ -77,8 +77,14 @@ def main() -> int:
 
     # number of each enemy type per wave
     waves: list[EnemyWaves] = [
-        EnemyWaves(10, 1, 1, 0),
-        EnemyWaves(100, 1, 0, 0),
+        EnemyWaves(50, 3, 0, 0),
+        EnemyWaves(60, 2, 1, 0),
+        EnemyWaves(40, 5, 2, 0),
+        EnemyWaves(50, 0, 1, 1),
+        EnemyWaves(120, 10, 5, 3),
+        EnemyWaves(60, 30, 3, 0),
+        EnemyWaves(40, 40, 0, 1),
+        EnemyWaves(100, 20, 3, 3),
     ]
 
     """
